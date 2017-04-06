@@ -8,7 +8,7 @@
     },
     "autoload":{
     	"psr-4":{
-    		"Practica1\\":"src/"
+    		"PracticaFinal\\":"src/"
     	}
     }
 }
