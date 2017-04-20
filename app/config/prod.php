@@ -2,6 +2,14 @@
 
 $app->register(new Silex\Provider\TwigServiceProvider(), array('twig.path'=>__DIR__.'/../../src/View/templates',));
 
+$app->register(new Silex\Provider\DoctirneServiceProvider(),array(
+	'db.options'=>array(
+		'driver'=>'pdo_mysql',
+		'dbname'=>'practica1',
+		'user'=>'root',
+		'password'=>'root'),
+	));
+
 $app->register(new Silex\Provider\AssetServiceProvider(),array(
 
 	'assets.vesion'=>'v1',
@@ -12,7 +20,7 @@ $app->register(new Silex\Provider\AssetServiceProvider(),array(
 		'images' => array('base_urls'=>array('http://silexapp.dev/assets/img')),
 		),
 ));
-$app->register(new \SilexApp\Providers\HelloServiceProvider(),array(
+$app->register(new \PracticaFinal\Providers\HelloServiceProvider(),array(
     'hello.default_name' => 'Bullshit2',
 ));
 
