@@ -2,7 +2,7 @@
 
 $app->register(new Silex\Provider\TwigServiceProvider(), array('twig.path'=>__DIR__.'/../../src/View/templates',));
 
-$app->register(new Silex\Provider\DoctirneServiceProvider(),array(
+$app->register(new Silex\Provider\DoctrineServiceProvider(),array(
 	'db.options'=>array(
 		'driver'=>'pdo_mysql',
 		'dbname'=>'practica1',
