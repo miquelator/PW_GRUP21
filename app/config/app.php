@@ -1,5 +1,5 @@
 <?php
-//fuck everything in sight
+//fuck everything in sightkk
 use Silex\Application;
 $app = new Application();
 $app['app.name']='Bullshit';
