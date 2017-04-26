@@ -2,7 +2,7 @@
     namespace PracticaFinal\Controller;
 
     use Silex\Application;
-use Symfony\Component\HttpFoundation\Response;
+    use Symfony\Component\HttpFoundation\Response;
 
 class UserController
     {
@@ -12,6 +12,8 @@ class UserController
         echo $id;
     }
     public function postAction(Application $app, Request $request){
+
+        var_dump($request);
         $response = new Response();
 
         $data = array(
@@ -32,6 +34,8 @@ class UserController
         $response->setStatusCode(Response::HTTP_OK);
         $content = $app['twig']->render('used.add.twig', array('form'=>createView()));
         $response->setContent($content);
+
+
 
         return $response;
 
