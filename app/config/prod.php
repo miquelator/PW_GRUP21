@@ -22,6 +22,9 @@ $app->register(new Silex\Provider\AssetServiceProvider(), array(
 $app->register(new \PracticaFinal\Providers\HelloServiceProvider(),array(
     'hello.default_name' => 'Bullshit2',
 ));
+use Silex\Provider\FormServiceProvider;
+
+$app->register(new FormServiceProvider());
 
 
 
