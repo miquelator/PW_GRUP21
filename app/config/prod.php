@@ -10,7 +10,7 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(),array(
 		'password'=>'root'),
 	));
 
-
+$app->register(new Silex\Provider\SessionServiceProvider());
 
 $app->register(new Silex\Provider\AssetServiceProvider(), array(
     'assets.version' => 'v1',
