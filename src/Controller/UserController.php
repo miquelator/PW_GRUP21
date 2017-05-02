@@ -76,6 +76,14 @@ class UserController
 
 
         }
+
+    public function register(Application $app, Request $request){
+
+        $response = new Response();
+        $content = $app['twig']-> render('main_register.twig');
+        $response->setContent($content);
+        return $response;
+    }
     }
 
         ?>
