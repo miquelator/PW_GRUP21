@@ -2,7 +2,7 @@
 {% block title %}Login{% endblock %}
 {% block content %}
     <h1>Login</h1>
-    <form action="/users/add" METHOD="POST">
+    <form action="/checklogin" METHOD="POST">
         <label for="name">Nom o Mail:</label><input type="text" name="name">
         {% if errors.name is defined %}
             <p>{{ errors.name }}</p>

@@ -78,7 +78,7 @@ class UserController
             $response = new Response();
 
                     $response->setStatusCode(Response::HTTP_OK);
-                    $content = $app['twig']->render('user.add.twig');
+                    $content = $app['twig']->render('login.twig');
                     $response->setContent($content);
                     return $response;
 
