@@ -28,6 +28,20 @@ class UserController
         $response->setContent($content);
         return $response;
     }
+
+    public function goHome(Application $app)
+    {
+
+        $response = new Response();
+
+            $response->setStatusCode(Response::HTTP_OK);
+            $content = $app['twig']->render('home.twig');
+
+
+
+        $response->setContent($content);
+        return $response;
+    }
     public function postAction(Application $app, Request $request){
 
         $response = new Response();
