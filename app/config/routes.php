@@ -7,4 +7,5 @@ $app->get('/home','PracticaFinal\Controller\UserController::goHome');
 $app->match('/users/add','PracticaFinal\Controller\UserController::postAction');
 $app->get('/register/', 'PracticaFinal\\Controller\\UserController::register');
 
+
 ?>

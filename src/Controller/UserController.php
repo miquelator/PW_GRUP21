@@ -42,7 +42,8 @@ class UserController
         $response->setContent($content);
         return $response;
     }
-    public function postAction(Application $app, Request $request){
+    public function postAction(Application $app, Request $request)
+    {
 
         $response = new Response();
         if ($request->isMethod('POST')) {
@@ -70,6 +71,22 @@ class UserController
                 return $response;
             }
         }
+    }
+
+        public function login(Application $app ){
+
+            $response = new Response();
+
+                    $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+                    $content = $app['twig']->render('user.add.twig', [
+                        'errors' => [
+                            'unexpected' => 'An error has occurred, please try it again later'
+                        ]
+                    ]);
+                    $response->setContent($content);
+                    return $response;
+
+
         $content = $app['twig']->render('user.add.twig');
         $response->setContent($content);
         return $response;
