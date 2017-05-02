@@ -77,12 +77,8 @@ class UserController
 
             $response = new Response();
 
-                    $response->setStatusCode(Response::HTTP_BAD_REQUEST);
-                    $content = $app['twig']->render('user.add.twig', [
-                        'errors' => [
-                            'unexpected' => 'An error has occurred, please try it again later'
-                        ]
-                    ]);
+                    $response->setStatusCode(Response::HTTP_OK);
+                    $content = $app['twig']->render('user.add.twig');
                     $response->setContent($content);
                     return $response;
 
