@@ -77,7 +77,7 @@ class UserController
 
         }
 
-    public function register(Application $app, Request $request){
+    public function register(Application $app){
 
         $response = new Response();
         $content = $app['twig']-> render('main_register.twig');
