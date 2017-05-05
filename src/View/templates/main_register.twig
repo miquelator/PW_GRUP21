@@ -1,6 +1,6 @@
 {% extends "base.twig" %}
 {% block title %}Registre{% endblock %}
-{% block head %}
+{% block styles %}
     {{ parent() }}
     <style type="text/css">
         h1{text-transform: uppercase;}
@@ -78,7 +78,7 @@
                     </div>
                     <div class="login-register">
 
-                        <a href="http://silexapp.dev:8080/home">Anar a pàgina principal</a>
+                        <a href="/home">Anar a pàgina principal</a>
                     </div>
                 </form>
             </div>
@@ -86,8 +86,9 @@
     </div>
     </body>
 {% endblock %}
-{% block footer %}
 
-{% endblock %}
 {% block scripts %}
+    <script src="{{ asset('../../../web/assets/js/jquery.js','js') }}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ asset('../../../web/assets/bootstrap-3.3.7-dist/js/bootstrap.js','js') }}" type="text/javascript" charset="utf-8"></script>
+
 {% endblock %}
