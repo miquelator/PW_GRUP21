@@ -46,15 +46,21 @@ class UserController
     }
     public function postAction(Application $app, Request $request)
     {
+        var_dump($request);
         $response = new Response();
         if ($request->isMethod('POST')) {
             // Validate
             $name = $request->get('name');
             $email = $request->get('email');
+            $data = $request->get('data_naixement');
+            $password = $request->get('password');
             try {
                 $app['db']->insert('user', [
                         'username' => $name,
-                        'email' => $email
+                        'email' => $email,
+                        'birthdate'=>$data,
+                        'password'=>$password
+
                     ]
                 );
                 $lastInsertedId = $app['db']->fetchAssoc('SELECT id FROM user ORDER BY id DESC LIMIT 1');
