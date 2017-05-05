@@ -2,7 +2,9 @@
     namespace PracticaFinal\Controller;
 
     use Silex\Application;
-    use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class UserController
     {
@@ -44,7 +46,6 @@ class UserController
     }
     public function postAction(Application $app, Request $request)
     {
-
         $response = new Response();
         if ($request->isMethod('POST')) {
             // Validate
@@ -52,17 +53,19 @@ class UserController
             $email = $request->get('email');
             try {
                 $app['db']->insert('user', [
-                        'name' => null,
+                        'username' => $name,
                         'email' => $email
                     ]
                 );
                 $lastInsertedId = $app['db']->fetchAssoc('SELECT id FROM user ORDER BY id DESC LIMIT 1');
                 $id = $lastInsertedId['id'];
-                $url = '/users/get/' . $id;
+                //$url = '/home' . $id;
+                $url = '/home';
+
                 return new RedirectResponse($url);
             } catch (Exception $e) {
                 $response->setStatusCode(Response::HTTP_BAD_REQUEST);
-                $content = $app['twig']->render('user.add.twig', [
+                $content = $app['twig']->render('main_register.twig', [
                     'errors' => [
                         'unexpected' => 'An error has occurred, please try it again later'
                     ]
