@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+        <html>
 <head>
-    {% block styles %}
+    {% block head %}
         <!--links-->
         <link rel="stylesheet" type="text/css" href="{{ asset('/styles.css','css') }}">
 
@@ -11,24 +11,24 @@
 
         <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
-    {% endblock %}
+
 
     <title>{% block title %}{% endblock %} - My Webpage</title>
 
-
+    {% endblock %}
 </head>
 <body>
-<div id="header">{% block header %}{% endblock %}</div>
+
 <div id="content">{% block content %}{% endblock %}</div>
-<div id="footer">
+<footer>
     {% block footer %}
-        &copy; Copyright 2017 - {{ app.name }}
+        Nick van der Graaf, Daniel Lazaro, Miquel Sans
     {% endblock %}
-</div>
-{% block scripts  %}
-    <!--<script src="{{ asset('../../../web/assets/js/jquery.js','js') }}" type="text/javascript" charset="utf-8"></script>
+</footer>
+{% block scripts %}
+    <script src="{{ asset('../../../web/assets/js/jquery.js','js') }}" type="text/javascript" charset="utf-8"></script>
     <script src="{{ asset('../../../web/assets/bootstrap-3.3.7-dist/js/bootstrap.js','js') }}" type="text/javascript" charset="utf-8"></script>
-    -->
+
 {% endblock %}
 </body>
 </html>
