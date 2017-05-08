@@ -46,7 +46,7 @@ class UserController
     }
     public function postAction(Application $app, Request $request)
     {
-        var_dump($request);
+      //  var_dump($request);
         $response = new Response();
         if ($request->isMethod('POST')) {
             // Validate
@@ -55,6 +55,13 @@ class UserController
             $data = $request->get('data_naixement');
             $password = $request->get('password');
             $perfil = $request->get('imatge_perfil');
+
+
+            $destdir = '/../../web/assets/Pictures/';
+            $img=file_get_contents($perfil);
+            var_dump($img);
+            file_put_contents($destdir.substr($perfil, strrpos($perfil,'/')), $img);
+
             try {
                 $app['db']->insert('user', [
                         'username' => $name,
@@ -68,7 +75,7 @@ class UserController
                 $lastInsertedId = $app['db']->fetchAssoc('SELECT id FROM user ORDER BY id DESC LIMIT 1');
                 $id = $lastInsertedId['id'];
                 //$url = '/home' . $id;
-                $url = '/home';
+               // $url = '/home';
 
                 return new RedirectResponse($url);
             } catch (Exception $e) {
