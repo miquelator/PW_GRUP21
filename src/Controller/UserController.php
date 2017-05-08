@@ -54,12 +54,14 @@ class UserController
             $email = $request->get('email');
             $data = $request->get('data_naixement');
             $password = $request->get('password');
+            $perfil = $request->get('imatge_perfil');
             try {
                 $app['db']->insert('user', [
                         'username' => $name,
                         'email' => $email,
                         'birthdate'=>$data,
-                        'password'=>$password
+                        'password'=>$password,
+                        'img_path'=>$perfil
 
                     ]
                 );

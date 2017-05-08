@@ -12,6 +12,11 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(),array(
 
 $app->register(new Silex\Provider\SessionServiceProvider());
 
+$app->register(new Silex\Provider\HttpCacheServiceProvider(), array(
+    'http_cache.cache_dir'=>__DIR__.'/../../var/cache/',
+    'http_cache.esi'=>null,
+));
+
 $app->register(new Silex\Provider\AssetServiceProvider(), array(
     'assets.version' => 'v1',
     'assets.version_format' => '%s?version=%s',
