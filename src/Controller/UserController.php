@@ -55,6 +55,8 @@ class UserController
             $data = $request->get('data_naixement');
             $password = $request->get('password');
             $perfil = $request->get('imatge_perfil');
+            $perfil = $perfil['tmp_name'];
+            echo $perfil;
 
 
             $destdir = '/../../web/assets/Pictures/';
