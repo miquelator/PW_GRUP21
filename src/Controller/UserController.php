@@ -55,15 +55,15 @@ class UserController
             $data = $request->get('data_naixement');
             $password = $request->get('password');
 
-            $perfil = $request->files->get('imatge_perfil');
+            $perfil = $request->files;
             var_dump($perfil);
 
 
             $nom = $perfil->getClientOriginalName;
             echo $nom;
-           // $filename= $nom->getClientOriginalExtension();
-         //   $destdir = '/../../web/assets/Pictures/';
-         //   $perfil->move($destdir,$filename);
+            $filename= $nom->getClientOriginalExtension();
+            $destdir = '/../../web/assets/Pictures/';
+            $perfil->move($destdir,$filename);
 
 
             try {
