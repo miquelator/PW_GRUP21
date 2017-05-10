@@ -54,12 +54,16 @@ class UserController
             $email = $request->get('email');
             $data = $request->get('data_naixement');
             $password = $request->get('password');
-            $perfil = $request->get('imatge_perfil');
-            $perfil = $perfil['tmp_name'];
+
+            $perfil = $request->files->get('imatge_perfil');
+            var_dump($perfil);
+           // $perfil = $perfil['tmp_name'];
             echo $perfil;
 
-
+            $nom = $perfil->getClientOriginalName;
+            $filename= $nom->getClientOriginalExtension();
             $destdir = '/../../web/assets/Pictures/';
+            $perfil->move($destdir,$filename);
             $img=file_get_contents($perfil);
             var_dump($img);
             file_put_contents($destdir.substr($perfil, strrpos($perfil,'/')), $img);
@@ -77,7 +81,7 @@ class UserController
                 $lastInsertedId = $app['db']->fetchAssoc('SELECT id FROM user ORDER BY id DESC LIMIT 1');
                 $id = $lastInsertedId['id'];
                 //$url = '/home' . $id;
-               // $url = '/home';
+                $url = '/home';
 
                 return new RedirectResponse($url);
             } catch (Exception $e) {

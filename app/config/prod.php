@@ -6,8 +6,8 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(),array(
 	'db.options'=>array(
 		'driver'=>'pdo_mysql',
 		'dbname'=>'practica1',
-		'user'=>'root',
-		'password'=>'root'),
+		'user'=>'nosaltres',
+		'password'=>'1234'),
 	));
 
 $app->register(new Silex\Provider\SessionServiceProvider());
