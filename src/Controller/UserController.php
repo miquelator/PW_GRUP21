@@ -55,7 +55,7 @@ class UserController
             $data = $request->get('data_naixement');
             $password = $request->get('password');
 
-            $perfil = $request->files;
+            $perfil = $request->files->get('imatge_perfil');
             var_dump($perfil);
 
 
