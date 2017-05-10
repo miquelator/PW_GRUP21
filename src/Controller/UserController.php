@@ -60,13 +60,11 @@ class UserController
            // $perfil = $perfil['tmp_name'];
             echo $perfil;
 
-            $nom = $perfil->getClientOriginalName;
-            $filename= $nom->getClientOriginalExtension();
-            $destdir = '/../../web/assets/Pictures/';
-            $perfil->move($destdir,$filename);
-            $img=file_get_contents($perfil);
-            var_dump($img);
-            file_put_contents($destdir.substr($perfil, strrpos($perfil,'/')), $img);
+         //   $nom = $perfil->getClientOriginalName;
+           // $filename= $nom->getClientOriginalExtension();
+         //   $destdir = '/../../web/assets/Pictures/';
+         //   $perfil->move($destdir,$filename);
+
 
             try {
                 $app['db']->insert('user', [
@@ -74,14 +72,14 @@ class UserController
                         'email' => $email,
                         'birthdate'=>$data,
                         'password'=>$password,
-                        'img_path'=>$perfil
+                        //'img_path'=>$perfil
 
                     ]
                 );
                 $lastInsertedId = $app['db']->fetchAssoc('SELECT id FROM user ORDER BY id DESC LIMIT 1');
                 $id = $lastInsertedId['id'];
                 //$url = '/home' . $id;
-                $url = '/home';
+                //$url = '/home';
 
                 return new RedirectResponse($url);
             } catch (Exception $e) {
