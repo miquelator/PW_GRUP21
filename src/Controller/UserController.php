@@ -57,10 +57,10 @@ class UserController
 
             $perfil = $request->files->get('imatge_perfil');
             var_dump($perfil);
-           // $perfil = $perfil['tmp_name'];
-            echo $perfil;
 
-         //   $nom = $perfil->getClientOriginalName;
+
+            $nom = $perfil->getClientOriginalName;
+            echo $nom;
            // $filename= $nom->getClientOriginalExtension();
          //   $destdir = '/../../web/assets/Pictures/';
          //   $perfil->move($destdir,$filename);
