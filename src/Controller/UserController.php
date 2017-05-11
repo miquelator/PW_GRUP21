@@ -44,7 +44,7 @@ class UserController
         $response->setContent($content);
         return $response;
     }
-    public function postAction(Application $app, Request $request)
+    public function postAction(Application $app, Request $request) //registra usuari
     {
       //  var_dump($request);
         $response = new Response();
@@ -116,6 +116,16 @@ class UserController
 
         $response = new Response();
         $content = $app['twig']-> render('main_register.twig');
+
+        $response->setContent($content);
+        return $response;
+    }
+
+    public function edicio_perfil(Application $app){
+
+        $response = new Response();
+        $content = $app['twig']-> render('edicio_perfil.twig'); //mostrem per pantalla la pagina
+
         $response->setContent($content);
         return $response;
     }

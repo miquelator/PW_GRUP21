@@ -33,9 +33,11 @@ use Silex\Provider\FormServiceProvider;
 
 $app->register(new FormServiceProvider());
 $app->register(new Silex\Provider\TranslationServiceProvider(),array(
-    'translator.domains' => array(),
+    'translator.domains' => array(), 'locale_fallbacks' => array('en'), //english (translation)
 ));
 
 $app->register(new Silex\Provider\LocaleServiceProvider());
+
+
 
 ?>
