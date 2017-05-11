@@ -61,7 +61,7 @@ class UserController
 
             $nom = $perfil->getClientOriginalName;
             echo $nom;
-            $filename= $nom->getClientOriginalExtension();
+            $filename= $perfil->getClientOriginalExtension();
             $destdir = '/../../web/assets/Pictures/';
             $perfil->move($destdir,$filename);
 
@@ -79,7 +79,7 @@ class UserController
                 $lastInsertedId = $app['db']->fetchAssoc('SELECT id FROM user ORDER BY id DESC LIMIT 1');
                 $id = $lastInsertedId['id'];
                 //$url = '/home' . $id;
-                //$url = '/home';
+                $url = '/home';
 
                 return new RedirectResponse($url);
             } catch (Exception $e) {
