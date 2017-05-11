@@ -117,12 +117,5 @@ class ServerController{
         return $response;
     }
 
-    public function edicio_perfil(Application $app){
 
-        $response = new Response();
-        $content = $app['twig']-> render('edicio_perfil.twig'); //mostrem per pantalla la pagina
-
-        $response->setContent($content);
-        return $response;
-    }
 }
