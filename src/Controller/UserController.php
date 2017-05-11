@@ -59,10 +59,10 @@ class UserController
             var_dump($perfil);
 
 
-            $nom = $perfil->getClientOriginalName;
+            $nom = $perfil->getClientOriginalName();
             echo $nom;
-            $filename= $perfil->getClientOriginalExtension();
-            $destdir = '/../../web/assets/Pictures/';
+            $filename= $nom;
+            $destdir = 'assets/Pictures/';
             $perfil->move($destdir,$filename);
 
 
