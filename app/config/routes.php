@@ -1,13 +1,12 @@
 <?php
 
-$app->get('/hello/', 'PracticaFinal\\Controller\\HelloController::indexAction');
-$app->get('add/{num1}/{num2}','PracticaFinal\\Controller\\HelloController::addAction');
-$app->get('/users/get/{id}','PracticaFinal\Controller\UserController::getAction');
-$app->get('/home','PracticaFinal\Controller\UserController::goHome');
-$app->get('','PracticaFinal\Controller\UserController::goHome');
-$app->match('/users/add','PracticaFinal\Controller\UserController::postAction');
-$app->get('/register/', 'PracticaFinal\\Controller\\UserController::register');
-$app->get('/login/', 'PracticaFinal\\Controller\\UserController::login');
+
+$app->get('/users/get/{id}','PracticaFinal\Controller\ServerController::getAction');
+$app->get('/home','PracticaFinal\Controller\ServerController::goHome');
+$app->get('','PracticaFinal\Controller\ServerController::goHome');
+$app->match('/users/add','PracticaFinal\Controller\ServerController::postAction');
+$app->get('/register/', 'PracticaFinal\\Controller\\ServerController::register');
+$app->get('/login/', 'PracticaFinal\\Controller\\ServerController::login');
 
 
 
