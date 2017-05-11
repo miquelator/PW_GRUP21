@@ -16,35 +16,20 @@ class UserController
         $response->setContent($content);
         return $response;
     }
-    public function postAction(Application $app, Request $request) //registra usuari
+    public function mostraUsuari(Application $app, Request $request) //registra usuari
     {
         //  var_dump($request);
         $response = new Response();
         if ($request->isMethod('POST')) {
             // Validate
             $name = $request->get('name');
-            $email = $request->get('email');
-            $data = $request->get('data_naixement');
             $password = $request->get('password');
 
-            $perfil = $request->files->get('imatge_perfil');
-            var_dump($perfil);
 
-            $filename= $name.'.'.$perfil->getClientOriginalExtension();
-            $destdir = 'assets/Pictures/';
-            $perfil->move($destdir,$filename);
 
 
             try {
-                $app['db']->insert('user', [
-                        'username' => $name,
-                        'email' => $email,
-                        'birthdate'=>$data,
-                        'password'=>$password,
-                        //'img_path'=>$perfil
 
-                    ]
-                );
                 $lastInsertedId = $app['db']->fetchAssoc('SELECT id FROM user ORDER BY id DESC LIMIT 1');
                 $id = $lastInsertedId['id'];
                 //$url = '/home' . $id;

@@ -1,5 +1,5 @@
 <?php
-
+//skrns kdfjoenjpn
 
 $app->get('/users/get/{id}','PracticaFinal\Controller\ServerController::getAction');
 $app->get('/home','PracticaFinal\Controller\ServerController::goHome');
