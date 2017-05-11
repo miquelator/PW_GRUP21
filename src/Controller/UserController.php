@@ -57,13 +57,13 @@ class UserController
 
             $perfil = $request->files->get('imatge_perfil');
             var_dump($perfil);
-           // $perfil = $perfil['tmp_name'];
-            echo $perfil;
 
-         //   $nom = $perfil->getClientOriginalName;
-           // $filename= $nom->getClientOriginalExtension();
-         //   $destdir = '/../../web/assets/Pictures/';
-         //   $perfil->move($destdir,$filename);
+
+            $nom = $perfil->getClientOriginalName;
+            echo $nom;
+            $filename= $perfil->getClientOriginalExtension();
+            $destdir = '/../../web/assets/Pictures/';
+            $perfil->move($destdir,$filename);
 
 
             try {
@@ -79,7 +79,7 @@ class UserController
                 $lastInsertedId = $app['db']->fetchAssoc('SELECT id FROM user ORDER BY id DESC LIMIT 1');
                 $id = $lastInsertedId['id'];
                 //$url = '/home' . $id;
-                //$url = '/home';
+                $url = '/home';
 
                 return new RedirectResponse($url);
             } catch (Exception $e) {
