@@ -11,13 +11,13 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <h2>Create your snippet's HTML, CSS and Javascript in the editor tabs</h2>
+            <h2>Edició del perfil</h2>
 
 
             <div class="col-md-7 ">
 
                 <div class="panel panel-default">
-                    <div class="panel-heading">  <h4 >User Profile</h4></div>
+                    <div class="panel-heading">  <h4 >Usuari</h4></div>
                     <div class="panel-body">
 
                         <div class="box box-info">
@@ -27,67 +27,117 @@
                                     <div  align="center"> <img alt="User Pic" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" id="profile-image1" class="img-circle img-responsive">
 
                                         <input id="profile-image-upload" class="hidden" type="file">
-                                        <div style="color:#999;" >click here to change profile image</div>
-                                        <!--Upload Image Js And Css-->
 
-
-
-
-
-
-
-                                    </div>
+              </div>
 
                                     <br>
 
                                     <!-- /input-group -->
                                 </div>
-                                <div class="col-sm-6">
-                                    <h4 style="color:#00b1b1;">Prasad Shankar Huddedar </h4></span>
-                                    <span><p>Aspirant</p></span>
-                                </div>
+
                                 <div class="clearfix"></div>
                                 <hr style="margin:5px 0 5px 0;">
+                                <div class="col-sm-12 ">
 
 
-                                <div class="col-sm-5 col-xs-6 tital " >First Name:</div><div class="col-sm-7 col-xs-6 ">Prasad</div>
-                                <div class="clearfix"></div>
-                                <div class="bot-border"></div>
 
-                                <div class="col-sm-5 col-xs-6 tital " >Middle Name:</div><div class="col-sm-7"> Shankar</div>
-                                <div class="clearfix"></div>
-                                <div class="bot-border"></div>
-
-                                <div class="col-sm-5 col-xs-6 tital " >Last Name:</div><div class="col-sm-7"> Huddedar</div>
-                                <div class="clearfix"></div>
-                                <div class="bot-border"></div>
-
-                                <div class="col-sm-5 col-xs-6 tital " >Date Of Joining:</div><div class="col-sm-7">15 Jun 2016</div>
-
-                                <div class="clearfix"></div>
-                                <div class="bot-border"></div>
-
-                                <div class="col-sm-5 col-xs-6 tital " >Date Of Birth:</div><div class="col-sm-7">11 Jun 1998</div>
-
-                                <div class="clearfix"></div>
-                                <div class="bot-border"></div>
-
-                                <div class="col-sm-5 col-xs-6 tital " >Place Of Birth:</div><div class="col-sm-7">Shirdi</div>
-
-                                <div class="clearfix"></div>
-                                <div class="bot-border"></div>
-
-                                <div class="col-sm-5 col-xs-6 tital " >Nationality:</div><div class="col-sm-7">Indian</div>
-
-                                <div class="clearfix"></div>
-                                <div class="bot-border"></div>
-
-                                <div class="col-sm-5 col-xs-6 tital " >Relition:</div><div class="col-sm-7">Hindu</div>
+                                    <div class="col-sm-5 col-xs-6 tital " id="nom_edicio" ><strong>Nom:</strong></div><div class="col-sm-7 col-xs-6 ">Nick</div>
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
 
 
-                                <!-- /.box-body -->
+
+                                    <div class="col-sm-5 col-xs-6 tital " ><strong>Data de naixement:</strong></div><div class="col-sm-7">11 Jun 1998</div>
+
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+
+
+
+                                </div>
+
+                                <!--formulari-->
+                                <div class="col-sm-12 ">
+                                    <div class="col-sm-12 ">
+                                        <h4>Editar:</h4></div>
+                                    <div class="col-sm-12 ">
+                                        <i>Canvia els camps que vulguis</i></div>
+                                    <div class="col-sm-11 col-sm-offset-1">
+                                    <form id=formulari_edicio_perfil enctype="multipart/form-data" name="formulari" class="form-horizontal" method="POST" action="/users/edit">
+
+                                        <div class="form-group">
+                                            <label for="name" class="cols-sm-2 control-label">Nom</label>
+                                            <div class="cols-sm-10">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                                    <input type="text" class="form-control" name="name" id="name"  placeholder="Escriu nom" maxlength="20"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <label for="data_naixement" class="cols-sm-2 control-label">Data naixement</label>
+                                            <div class="cols-sm-10">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                                                    <input type="date" class="form-control" name="data_naixement" id="data_naixement" placeholder="AAAA-MM-DD. Ficar 0 davant dia o mes si cal">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="password" class="cols-sm-2 control-label">Password</label>
+                                            <div class="cols-sm-10">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                                    <input type="password" class="form-control" name="password" id="password"  placeholder="Escriu Password" maxlength="12"
+                                                           minlength="6"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
+                                            <div class="cols-sm-10">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                                    <input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirma Password"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="imatge_perfil" class="cols-sm-2 control-label">Canvia imatge de perfil</label>
+
+                                            <div class="cols-sm-10">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                                    <input type="file" class="form-control" name="imatge_perfil" id="imatge_perfil" accept="image/*" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="form-group ">
+                                            <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Guardar</button>
+                                        </div>
+                                        <div class="login-register">
+                                            <a href="/login">Ja tinc usuari</a>
+                                        </div>
+                                        <div class="login-register">
+
+                                            <a href="/home">Anar a pàgina principal</a>
+                                        </div>
+                                    </form>
+                                    </div>
+                                </div><!--formulari-->
+
                             </div>
-                            <!-- /.box -->
+
+
 
                         </div>
 
@@ -95,6 +145,7 @@
                     </div>
                 </div>
             </div>
+            <!--
             <script>
                 $(function() {
                     $('#profile-image1').on('click', function() {
@@ -103,7 +154,7 @@
                 });
             </script>
 
-
+-->
 
 
 
