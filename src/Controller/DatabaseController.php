@@ -21,7 +21,6 @@ class DatabaseController{
             $password = $request->get('password');
 
             $perfil = $request->files->get('imatge_perfil');
-            var_dump($perfil);
 
             $filename= $name.'.'.$perfil->getClientOriginalExtension();
             $destdir = 'assets/Pictures/';
@@ -64,26 +63,35 @@ class DatabaseController{
 
     public function searchUser (Application $app, Request $request){
         $response = new Response();
-        $name=$request->get('name');
-        $password=$request->get('password');
 
+        $name = $request->get('name');
+        $password = $request->get('password');
         try {
-            $app->get('/searchUser', function ($name, $password) use ($app) {
-                $sql = "SELECT * FROM posts WHERE username = ? and password = ?";
-                $post = $app['db']->fetchAssoc($sql, array((string) $name),(string)$password);
 
 
-            });
+            $sql= "SELECT * FROM user WHERE (username = ? or email = ?) and password = ?  ORDER BY id DESC LIMIT 1";
+            $info = $app['db']->fetchAssoc($sql, array ((string) $name,(string) $name,(string)$password));
+            if ($info==false){
+                $content = $app['twig']->render('home.twig');
+            }
+            else{
+                $content = $app['twig']->render('showUser.twig',array('name' => $info['username'],'email'=> $info['email']));
+
+            }
+
         }catch (Exception $e) {
             $response->setStatusCode(Response::HTTP_BAD_REQUEST);
-            $content = $app['twig']->render('main_register.twig', [
+            $content = $app['twig']->render('home.twig', [
                 'errors' => [
                     'unexpected' => 'An error has occurred, please try it again later'
                 ]
             ]);
-            $response->setContent($content);
-            return $response;
         }
+        $response->setStatusCode(Response::HTTP_OK);
+
+        $response->setContent($content);
+        return $response;
+
     }
 
 

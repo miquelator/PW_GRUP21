@@ -120,35 +120,7 @@ class UserController{
 
         }
 
-    public function showUser(Application $app, Request $request ){
 
-        $response = new Response();
-
-        $name = $request->get('name');
-        $password = $request->get('password');
-        try {
-
-
-            $sql= "SELECT * FROM user WHERE (username = ? or email = ?) and password = ?  ORDER BY id DESC LIMIT 1";
-            $info = $app['db']->fetchAssoc($sql, array ((string) $name,(string) $name,(string)$password));
-            var_dump( $info);
-            $content = $app['twig']->render('showUser.twig',array('name' => $name,'info'=>$info));
-
-        }catch (Exception $e) {
-            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
-            $content = $app['twig']->render('home.twig', [
-                'errors' => [
-                    'unexpected' => 'An error has occurred, please try it again later'
-                ]
-            ]);
-        }
-        $response->setStatusCode(Response::HTTP_OK);
-
-        $response->setContent($content);
-        return $response;
-
-
-    }
 
 
 

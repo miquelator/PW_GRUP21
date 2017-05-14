@@ -22,7 +22,7 @@ $app->get('/login', 'PracticaFinal\\Controller\\UserController::login');
 $app->get('/edicio_perfil', 'PracticaFinal\\Controller\\UserController::edicio_perfil');
 $app->match('/users/edit', 'PracticaFinal\\Controller\\DatabaseController::postEdicioPerfil');
 $app->get('','PracticaFinal\Controller\UserController::goHome');
-$app->get('/showUser', 'PracticaFinal\\Controller\\UserController::showUser');
+$app->get('/showUser', 'PracticaFinal\\Controller\\DatabaseController::searchUser');
 
 
 ?>
