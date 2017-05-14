@@ -1,0 +1,198 @@
+{% extends "base.twig" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+	{{ parent() }}
+
+	<style type="text/css" xmlns="http://www.w3.org/1999/html">
+		h1{text-transform: uppercase;}
+	</style>
+	<link rel="stylesheet" type="text/css" href="{{ asset('home_logged.css','css') }}">
+{% endblock %}
+{% block content %}
+	<a href="/register" class="btn btn-success">Registra't</a>
+	<a href="/login" class="btn btn-primary">Login</a>
+
+	<h1>Home </h1>
+	<section>
+
+		<div class="board">
+			<!-- <h2>Welcome to IGHALO!<sup>™</sup></h2>-->
+			<div class="board-inner">
+				<ul class="nav nav-tabs" id="myTab">
+					<div class="liner"></div>
+					<li class="active">
+						<a href="#food" data-toggle="tab" title="food">
+                      <span class="round-tabs one">
+                              Food
+                      </span>
+						</a></li>
+
+					<li><a href="#city" data-toggle="tab" title="city">
+                     <span class="round-tabs two">
+                         <!--<i class="fa fa-glass" aria-hidden="true"></i>-->
+                         City
+                     </span>
+						</a>
+					</li>
+
+
+				</ul></div>
+
+			<div class="tab-content">
+				<div class="tab-pane fade in active" id="food">
+					<div class="row">
+
+						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+
+							<img src="http://lorempixel.com/500/500/food/1/"
+								 class="img-responsive">
+
+						</div><!--col-md-4 col-sm-6 col-xs-6-->
+
+						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+							<img src="http://lorempixel.com/500/500/food/2/"
+								 class="img-responsive">
+						</div><!--col-md-4 col-sm-6 col-xs-6-->
+
+						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+							<img src="http://lorempixel.com/500/500/food/3/"
+								 class="img-responsive">
+						</div><!--col-md-4 col-sm-6 col-xs-6-->
+
+
+						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+
+							<img src="http://lorempixel.com/500/500/food/4/"
+								 class="img-responsive">
+
+						</div><!--col-md-4 col-sm-6 col-xs-6-->
+
+						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+							<img src="http://lorempixel.com/500/500/food/5/"
+								 class="img-responsive">
+						</div><!--col-md-4 col-sm-6 col-xs-12-->
+
+						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+							<img src="http://lorempixel.com/500/500/food/6/"
+								 class="img-responsive">
+						</div><!--col-md-4 col-sm-6 col-xs-6-->
+
+
+
+
+
+
+
+					</div><!--row-->
+
+				</div><!----food-->
+
+
+				<div class="tab-pane fade" id="city">
+
+					<div class="row">
+						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+
+							<img src="http://lorempixel.com/500/500/city/1/"
+								 class="img-responsive">
+
+						</div><!--col-md-4 col-sm-6 col-xs-6-->
+
+						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+							<img src="http://lorempixel.com/500/500/city/2/"
+								 class="img-responsive">
+						</div><!--col-md-4 col-sm-6 col-xs-6-->
+
+						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+							<img src="http://lorempixel.com/500/500/city/3/"
+								 class="img-responsive">
+						</div><!--col-md-4 col-sm-6 col-xs-6-->
+
+						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+
+							<img src="http://lorempixel.com/500/500/city/4/"
+								 class="img-responsive">
+
+						</div><!--col-md-4 col-sm-6 col-xs-6-->
+
+						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+							<img src="http://lorempixel.com/500/500/city/5/"
+								 class="img-responsive">
+						</div><!--col-md-4 col-sm-6 col-xs-6-->
+
+						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+							<img src="http://lorempixel.com/500/500/city/6/"
+								 class="img-responsive">
+						</div><!--col-md-4 col-sm-6 col-xs-6-->
+
+
+
+
+
+
+
+					</div><!--row-->
+
+
+				</div><!----city-->
+				<div class="tab-pane fade" id="fashion">
+
+
+					<div class="row">
+						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+
+							<img src="http://lorempixel.com/500/500/fashion/1/"
+								 class="img-responsive">
+
+						</div><!--col-md-4 col-sm-6 col-xs-6-->
+
+						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+							<img src="http://lorempixel.com/500/500/fashion/7/"
+								 class="img-responsive">
+						</div><!--col-md-4 col-sm-6 col-xs-6-->
+
+						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+							<img src="http://lorempixel.com/500/500/fashion/8/"
+								 class="img-responsive">
+						</div><!--col-md-4 col-sm-6 col-xs-6-->
+
+						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+
+							<img src="http://lorempixel.com/500/500/fashion/4/"
+								 class="img-responsive">
+
+						</div><!--col-md-4 col-sm-6 col-xs-6-->
+
+						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+							<img src="http://lorempixel.com/500/500/fashion/5/"
+								 class="img-responsive">
+						</div><!--col-md-4 col-sm-6 col-xs-6-->
+
+						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+							<img src="http://lorempixel.com/500/500/fashion/6/"
+								 class="img-responsive">
+						</div><!--col-md-4 col-sm-6 col-xs-6-->
+
+
+
+
+
+
+
+					</div><!--row-->
+
+				</div><!--three-->
+
+
+
+			</div>
+
+		</div>
+
+	</section>
+{% endblock %}
+{% block scripts %}
+	<script src="{{ asset('home_logged.js','js') }}" type="text/javascript" charset="utf-8"></script>
+
+
+{% endblock %}

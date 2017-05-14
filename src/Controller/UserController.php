@@ -84,6 +84,19 @@ class UserController{
         $response->setContent($content);
         return $response;
     }
+    public function goHomeLogged(Application $app)
+    {
+
+        $response = new Response();
+
+        $response->setStatusCode(Response::HTTP_OK);
+        $content = $app['twig']->render('home_logged.twig');
+
+
+
+        $response->setContent($content);
+        return $response;
+    }
 
 
         public function login(Application $app ){
