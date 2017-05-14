@@ -1,14 +1,14 @@
 <?php
-//skrns kdfjoenjpn
 
-$app->get('/users/get/{id}','PracticaFinal\Controller\ServerController::getAction');
-$app->get('/home','PracticaFinal\Controller\ServerController::goHome');
-$app->get('','PracticaFinal\Controller\ServerController::goHome');
-$app->match('/users/add','PracticaFinal\Controller\ServerController::postAction');
-$app->get('/register/', 'PracticaFinal\\Controller\\ServerController::register');
-$app->get('/login/', 'PracticaFinal\\Controller\\ServerController::login');
+$app->get('/hello/', 'PracticaFinal\\Controller\\HelloController::indexAction');
+$app->get('add/{num1}/{num2}','PracticaFinal\\Controller\\HelloController::addAction');
+$app->get('/users/get/{id}','PracticaFinal\Controller\UserController::getAction');
+$app->get('/home','PracticaFinal\Controller\UserController::goHome');
+$app->match('/users/add','PracticaFinal\Controller\DatabaseController::postAction');
+$app->get('/register/', 'PracticaFinal\\Controller\\UserController::register');
+$app->get('/login/', 'PracticaFinal\\Controller\\UserController::login');
 $app->get('/edicio_perfil/', 'PracticaFinal\\Controller\\UserController::edicio_perfil');
-
+$app->match('/users/edit', 'PracticaFinal\\Controller\\DatabaseController::postEdicioPerfil');
 
 
 
