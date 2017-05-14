@@ -1,7 +1,18 @@
 <?php
 
-$app->get('/hello/', 'PracticaFinal\\Controller\\HelloController::indexAction');
-$app->get('add/{num1}/{num2}','PracticaFinal\\Controller\\HelloController::addAction');
+$before=function(Request $request, Application $app){ //si es crida, fa que s'activi abans aixo que la ruta que cridem
+    if(!$app['session']->has('id')){
+    $response=new Response();
+    $content=$app['twig']->render('home.twig', ['message'=>'Abans inicia sessió']);
+    $response->setContent($content);
+    return $response;
+    }
+};
+
+
+$app->get('/', 'PracticaFinal\\Controller\\BaseController::indexAction');
+$app->get('/admin', 'PracticaFinal\\Controller\\BaseController::adminAction')->before($before); //abans s'activa el before per comprovar si estem loguejats
+//$app->get('add/{num1}/{num2}','PracticaFinal\\Controller\\HelloController::addAction');
 $app->get('/users/get/{id}','PracticaFinal\Controller\UserController::getAction');
 $app->get('/home','PracticaFinal\Controller\UserController::goHome');
 $app->match('/users/add','PracticaFinal\Controller\DatabaseController::postAction');
