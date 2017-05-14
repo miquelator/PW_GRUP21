@@ -2,12 +2,12 @@
 {% block title %}Login{% endblock %}
 {% block content %}
     <h1>Login</h1>
-    <form action="/checklogin" METHOD="POST">
+    <form action="/showUser" METHOD="POST">
         <label for="name">Nom o Mail:</label><input type="text" name="name">
         {% if errors.name is defined %}
             <p>{{ errors.name }}</p>
         {% endif %}
-        <label for="password">Contrassenya:</label><input type="email" name="email">
+        <label for="password">Contrassenya:</label><input  name="password">
         {% if errors.password is defined %}
             <p>{{ errors.password }}</p>
         {% endif %}

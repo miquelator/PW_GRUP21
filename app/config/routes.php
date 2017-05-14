@@ -17,10 +17,11 @@ $app->get('/users/get/{id}','PracticaFinal\Controller\UserController::getAction'
 $app->get('/home','PracticaFinal\Controller\UserController::goHome');
 $app->match('/users/add','PracticaFinal\Controller\DatabaseController::postAction');
 $app->get('/register/', 'PracticaFinal\\Controller\\UserController::register');
-$app->get('/login/', 'PracticaFinal\\Controller\\UserController::login');
-$app->get('/edicio_perfil/', 'PracticaFinal\\Controller\\UserController::edicio_perfil');
+$app->get('/login', 'PracticaFinal\\Controller\\UserController::login');
+$app->get('/edicio_perfil', 'PracticaFinal\\Controller\\UserController::edicio_perfil');
 $app->match('/users/edit', 'PracticaFinal\\Controller\\DatabaseController::postEdicioPerfil');
-
+$app->get('','PracticaFinal\Controller\UserController::goHome');
+$app->get('/showUser', 'PracticaFinal\\Controller\\UserController::showUser');
 
 
 ?>

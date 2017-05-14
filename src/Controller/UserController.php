@@ -94,17 +94,37 @@ class UserController{
             $password = $request->get('password');
 
             $response->setStatusCode(Response::HTTP_OK);
-            $content = $app['twig']->render('login.twig', array('name' => $name,'password'=>$password));
+            $content = $app['twig']->render('login.twig');
             $response->setContent($content);
             return $response;
 
 
-        $content = $app['twig']->render('user.add.twig');
+            $response->setStatusCode(Response::HTTP_OK);
+            $content = $app['twig']->render('login.twig');
+            $response->setContent($content);
+            return $response;
+
+
+        }
+
+    public function showUser(Application $app, Request $request ){
+
+        $response = new Response();
+
+        $name = $request->get('name');
+        $password = $request->get('password');
+
+        $response->setStatusCode(Response::HTTP_OK);
+
+        $content = $app['twig']->render('showUser.twig',array('name' => $name,'password'=>$password));
         $response->setContent($content);
         return $response;
 
 
-        }
+    }
+
+
+
 
     public function register(Application $app){
 
