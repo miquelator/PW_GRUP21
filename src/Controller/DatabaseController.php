@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class DatabaseController{
 
-    public function postAction(Application $app, Request $request) //registra usuari
+    public function postAction(Application $app, Request $request) //registra usuari. Cridat a Comprovacioregistre
     {
         //  var_dump($request);
         $response = new Response();
@@ -66,7 +66,7 @@ class DatabaseController{
         }
     }
 
-    public function searchUser (Application $app, Request $request){
+    public function searchUser (Application $app, Request $request){ //es crida a partir del login
         $response = new Response();
 
         $name = $request->get('name');
