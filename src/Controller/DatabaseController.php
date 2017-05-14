@@ -68,8 +68,12 @@ class DatabaseController{
         $password=$request->get('password');
 
         try {
-            $sql= "SELECT * FROM user WHERE (username = ? or email = ?) and password = ?  ORDER BY id DESC LIMIT 1";
-            $info = $app['db']->fetchAssoc($sql, array ((string) $name,(string) $name,(string)$password));
+            $app->get('/searchUser', function ($name, $password) use ($app) {
+                $sql = "SELECT * FROM posts WHERE username = ? and password = ?";
+                $post = $app['db']->fetchAssoc($sql, array((string) $name),(string)$password);
+
+
+            });
         }catch (Exception $e) {
             $response->setStatusCode(Response::HTTP_BAD_REQUEST);
             $content = $app['twig']->render('main_register.twig', [
