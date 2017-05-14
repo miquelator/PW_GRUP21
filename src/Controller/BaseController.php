@@ -1,5 +1,5 @@
 <?php
-namespace PracticaFinal\Controller;
+//namespace PracticaFinal\Controller;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,6 +21,10 @@ class BaseController{
         return new Response($content);
     }
     */
+    public function  adminAction(Application $app){
+        return new Response("fef");
+
+    }
 
     public function creaSession(Application $app, $id){ //creem sessio amb l'id de l'usuari loguejat
 

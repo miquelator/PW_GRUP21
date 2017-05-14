@@ -1,7 +1,8 @@
 <?php
     namespace PracticaFinal\Controller;
 
-    use Silex\Application;
+    use PracticaFinal\Model\comprovacioRegister;
+use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -131,6 +132,11 @@ class UserController{
         $content = $app['twig']-> render('main_register.twig');
         $response->setContent($content);
         return $response;
+    }
+
+    public function comprovaRegister(Application $app, Request $request){
+        $comprovacio= new comprovacioRegister();
+        $comprovacio->comprovacioRegisterModel($app, $request);
     }
     }
 

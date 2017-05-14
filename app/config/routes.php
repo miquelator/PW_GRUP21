@@ -1,5 +1,5 @@
 <?php
-/*
+
 $before=function(Request $request, Application $app){ //si es crida, fa que s'activi abans aixo que la ruta que cridem
     if(!$app['session']->has('id')){
     $response=new Response();
@@ -8,10 +8,10 @@ $before=function(Request $request, Application $app){ //si es crida, fa que s'ac
     return $response;
     }
 };
-*/
+
 
 //$app->get('/', 'PracticaFinal\\Controller\\BaseController::indexAction');
-//$app->get('/admin', 'PracticaFinal\\Controller\\BaseController::adminAction')->before($before); //abans s'activa el before per comprovar si estem loguejats
+$app->get('/admin', 'PracticaFinal\\Controller\\BaseController::adminAction')->before($before); //abans s'activa el before per comprovar si estem loguejats
 //$app->get('add/{num1}/{num2}','PracticaFinal\\Controller\\HelloController::addAction');
 $app->get('/users/get/{id}','PracticaFinal\Controller\UserController::getAction');
 $app->get('/home','PracticaFinal\Controller\UserController::goHome');
@@ -22,6 +22,8 @@ $app->get('/login', 'PracticaFinal\\Controller\\UserController::login');
 $app->get('/edicio_perfil', 'PracticaFinal\\Controller\\UserController::edicio_perfil');
 $app->match('/users/edit', 'PracticaFinal\\Controller\\DatabaseController::postEdicioPerfil');
 $app->get('','PracticaFinal\Controller\UserController::goHome');
+$app->match('/users/edit', 'PracticaFinal\\Controller\\DatabaseController::postEdicioPerfil');
+$app->match('/users/comprovacio/register', 'PracticaFinal\\Controller\\UserController::comprovaRegister');
 $app->get('/showUser', 'PracticaFinal\\Controller\\DatabaseController::searchUser');
 
 

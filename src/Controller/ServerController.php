@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ServerController{
+    /*
     public function getAction(Application $app, $id)
     {
         $sql = "SELECT * FROM user WHERE id = ?";
@@ -29,7 +30,7 @@ class ServerController{
         $response->setContent($content);
         return $response;
     }
-
+*/
     public function goHome(Application $app)
     {
 
