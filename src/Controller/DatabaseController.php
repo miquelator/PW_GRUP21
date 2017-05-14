@@ -33,7 +33,7 @@ class DatabaseController{
                         'email' => $email,
                         'birthdate'=>$data,
                         'password'=>$password,
-                        //'img_path'=>$perfil
+
 
                     ]
                 );
