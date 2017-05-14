@@ -94,6 +94,40 @@ class DatabaseController{
 
     }
 
+    public function searchTopViews (Application $app, Request $request){
+        $response = new Response();
+
+        try {
+
+
+            $sql= "SELECT * FROM image WHERE (private = 0) ORDER BY visits DESC";
+            $info = $app['db']->fetchAssoc($sql);
+//            if ($info==false){
+//                $content = $app['twig']->render('home.twig');
+//            }
+//            else{
+//                $content = $app['twig']->render('showUser.twig',array('name' => $info['username'],'email'=> $info['email']));
+//
+//            }
+
+            var_dump($info);
+            echo('Patata');
+        }catch (Exception $e) {
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+            $content = $app['twig']->render('home.twig', [
+                'errors' => [
+                    'unexpected' => 'An error has occurred, please try it again later'
+                ]
+            ]);
+        }
+//        $response->setStatusCode(Response::HTTP_OK);
+//
+//        $response->setContent($content);
+        return $response;
+
+    }
+
+
 
 
 
