@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class DatabaseController{
 
-    public function postAction(Application $app, Request $request)//rep de Register
+    public function postAction(Application $app, Request $request) //registra usuari
     {
         //  var_dump($request);
         $response = new Response();
@@ -22,11 +22,8 @@ class DatabaseController{
             $perfil = $request->files->get('imatge_perfil');
             var_dump($perfil);
 
-            //imatge
-            $nom = $perfil->getClientOriginalName;
-            echo $nom;
-            $filename= $perfil->getClientOriginalExtension();
-            $destdir = '/../../web/assets/Pictures/';
+            $filename= $name.'.'.$perfil->getClientOriginalExtension();
+            $destdir = 'assets/Pictures/';
             $perfil->move($destdir,$filename);
 
 
