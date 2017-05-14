@@ -18,7 +18,7 @@ class UserController{
     }
         public function getAction(Application $app, $id)
     {
-        $sql = "SELECT * FROM user WHERE id = ?";
+        $sql = "SELECT username FROM user WHERE id = ?";
         $user = $app['db']->fetchAssoc($sql, array((int)$id));
         $response = new Response();
         if (!$user) {

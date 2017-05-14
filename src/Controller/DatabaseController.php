@@ -1,6 +1,7 @@
 <?php
 namespace PracticaFinal\Controller;
 
+use PracticaFinal\Controller\BaseController;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,6 +40,11 @@ class DatabaseController{
                 );
                 $lastInsertedId = $app['db']->fetchAssoc('SELECT id FROM user ORDER BY id DESC LIMIT 1');
                 $id = $lastInsertedId['id'];
+
+                //creem una session amb l'id de l'usuari:
+                $classeBaseController=new BaseController(); //Creo classe per cridar metode
+                $classeBaseController->creaSession($app, $id); //crido metode
+
                 //$url = '/home' . $id;
                 $url = '/home';
 
@@ -84,6 +90,11 @@ class DatabaseController{
     public function postEdicioPerfil(Application $app, Request $request)//rep de Edicio perfil
     {
         //  var_dump($request);
+
+
+
+        $id= $app['session']->get('id'); //guardo id d'usuari actual
+
         $response = new Response();
         if ($request->isMethod('POST')) {
             // Validate
@@ -112,7 +123,6 @@ class DatabaseController{
                         ]
                     );
 
-                    //FALTA; guardar la id per cookies
                     $st = $app['db']->prepare("UPDATE user SET username='".$name. "' WHERE id='".$id. "'");
                     $st->execute(array($username));
 
