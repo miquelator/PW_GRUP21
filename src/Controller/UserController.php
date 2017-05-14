@@ -86,14 +86,17 @@ class UserController{
     }
 
 
-        public function login(Application $app ){
+        public function login(Application $app, Request $request ){
 
             $response = new Response();
 
-                    $response->setStatusCode(Response::HTTP_OK);
-                    $content = $app['twig']->render('login.twig');
-                    $response->setContent($content);
-                    return $response;
+            $name = $request->get('name');
+            $password = $request->get('password');
+
+            $response->setStatusCode(Response::HTTP_OK);
+            $content = $app['twig']->render('login.twig', array('name' => $name,'password'=>$password));
+            $response->setContent($content);
+            return $response;
 
 
         $content = $app['twig']->render('user.add.twig');
