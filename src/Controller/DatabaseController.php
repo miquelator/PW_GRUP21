@@ -22,7 +22,14 @@ class DatabaseController{
 
             $perfil = $request->files->get('imatge_perfil');
 
-            $filename= $name.'.'.$perfil->getClientOriginalExtension();
+            $lastInsertedId = $app['db']->fetchAssoc('SELECT id FROM user ORDER BY id DESC LIMIT 1');
+            $id = 1;
+            if ($lastInsertedId!=false){
+                $classeBaseController=new BaseController(); //Creo classe per cridar metode
+                $classeBaseController->creaSession($app, $id); //crido metode
+                $id =$lastInsertedId['id']+1;
+            }
+            $filename= $name.$id.'.'.$perfil->getClientOriginalExtension();
             $destdir = 'assets/Pictures/';
             $perfil->move($destdir,$filename);
 
@@ -33,18 +40,16 @@ class DatabaseController{
                         'email' => $email,
                         'birthdate'=>$data,
                         'password'=>$password,
+                        'img_path'=>'assets/Pictures/'.$filename
 
 
                     ]
                 );
-                $lastInsertedId = $app['db']->fetchAssoc('SELECT id FROM user ORDER BY id DESC LIMIT 1');
-                $id = $lastInsertedId['id'];
+
 
                 //creem una session amb l'id de l'usuari:
                 $classeBaseController=new BaseController(); //Creo classe per cridar metode
                 $classeBaseController->creaSession($app, $id); //crido metode
-
-                //$url = '/home' . $id;
                 $url = '/home';
 
                 return new RedirectResponse($url);
