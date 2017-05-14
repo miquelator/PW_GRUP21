@@ -90,6 +90,10 @@ li.active span.round-tabs.three{
 
   color: #3e5e9a;
 }
+/*textarea{*/
+  /*width: 50%;*/
+/*}*/
+.form-control { width: 100%; }
 
 span.round-tabs.four{
   color: #f1685e;border: 2px solid #f1685e;
