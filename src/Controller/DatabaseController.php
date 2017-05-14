@@ -76,6 +76,8 @@ class DatabaseController{
             }
             else{
                 $content = $app['twig']->render('showUser.twig',array('name' => $info['username'],'email'=> $info['email']));
+                $classeBaseController=new BaseController(); //Creo classe per cridar metode
+                $classeBaseController->creaSession($app, $info['id']); //crido metode
 
             }
 
