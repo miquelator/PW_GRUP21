@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class BaseController{
+    /*
     public function indexAction(Application $app){ //comprovem si existeixla variable sessio d'usuari
 
         if($app['session']->has('id')){ //si ja existeix, la borro
@@ -19,6 +20,23 @@ class BaseController{
         $content=$app['session']->get('id');
         return new Response($content);
     }
+    */
+
+    public function creaSession(Application $app, $id){ //creem sessio amb l'id de l'usuari loguejat
+
+        if($app['session']->has('id')){ //si ja existeix, la borro
+            $app['session']->remove('id');
+        }
+
+       //la creo
+        $app['session']->set('id',$id);
+
+    }
+
+    public function tancaSession(Application $app){
+        $app['session']->remove('id');
+    }
+
 
 
 }

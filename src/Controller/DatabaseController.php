@@ -1,6 +1,7 @@
 <?php
 namespace PracticaFinal\Controller;
 
+use PracticaFinal\Controller\BaseController;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,6 +40,11 @@ class DatabaseController{
                 );
                 $lastInsertedId = $app['db']->fetchAssoc('SELECT id FROM user ORDER BY id DESC LIMIT 1');
                 $id = $lastInsertedId['id'];
+
+                //creem una session amb l'id de l'usuari:
+                $classeBaseController=new BaseController(); //Creo classe per cridar metode
+                $classeBaseController->creaSession($app, $id); //crido metode
+
                 //$url = '/home' . $id;
                 $url = '/home';
 
@@ -56,6 +62,26 @@ class DatabaseController{
         }
     }
 
+    public function searchUser (Application $app, Request $request){
+        $response = new Response();
+        $name=$request->get('name');
+        $password=$request->get('password');
+
+        try {
+            $sql= "SELECT * FROM user WHERE (username = ? or email = ?) and password = ?  ORDER BY id DESC LIMIT 1";
+            $info = $app['db']->fetchAssoc($sql, array ((string) $name,(string) $name,(string)$password));
+        }catch (Exception $e) {
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+            $content = $app['twig']->render('main_register.twig', [
+                'errors' => [
+                    'unexpected' => 'An error has occurred, please try it again later'
+                ]
+            ]);
+            $response->setContent($content);
+            return $response;
+        }
+    }
+
 
 
 
@@ -64,6 +90,11 @@ class DatabaseController{
     public function postEdicioPerfil(Application $app, Request $request)//rep de Edicio perfil
     {
         //  var_dump($request);
+
+
+
+        $id= $app['session']->get('id'); //guardo id d'usuari actual
+
         $response = new Response();
         if ($request->isMethod('POST')) {
             // Validate
@@ -92,7 +123,6 @@ class DatabaseController{
                         ]
                     );
 
-                    //FALTA; guardar la id per cookies
                     $st = $app['db']->prepare("UPDATE user SET username='".$name. "' WHERE id='".$id. "'");
                     $st->execute(array($username));
 
