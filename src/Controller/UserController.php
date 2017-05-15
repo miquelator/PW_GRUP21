@@ -74,6 +74,8 @@ class UserController{
         $content = $app['twig']->render('home_logged.twig');
 
 
+        $dbc = new DatabaseController();
+        $dbc->searchTopViews($app);
 
         $response->setContent($content);
         return $response;
@@ -106,7 +108,15 @@ class UserController{
     public function register(Application $app){
 
         $response = new Response();
-        $content = $app['twig']-> render('main_register.twig');
+        $content = $app['twig']-> render('main_register.twig',array('error' => "")); //no envio res com a missatge d'error
+        $response->setContent($content);
+        return $response;
+    }
+
+    public function registerError(Application $app){ //envio amb un missatge d'error
+
+        $response = new Response();
+        $content = $app['twig']-> render('main_register.twig',array('error' => "Error: Revisa els camps")); // envio  missatge d'error
         $response->setContent($content);
         return $response;
     }
