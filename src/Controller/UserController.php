@@ -38,7 +38,19 @@ class UserController{
         $response->setContent($content);
         return $response;
     }
+    public function uploadPhoto(Application $app)
+    {
 
+        $response = new Response();
+
+        $response->setStatusCode(Response::HTTP_OK);
+        $content = $app['twig']->render('upload.twig');
+
+
+
+        $response->setContent($content);
+        return $response;
+    }
 
     public function goHome(Application $app)
     {
@@ -62,6 +74,8 @@ class UserController{
         $content = $app['twig']->render('home_logged.twig');
 
 
+        $dbc = new DatabaseController();
+        $dbc->searchTopViews($app);
 
         $response->setContent($content);
         return $response;
