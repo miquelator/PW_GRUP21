@@ -1,7 +1,7 @@
 
 
 <?php
-//namespace PracticaFinal\src\Model\Services;
+namespace PracticaFinal\src\Model\Services;
 
 use PracticaFinal\Controller\DatabaseController;
 
