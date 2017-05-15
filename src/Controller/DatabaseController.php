@@ -36,10 +36,9 @@ class DatabaseController{
                 $classeBaseController->creaSession($app, $id); //crido metode
                 $id =$lastInsertedId['id']+1;
             }
-            $filename= $name.$id.'.'.$perfil->getClientOriginalExtension();
+            $filename= 'assets/Pictures/'.$id.'.'.$perfil->getClientOriginalExtension();
             $destdir = 'assets/Pictures/';
             $perfil->move($destdir,$filename);
-
 
             try {
                 $app['db']->insert('user', [
@@ -47,7 +46,7 @@ class DatabaseController{
                         'email' => $email,
                         'birthdate'=>$data,
                         'password'=>$password,
-                        'img_path'=>'assets/Pictures/'.$filename
+                        'img_path'=>$filename
 
 
                     ]
@@ -97,6 +96,60 @@ class DatabaseController{
                 $classeBaseController->creaSession($app, $info['id']); //crido metode
 
             }
+
+        }catch (Exception $e) {
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+            $content = $app['twig']->render('home.twig', [
+                'errors' => [
+                    'unexpected' => 'An error has occurred, please try it again later'
+                ]
+            ]);
+        }
+        $response->setStatusCode(Response::HTTP_OK);
+
+        $response->setContent($content);
+        return $response;
+
+    }
+
+    public function dataPhoto (Application $app, Request $request){ //es crida a partir del login
+        $response = new Response();
+        $foto =  $request->files->get('imgInp');
+        $path =  $request->get('path');
+        $title = $request->get('title');
+        $private = $request->get('private');
+
+
+
+
+
+
+        $id = $app['session']->get('id');
+
+        $path=htmlentities($path, ENT_QUOTES); //faig que no es pugui fer sql injection
+        $title=htmlentities($title, ENT_QUOTES);
+        $filename= 'assets/Pictures/No_Perfil'.'.'.$path;
+        $destdir = 'assets/Pictures/No_Perfil';
+        $foto->move($destdir,$filename);
+        $date = date('Y/m/d h:i:s', time());
+        echo "date: ".$date;
+        try {
+
+            $app['db']->insert('image', [
+                    'user_id' => $id,
+                    'title' => $title,
+                    'img_path'=>$filename,
+                    'visits'=>'0',
+                    'private'=>$private,
+                    'created_at'=>$date
+
+
+                ]
+            );
+
+                $content = $app['twig']->render('home_logged.twig');
+
+
 
         }catch (Exception $e) {
             $response->setStatusCode(Response::HTTP_BAD_REQUEST);
