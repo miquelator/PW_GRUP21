@@ -11,7 +11,7 @@
 
 {% block content %}
 
-
+  <form  id="photo" enctype="multipart/form-data" name="photo" class="form-horizontal" method="POST" action="/dataPhoto">
     <div class="container">
         <div class="col-md-6">
             <div class="form-group">
@@ -19,23 +19,30 @@
                 <div class="input-group">
                     <span class="input-group-btn">
                         <span class="btn btn-default btn-file">
-                          Buscar <input type="file" id="imgInp">
+                          Buscar <input name="imgInp" type="file" id="imgInp">
+
                         </span>
                     </span>
 
-                    <input type="text" class="form-control" readonly>
+                    <input type="text"  id="path" name="path"  class="form-control" readonly>
 
                 </div>
                 <div class="titol">
-                <input type="text" class="form-control" placeholder="Títol" name="title">
+                <input type="text" class="form-control" placeholder="Títol" id="title" name="title">
                 </div>
-            <div class="checkbox">
-                <label><input type="checkbox" value="">Fotografia privada?</label>
-            </div>
+                <select name="private">Privadesa
+                    <option value="false">Pública</option>
+                    <option value="true">Privada</option>
+
+                </select>
               <img id='img-upload'/>
+            </div>
+            <div>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Puja</button>
             </div>
         </div>
     </div>
+    </form>
 
 {% endblock %}
 {% block scripts %}
