@@ -80,6 +80,17 @@ class UserController{
         $response->setContent($content);
         return $response;
     }
+    public function userComments(Application $app)
+    {
+
+        $response = new Response();
+
+        $response->setStatusCode(Response::HTTP_OK);
+        $content = $app['twig']->render('user_comments.twig');
+
+        $response->setContent($content);
+        return $response;
+    }
 
 
         public function login(Application $app, Request $request ){

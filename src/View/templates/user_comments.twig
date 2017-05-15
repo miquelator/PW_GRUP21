@@ -6,125 +6,37 @@
 	<style type="text/css" xmlns="http://www.w3.org/1999/html">
 		h1{text-transform: uppercase;}
 	</style>
-	<link rel="stylesheet" type="text/css" href="{{ asset('home_logged.css','css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('user_comments.css','css') }}">
 {% endblock %}
 {% block content %}
-	<a href="/register" class="btn btn-success">Registra't</a>
-	<a href="/login" class="btn btn-primary">Login</a>
-	<a href="/login" class="btn btn-default">Afegir Foto</a>
-	<a href="/user_comments" class="btn btn-warning">Comment List</a>
+	<a href="/home_log" class="btn btn-success">Home</a>
 	{#<a href="/mostViewed" class="btn btn-primary">GetMostViewed</a>#}
-	<h1>Home </h1>
+	<h1>Comments </h1>
 	<section>
 
-		<div class="board">
-			<!-- <h2>Welcome to IGHALO!<sup>™</sup></h2>-->
-			<div class="board-inner">
-				<ul class="nav nav-tabs" id="myTab">
-					<div class="liner"></div>
-					<li class="active">
-						<a href="#most_viewed" data-toggle="tab" title="most_viewed">
-                      <span class="round-tabs one">
-                              Most Viewed
-                      </span>
-						</a></li>
+						<div>
+							<textarea readonly class="form-control" rows="5" id="comment"></textarea>
+							<a href="/user_comments" class="btn btn-danger">Delete</a>
+						</div>
+						<div>
+							<textarea readonly class="form-control" rows="5" id="comment"></textarea>
+							<a href="/user_comments" class="btn btn-danger">Delete</a>
+						</div>
+						<div>
+							<textarea readonly class="form-control" rows="5" id="comment"></textarea>
+							<a href="/user_comments" class="btn btn-danger">Delete</a>
+						</div>
+						<div>
+							<textarea readonly class="form-control" rows="5" id="comment"></textarea>
+							<a href="/user_comments" class="btn btn-danger">Delete</a>
+						</div>
 
-					<li><a href="#last_uploaded" data-toggle="tab" title="last_uploaded">
-                     <span class="round-tabs two">
-                         <!--<i class="fa fa-glass" aria-hidden="true"></i>-->
-                         Last Uploaded
-                     </span>
-						</a>
-					</li>
-
-
-				</ul></div>
-
-			<div class="tab-content">
-				<div class="tab-pane fade in active" id="most_viewed">
-					<div class="row">
-
-						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-
-							<img src = "http://lorempixel.com/500/500/city/3/"
-								 class="img-responsive">
-							<h4>Title</h4>
-							<h4>User</h4>
-							<h4>Date</h4>
-							<h4>Likes</h4>
-							<h4>Views</h4>
-
-							<div class="form-group">
-								<label for="comment">Comment:</label>
-								<textarea class="form-control" rows="5" id="comment"></textarea>
+						<div>
+								<textarea readonly class="form-control" rows="5" id="comment"></textarea>
+								<a href="/user_comments" class="btn btn-danger">Delete</a>
 							</div>
-							<a href="/home_log" class="btn btn-success">Comment</a>
-							<a href="/home_log" class="btn btn-danger btn-circle btn-lg"><i class="glyphicon glyphicon-heart"></i></a>
-						</div><!--col-md-4 col-sm-6 col-xs-6-->
 
 
-						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-							<img src= "http://lorempixel.com/500/500/city/3/"
-								 class="img-responsive">
-							<h4>Title</h4>
-							<h4>User</h4>
-							<h4>Date</h4>
-							<h4>Likes</h4>
-							<h4>Views</h4>
-							<div class="form-group">
-								<label for="comment">Comment:</label>
-								<textarea class="form-control" rows="5" id="comment"></textarea>
-							</div>
-							<a href="/home_log" class="btn btn-success">Comment</a>
-						</div><!--col-md-4 col-sm-6 col-xs-6-->
-
-						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-							<img src="http://lorempixel.com/500/500/city/3/"
-								 class="img-responsive">
-							<h4>Title</h4>
-							<h4>User</h4>
-							<h4>Date</h4>
-							<h4>Likes</h4>
-							<h4>Views</h4>
-							<div class="form-group">
-								<label for="comment">Comment:</label>
-								<textarea class="form-control" rows="5" id="comment"></textarea>
-							</div>
-							<a href="/home_log" class="btn btn-success">Comment</a>
-						</div><!--col-md-4 col-sm-6 col-xs-6-->
-
-
-						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-
-							<img src="http://lorempixel.com/500/500/city/3/"
-								 class="img-responsive">
-							<h4>Title</h4>
-							<h4>User</h4>
-							<h4>Date</h4>
-							<h4>Likes</h4>
-							<h4>Views</h4>
-							<div class="form-group">
-								<label for="comment">Comment:</label>
-								<textarea class="form-control" rows="5" id="comment"></textarea>
-							</div>
-							<a href="/home_log" class="btn btn-success">Comment</a>
-
-						</div><!--col-md-4 col-sm-6 col-xs-6-->
-
-						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-							<img src="http://lorempixel.com/500/500/city/3/"
-								 class="img-responsive">
-							<h4>Title</h4>
-							<h4>User</h4>
-							<h4>Date</h4>
-							<h4>Likes</h4>
-							<h4>Views</h4>
-							<div class="form-group">
-								<label for="comment">Comment:</label>
-								<textarea class="form-control" rows="5" id="comment"></textarea>
-							</div>
-							<a href="/home_log" class="btn btn-success">Comment</a>
-						</div><!--col-md-4 col-sm-6 col-xs-12-->
 
 
 					</div><!--row-->
@@ -252,22 +164,14 @@
 						</div><!--col-md-4 col-sm-6 col-xs-6-->
 
 
-					</div><!--row-->
 
-				</div><!--three-->
-
-
-
-			</div>
-
-		</div>
 
 	</section>
 {% endblock %}
 {% block scripts %}
+	{#<script src="{{ asset('home_logged.js','js') }}" type="text/javascript" charset="utf-8"></script>#}
 	<script src="{{ asset('jquery.js','js') }}" type="text/javascript" charset="utf-8"></script>
 	<script src="{{ asset('bootstrap.js','js') }}" type="text/javascript" charset="utf-8"></script>
-	<script src="{{ asset('home_logged.js','js') }}" type="text/javascript" charset="utf-8"></script>
 
 
 {% endblock %}
