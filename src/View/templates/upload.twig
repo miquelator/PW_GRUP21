@@ -1,0 +1,39 @@
+{% extends "base.twig" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+    {{ parent() }}
+
+    <style type="text/css" xmlns="http://www.w3.org/1999/html">
+        h1{text-transform: uppercase;}
+    </style>
+    <link rel="stylesheet" type="text/css" href="{{ asset('upload.css','css') }}">
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="container">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Upload Image</label>
+                <div class="input-group">
+                <span class="input-group-btn">
+                    <span class="btn btn-default btn-file">
+                        Browse… <input type="file" id="imgInp">
+                    </span>
+                </span>
+                    <input type="text" class="form-control" readonly>
+                </div>
+                <img id='img-upload'/>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block scripts %}
+    <script src="{{ asset('upload.js','js') }}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ asset('bootstrap.js','js') }}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ asset('jquery.js','js') }}" type="text/javascript" charset="utf-8"></script>
+
+
+{% endblock %}
