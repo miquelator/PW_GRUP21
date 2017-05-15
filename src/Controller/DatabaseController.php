@@ -101,12 +101,10 @@ class DatabaseController{
 
     }
 
-    public function searchTopViews (Application $app, Request $request){
+    public function searchTopViews (Application $app){
         $response = new Response();
 
         try {
-
-
             $sql= "SELECT * FROM image WHERE (private = 0) ORDER BY visits DESC";
             $info = $app['db']->fetchAssoc($sql);
 //            if ($info==false){
@@ -116,7 +114,6 @@ class DatabaseController{
 //                $content = $app['twig']->render('showUser.twig',array('name' => $info['username'],'email'=> $info['email']));
 //
 //            }
-
             var_dump($info);
             echo('Patata');
         }catch (Exception $e) {

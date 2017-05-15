@@ -94,6 +94,8 @@ class UserController{
         $content = $app['twig']->render('home_logged.twig');
 
 
+        $dbc = new DatabaseController();
+        $dbc->searchTopViews($app);
 
         $response->setContent($content);
         return $response;
