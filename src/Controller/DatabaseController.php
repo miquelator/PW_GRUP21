@@ -40,7 +40,6 @@ class DatabaseController{
             $destdir = 'assets/Pictures/';
             $perfil->move($destdir,$filename);
 
-//rffff
             try {
                 $app['db']->insert('user', [
                         'username' => $name,
