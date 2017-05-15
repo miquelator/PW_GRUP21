@@ -1,10 +1,8 @@
-
-
 <?php
-namespace PracticaFinal\src\Model\Services;
+namespace PracticaFinal\Model;
 
 use PracticaFinal\Controller\DatabaseController;
-
+use Symfony\Component\Validator\Constraints\DateTime;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,55 +13,49 @@ class comprovacioRegister
 
     public function comprovacioRegisterModel(Application $app, Request $request)
     {
+        ob_start(); //assegura que no hi haura outputs per poder fer el header
         if ($request->isMethod('POST')) {
             // Validate
             $name = $request->get('name');
             $email = $request->get('email');
             $data = $request->get('data_naixement');
             $password = $request->get('password');
-            var_dump($name);
+            $confirm = $request->get('confirm');
 
-            if (!isset($_POST['email']) ||
-                !isset($_POST['name']) ||
-                !isset($_POST['data_naixement']) ||
-                !isset($_POST['password']) ||
-                !isset($_POST['confirm'])
-            ) {
 
-                echo "Revisa tots els camps";
-                header("/home");
-                include 'main_register.php'; //tornem al registre
-                exit;
-            } else {
-
-                $name = $_POST['name'];
-                $email = $_POST['email'];
-                $data_naixement = $_POST['data_naixement'];
-                $password = $_POST['password'];
-                $confirm = $_POST['confirm'];
-                if (validName($name) &&
-                    validEmail($email) &&
-                    validData($data_naixement) &&
-                    validPassword($password, $confirm)
+                if ($this->validName($name) &&
+                    $this->validEmail($email) &&
+                    $this->validData($data) &&
+                    $this->validPassword($password, $confirm)
                 ) {
-                    //si tot es valida
-                    $name = htmlentities($name, ENT_QUOTES); //faig que no es pugui fer sql injection
-                    $password = htmlentities($password, ENT_QUOTES);
-                    $email = htmlentities($email, ENT_QUOTES);
-                    //connectaBaseDades($name, $email, $data_naixement, $password);
+
+
+
 
                     //ho guardem per base de dades
                     $databasecontroller=new DatabaseController();
                     $databasecontroller->postAction($app, $request);
 
-
-                    //include 'main_login.php';
+                    while (ob_get_status()) //neteja per poder fer el Header
+                    {
+                        ob_end_clean();
+                    }
+                    header("location: /home"); //tornem a home
 
                     exit;
                 }
             }
-            echo "Revisa els camps";
-            include 'main_register.php'; //tornem al registre
+
+            //si no estan be
+
+
+
+            while (ob_get_status()) //neteja per poder fer el Header
+            {
+                ob_end_clean();
+            }
+
+             header("location: /register_error");
             exit;
 
         }
@@ -91,7 +83,8 @@ class comprovacioRegister
 
         function validData($data_naixement)
         {
-            $d = DateTime::createFromFormat('Y-m-d', $data_naixement);
+
+            $d = \DateTime::createFromFormat('Y-m-d', $data_naixement);
 
             if ($d && $d->format('Y-m-d') == $data_naixement) {
                 return true;
@@ -100,9 +93,10 @@ class comprovacioRegister
                 return false;
             }
 
+
         }
 
-        function validPassword($password, $confirm)
+        function validPassword($password, $confirm) //s'ha de ficar numeros i majuscules
         {
             if (strcmp($password, $confirm) == 0) {//son iguals?
                 $majus = 0;
@@ -141,7 +135,8 @@ class comprovacioRegister
                 return false;
             }
         }
-    }
+
+
 }
 
 /*

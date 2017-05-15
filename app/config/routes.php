@@ -16,8 +16,9 @@ $app->get('/admin', 'PracticaFinal\\Controller\\BaseController::adminAction')->b
 $app->get('/users/get/{id}','PracticaFinal\Controller\UserController::getAction');
 $app->get('/home','PracticaFinal\Controller\UserController::goHome');
 $app->get('/home_log','PracticaFinal\Controller\UserController::goHomeLogged');
-$app->match('/users/add','PracticaFinal\Controller\DatabaseController::postAction');
+//$app->match('/users/add','PracticaFinal\Controller\DatabaseController::postAction');
 $app->get('/register/', 'PracticaFinal\\Controller\\UserController::register');
+$app->get('/register_error/', 'PracticaFinal\\Controller\\UserController::registerError');
 $app->get('/login', 'PracticaFinal\\Controller\\UserController::login');
 $app->get('/edicio_perfil', 'PracticaFinal\\Controller\\UserController::edicio_perfil');
 $app->match('/users/edit', 'PracticaFinal\\Controller\\DatabaseController::postEdicioPerfil');
