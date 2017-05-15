@@ -27,8 +27,6 @@ if ( !isset($_POST['user']) || !isset($_POST['password'])) {
 
 
         //si tot es valida
-        $user=htmlentities($user, ENT_QUOTES); //faig que no es pugui fer sql injection
-        $password=htmlentities($password, ENT_QUOTES);
 
         if (!connectaBaseDades($user,$password)){
 

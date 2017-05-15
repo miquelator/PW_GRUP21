@@ -1,11 +1,12 @@
 <?php
 namespace PracticaFinal\Controller;
 
-use PracticaFinal\Controller\BaseController;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use PracticaFinal\Controller\BaseController;
+
 
 class DatabaseController{
 
@@ -69,14 +70,18 @@ class DatabaseController{
     public function searchUser (Application $app, Request $request){ //es crida a partir del login
         $response = new Response();
 
-        $name = $request->get('name');
+        $name = $request->get('user');
         $password = $request->get('password');
+        $user=htmlentities($name, ENT_QUOTES); //faig que no es pugui fer sql injection
+        $password=htmlentities($password, ENT_QUOTES);
+
         try {
 
 
             $sql= "SELECT * FROM user WHERE (username = ? or email = ?) and password = ?  ORDER BY id DESC LIMIT 1";
             $info = $app['db']->fetchAssoc($sql, array ((string) $name,(string) $name,(string)$password));
             if ($info==false){
+
                 $content = $app['twig']->render('home.twig');
             }
             else{

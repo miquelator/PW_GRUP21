@@ -1,5 +1,5 @@
 <?php
-//namespace PracticaFinal\Controller;
+namespace PracticaFinal\Controller;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
