@@ -1,5 +1,5 @@
 {% extends "base.twig" %}
-{% block title %}Home{% endblock %}
+{% block title %}Afegir Foto{% endblock %}
 {% block head %}
     {{ parent() }}
 
@@ -15,25 +15,33 @@
     <div class="container">
         <div class="col-md-6">
             <div class="form-group">
-                <label>Upload Image</label>
+                <h1>Afegir foto</h1>
                 <div class="input-group">
-                <span class="input-group-btn">
-                    <span class="btn btn-default btn-file">
-                        Browse… <input type="file" id="imgInp">
+                    <span class="input-group-btn">
+                        <span class="btn btn-default btn-file">
+                          Buscar <input type="file" id="imgInp">
+                        </span>
                     </span>
-                </span>
+
                     <input type="text" class="form-control" readonly>
+
                 </div>
-                <img id='img-upload'/>
+                <div class="titol">
+                <input type="text" class="form-control" placeholder="Títol" name="title">
+                </div>
+            <div class="checkbox">
+                <label><input type="checkbox" value="">Fotografia privada?</label>
+            </div>
+              <img id='img-upload'/>
             </div>
         </div>
     </div>
 
 {% endblock %}
 {% block scripts %}
-    <script src="{{ asset('upload.js','js') }}" type="text/javascript" charset="utf-8"></script>
-    <script src="{{ asset('bootstrap.js','js') }}" type="text/javascript" charset="utf-8"></script>
-    <script src="{{ asset('jquery.js','js') }}" type="text/javascript" charset="utf-8"></script>
 
+    <script src="{{ asset('jquery.js','js') }}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ asset('bootstrap.js','js') }}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ asset('upload.js','js') }}" type="text/javascript" charset="utf-8"></script>
 
 {% endblock %}

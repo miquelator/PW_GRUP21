@@ -21,6 +21,12 @@ class DatabaseController{
             $data = $request->get('data_naixement');
             $password = $request->get('password');
 
+            //converteixo per evitar sql injection
+            $name = htmlentities($name, ENT_QUOTES); //faig que no es pugui fer sql injection
+            $password = htmlentities($password, ENT_QUOTES);
+            $email = htmlentities($email, ENT_QUOTES);
+
+
             $perfil = $request->files->get('imatge_perfil');
 
             $lastInsertedId = $app['db']->fetchAssoc('SELECT id FROM user ORDER BY id DESC LIMIT 1');
