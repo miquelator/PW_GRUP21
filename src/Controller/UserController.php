@@ -5,7 +5,6 @@
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class UserController{
 
@@ -39,37 +38,18 @@ class UserController{
         $response->setContent($content);
         return $response;
     }
-    public function mostraUsuari(Application $app, Request $request) //registra usuari
+    public function uploadPhoto(Application $app)
     {
-        //  var_dump($request);
+
         $response = new Response();
-        if ($request->isMethod('POST')) {
-            // Validate
-            $name = $request->get('name');
-            $password = $request->get('password');
+
+        $response->setStatusCode(Response::HTTP_OK);
+        $content = $app['twig']->render('upload.twig');
 
 
 
-
-            try {
-
-                $lastInsertedId = $app['db']->fetchAssoc('SELECT id FROM user ORDER BY id DESC LIMIT 1');
-                $id = $lastInsertedId['id'];
-                //$url = '/home' . $id;
-                $url = '/home';
-
-                return new RedirectResponse($url);
-            } catch (Exception $e) {
-                $response->setStatusCode(Response::HTTP_BAD_REQUEST);
-                $content = $app['twig']->render('main_register.twig', [
-                    'errors' => [
-                        'unexpected' => 'An error has occurred, please try it again later'
-                    ]
-                ]);
-                $response->setContent($content);
-                return $response;
-            }
-        }
+        $response->setContent($content);
+        return $response;
     }
 
     public function goHome(Application $app)
@@ -115,10 +95,7 @@ class UserController{
             return $response;
 
 
-            $response->setStatusCode(Response::HTTP_OK);
-            $content = $app['twig']->render('login.twig');
-            $response->setContent($content);
-            return $response;
+
 
 
         }
