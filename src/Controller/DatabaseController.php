@@ -86,6 +86,7 @@ class DatabaseController{
 
             $sql= "SELECT * FROM user WHERE (username = ? or email = ?) and password = ?  ORDER BY id DESC LIMIT 1";
             $info = $app['db']->fetchAssoc($sql, array ((string) $name,(string) $name,(string)$password));
+
             if ($info==false){
 
                 $content = $app['twig']->render('home.twig');
@@ -170,17 +171,20 @@ class DatabaseController{
         $response = new Response();
 
         try {
-            $sql= "SELECT * FROM image WHERE (private = 0) ORDER BY visits DESC";
-            $info = $app['db']->fetchAssoc($sql);
-//            if ($info==false){
-//                $content = $app['twig']->render('home.twig');
-//            }
-//            else{
-//                $content = $app['twig']->render('showUser.twig',array('name' => $info['username'],'email'=> $info['email']));
-//
-//            }
-            var_dump($info);
-            echo('Patata');
+            $sql= "SELECT * FROM image WHERE (private = 0) ORDER BY visits DESC LIMIT 5";
+            $info = $app['db']->fetchAll($sql);
+            $tv0 = $info[0]['img_path'];
+            $tv1 = $info[1]['img_path'];
+
+            $tv2 = $info[2]['img_path'];
+            $tv3 = $info[3]['img_path'];
+            $tv4 = $info[4]['img_path'];
+            echo($tv4);
+
+            $content = $app['twig']->render('home_logged.twig', array('tv0' => $tv4, 'tv1' => $tv4));
+           // var_dump($info);
+
+
         }catch (Exception $e) {
             $response->setStatusCode(Response::HTTP_BAD_REQUEST);
             $content = $app['twig']->render('home.twig', [
@@ -189,9 +193,9 @@ class DatabaseController{
                 ]
             ]);
         }
-//        $response->setStatusCode(Response::HTTP_OK);
-//
-//        $response->setContent($content);
+        $response->setStatusCode(Response::HTTP_OK);
+
+        $response->setContent($content);
         return $response;
 
     }
