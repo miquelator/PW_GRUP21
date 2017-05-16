@@ -10,9 +10,7 @@ $before=function(Request $request, Application $app){ //si es crida, fa que s'ac
 };
 
 
-//$app->get('/', 'PracticaFinal\\Controller\\BaseController::indexAction');
-//$app->get('/admin', 'PracticaFinal\\Controller\\BaseController::adminAction')->before($before); //abans s'activa el before per comprovar si estem loguejats
-//$app->get('add/{num1}/{num2}','PracticaFinal\\Controller\\HelloController::addAction');
+
 $app->get('/users/get/{id}','PracticaFinal\Controller\UserController::getAction');
 $app->get('/home','PracticaFinal\Controller\UserController::goHome');
 $app->get('/home_log','PracticaFinal\Controller\UserController::goHomeLogged');
