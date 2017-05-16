@@ -82,10 +82,14 @@ class UserController{
     public function userComments(Application $app)
     {
 
+        $dbc = new DatabaseController();
+
+        $comments = $dbc->searchCommentsUser($app);
+
         $response = new Response();
 
         $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('user_comments.twig');
+        $content = $app['twig']->render('user_comments.twig', array('c1' => $comments[0]['comentari'],'c2' => $comments[1]['comentari'],'c3' => $comments[2]['comentari'],'c4' => $comments[3]['comentari'],'c5' => $comments[4]['comentari']));
 
         $response->setContent($content);
         return $response;
