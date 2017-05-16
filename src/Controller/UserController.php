@@ -101,9 +101,11 @@ class UserController{
 
 //            $users1[i] = $info[i]['user'];
 //            $users2[i] = $info2[i]['user'];
+            $data1 = substr($info[$i]['created_at'], 0, 10);
+            $data2 = substr($info2[$i]['created_at'], 0, 10);
 
-            $dates1[$i] = $info[$i]['created_at'];
-            $dates2[$i] = $info2[$i]['created_at'];
+            $dates1[$i] = $data1;
+            $dates2[$i] = $data2;
 
             $likes1[$i] = $info[$i]['likes'];
             $likes2[$i] = $info2[$i]['likes'];
