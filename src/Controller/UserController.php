@@ -1,6 +1,7 @@
 <?php
     namespace PracticaFinal\Controller;
 
+use PracticaFinal\Controller\DatabaseController;
     use PracticaFinal\Model\comprovacioRegister;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
@@ -8,14 +9,32 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserController{
 
-     public function edicio_perfil(Application $app){
+     public function edicioPerfil(Application $app){
+
+         //obtinc path imatge perfil
+         $database= new DatabaseController();
+         $info=$database->retornaImatgeNomDataUsuari($app);
 
         $response = new Response();
-        $content = $app['twig']-> render('edicio_perfil.twig'); //mostrem per pantalla la pagina
+        $content = $app['twig']-> render('edicio_perfil.twig',array('path_imatge'=>$info['img_path'],'nom_user'=>$info['username'],'data_naixement'=>$info['birthdate'],'error'=>"")); //mostrem per pantalla la pagina
 
         $response->setContent($content);
         return $response;
     }
+
+    public function edicioPerfilError(Application $app){
+        //obtinc path imatge perfil
+        $database= new DatabaseController();
+        $info=$database->retornaImatgeNomDataUsuari($app);
+
+        $response = new Response();
+        $content = $app['twig']-> render('edicio_perfil.twig',array('path_imatge'=>$info['img_path'],'nom_user'=>$info['username'],'data_naixement'=>$info['birthdate'],'error'=>"Revisa")); //mostrem per pantalla la pagina
+
+        $response->setContent($content);
+        return $response;
+    }
+
+
         public function getAction(Application $app, $id)
     {
         $sql = "SELECT username FROM user WHERE id = ?";
