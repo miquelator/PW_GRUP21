@@ -1,6 +1,7 @@
 <?php
     namespace PracticaFinal\Controller;
 
+use PracticaFinal\Controller\DatabaseController;
     use PracticaFinal\Model\comprovacioRegister;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
@@ -8,14 +9,32 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserController{
 
-     public function edicio_perfil(Application $app){
+     public function edicioPerfil(Application $app){
+
+         //obtinc path imatge perfil
+         $database= new DatabaseController();
+         $info=$database->retornaImatgeNomDataUsuari($app);
 
         $response = new Response();
-        $content = $app['twig']-> render('edicio_perfil.twig'); //mostrem per pantalla la pagina
+        $content = $app['twig']-> render('edicio_perfil.twig',array('path_imatge'=>$info['img_path'],'nom_user'=>$info['username'],'data_naixement'=>$info['birthdate'],'error'=>"")); //mostrem per pantalla la pagina
 
         $response->setContent($content);
         return $response;
     }
+
+    public function edicioPerfilError(Application $app){
+        //obtinc path imatge perfil
+        $database= new DatabaseController();
+        $info=$database->retornaImatgeNomDataUsuari($app);
+
+        $response = new Response();
+        $content = $app['twig']-> render('edicio_perfil.twig',array('path_imatge'=>$info['img_path'],'nom_user'=>$info['username'],'data_naixement'=>$info['birthdate'],'error'=>"Revisa")); //mostrem per pantalla la pagina
+
+        $response->setContent($content);
+        return $response;
+    }
+
+
         public function getAction(Application $app, $id)
     {
         $sql = "SELECT username FROM user WHERE id = ?";
@@ -72,9 +91,52 @@ class UserController{
 
         $info2 = $dbc->searchLastUploaded($app);
 
+        for ($i = 0; $i < 5; $i++) {
+
+            $tv[$i] = $info[$i]['img_path'];
+            $lu[$i] = $info2[$i]['img_path'];
+
+            $titles1[$i] = $info[$i]['title'];
+            $titles2[$i] = $info2[$i]['title'];
+
+//            $users1[i] = $info[i]['user'];
+//            $users2[i] = $info2[i]['user'];
+            $data1 = substr($info[$i]['created_at'], 0, 10);
+            $data2 = substr($info2[$i]['created_at'], 0, 10);
+
+            $dates1[$i] = $data1;
+            $dates2[$i] = $data2;
+
+            $likes1[$i] = $info[$i]['likes'];
+            $likes2[$i] = $info2[$i]['likes'];
+
+            $views1[$i] = $info[$i]['visits'];
+
+        }
+//        $tv[0] = $info[0]['img_path'];
+//        $tv[1] = $info[1]['img_path'];
+//        $tv[2] = $info[2]['img_path'];
+//        $tv[3] = $info[3]['img_path'];
+//        $tv[4] = $info[4]['img_path'];
+//
+//        $lu[0] = $info2[0]['img_path'];
+//        $lu[1] = $info2[1]['img_path'];
+//        $lu[2] = $info2[2]['img_path'];
+//        $lu[3] = $info2[3]['img_path'];
+//        $lu[4] = $info2[4]['img_path'];
+//
+//        $titles1[0] = $info[0]['title'];
+//        $titles1[1] = $info[1]['title'];
+//        $titles1[2] = $info[2]['title'];
+//        $titles1[3] = $info[3]['title'];
+//        $titles1[4] = $info[4]['title'];
+//
+
+
         $response = new Response();
         $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('home_logged.twig', array('tv0' => $info[0]['img_path'], 'tv1' => $info[1]['img_path'], 'tv2' => $info[2]['img_path'], 'tv3' => $info[3]['img_path'], 'tv4' => $info[4]['img_path'], 'lu0' => $info2[0]['img_path'], 'lu1' => $info2[1]['img_path'], 'lu2' => $info2[2]['img_path'], 'lu3' => $info2[3]['img_path'], 'lu4' => $info2[4]['img_path']));
+       // $content = $app['twig']->render('home_logged.twig', array('tv0' => $info[0]['img_path'], 'tv1' => $info[1]['img_path'], 'tv2' => $info[2]['img_path'], 'tv3' => $info[3]['img_path'], 'tv4' => $info[4]['img_path'], 'lu0' => $info2[0]['img_path'], 'lu1' => $info2[1]['img_path'], 'lu2' => $info2[2]['img_path'], 'lu3' => $info2[3]['img_path'], 'lu4' => $info2[4]['img_path'],));
+        $content = $app['twig']->render('home_logged.twig', array('tv' => $tv, 'lu' => $lu, 't1' => $titles1, 't2' => $titles2,'d1' => $dates1, 'd2' => $dates2, 'l1' => $likes1, 'l2' => $likes2, 'v1' => $views1));
 
         $response->setContent($content);
         return $response;
@@ -82,10 +144,20 @@ class UserController{
     public function userComments(Application $app)
     {
 
+        $dbc = new DatabaseController();
+
+        $comments = $dbc->searchCommentsUser($app);
+        $c[0] = $comments[0]['comentari'];
+        $c[1] = $comments[1]['comentari'];
+        $c[2] = $comments[2]['comentari'];
+        $c[3] = $comments[3]['comentari'];
+        $c[4] = $comments[4]['comentari'];
+
         $response = new Response();
 
         $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('user_comments.twig');
+        //$content = $app['twig']->render('user_comments.twig', array('c1' => $comments[0]['comentari'],'c2' => $comments[1]['comentari'],'c3' => $comments[2]['comentari'],'c4' => $comments[3]['comentari'],'c5' => $comments[4]['comentari']));
+        $content = $app['twig']->render('user_comments.twig', array('c' => $c));
 
         $response->setContent($content);
         return $response;

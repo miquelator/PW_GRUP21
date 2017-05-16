@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use PracticaFinal\Controller\BaseController;
+use PracticaFinal\Model\comprovacioRegister;
 
 
 class DatabaseController{
@@ -194,6 +195,32 @@ class DatabaseController{
         return $info;
 
     }
+    public function searchCommentsUser (Application $app){
+        $id = $app['session']->get('id');
+        $response = new Response();
+
+        try {
+
+
+            $sql= "SELECT * FROM comentaris WHERE id_user = ? ORDER BY id DESC";
+            $info = $app['db']->fetchAll($sql, array ((string) $id));
+
+
+
+
+        }catch (Exception $e) {
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+            $content = $app['twig']->render('home.twig', [
+                'errors' => [
+                    'unexpected' => 'An error has occurred, please try it again later'
+                ]
+            ]);
+        }
+
+        return $info;
+
+    }
+
     public function searchLastUploaded (Application $app){
         $response = new Response();
 
@@ -220,10 +247,10 @@ class DatabaseController{
     public function postEdicioPerfil(Application $app, Request $request)//rep de Edicio perfil
     {
         //  var_dump($request);
+        ob_start(); //assegura que no hi haura outputs per poder fer el header
 
 
-
-        $id= $app['session']->get('id'); //guardo id d'usuari actual
+        $id = $app['session']->get('id'); //guardo id d'usuari actual
 
         $response = new Response();
         if ($request->isMethod('POST')) {
@@ -232,57 +259,98 @@ class DatabaseController{
 
             $data = $request->get('data_naixement');
             $password = $request->get('password');
-
+            $confirm=$request->get('confirm');
             $perfil = $request->files->get('imatge_perfil');
+            //borrar:
+            var_dump($name);
             var_dump($data);
+            var_dump($password);
+            var_dump($perfil);
 
-            if(!is_null($perfil)) {
-                $nom = $perfil->getClientOriginalName;
-                echo $nom;
-                $filename = $perfil->getClientOriginalExtension();
-                $destdir = '/../../web/assets/Pictures/';
-                $perfil->move($destdir, $filename);
-            }
-
+            $tot_correcte=true;
 
             try {
+
+                $qb = $app['db']->createQueryBuilder();//inicio base
+
+
                 //actualitzem la base de dades els camps que s'han omplert. Es fa uddate quan id=id
-                if(strlen($name)!=0){ //si s'ha variat
-                    $app['db']->update('user', [
-                            'username' => $name,
-                        ]
-                    );
+                if (strlen($name) != 0) { //si s'ha variat
 
-                    $st = $app['db']->prepare("UPDATE user SET username='".$name. "' WHERE id='".$id. "'");
-                    $st->execute(array($name));
+                    //$sql= "UPDATE user SET username = ? WHERE id=?";
+                    //$info = $app['db']->fetchAssoc($sql, array ((string) $name,(string)$id));
+
+                    //actualitzo bases
+                    $comprovacio= new comprovacioRegister();
+                    if($comprovacio->validName($name)){
+                        $sql= "UPDATE user SET user.username = ? WHERE user.id =?";
+                        $info = $app['db']->fetchAssoc( $sql, array ((string) $name,(string) $id));
+
+                        /*
+                        $qb = $app['db']->createQueryBuilder();
+                        $qb->update('user')
+                            ->set('user.username', $name)
+                            ->where('user.id =id')
+                            ->setParameter('id', $id);
+                        $qb->execute();
+                        */
+                    }
+                    else{
+                        $tot_correcte=false;
+                    }
+
 
 
                 }
-                if(strlen($data)!=0){
-                    $app['db']->update('user', [
-                            'birthdate' => $data,
-                        ]
-                    );
-                }
-                if(strlen($password)!=0){
-                    $app['db']->update('user', [
-                            'password' => $password,
-                        ]
-                    );
-                }
-                if(!is_null($perfil)){
-                    $app['db']->update('user', [
-                            'img_path' => $perfil,
-                        ]
-                    );
-                }
 
+                if (strlen($data) != 0) {
+                    //comprovo que es correcte
+                    $comprovacio= new comprovacioRegister();
+                    if($comprovacio->validData($data)){
+                        $sql= "UPDATE user SET user.birthdate = ? WHERE user.id =?";
+                        $info = $app['db']->fetchAssoc( $sql, array ((string) $data,(string) $id));
+                        /*
+                        $qb->update('user')
+                            ->set('user.birthdate', $data)
+                            ->where('user.id = :id')
+                            ->setParameter('id', $id);
+                        $qb->execute();
+                        */
+                    }
+                    else{
+                        $tot_correcte=false;
+                    }
+
+                }
+                if (strlen($password) != 0) {
+                    $comprovacio= new comprovacioRegister();
+                    if($comprovacio->validPassword($password,$confirm)){
+                        $sql= "UPDATE user SET user.password = ? WHERE user.id =?";
+                        $info = $app['db']->fetchAssoc( $sql, array ((string) $password,(string) $id));
+                    }
+                    else{
+                        $tot_correcte=false;
+                    }
+
+                }
+                if (!is_null($perfil)) {
+                    //guardem imatge a carpeta
+                    $filename= 'assets/Pictures/'.$id.'.'.$perfil->getClientOriginalExtension();
+                    $destdir = 'assets/Pictures/';
+                    $perfil->move($destdir,$filename); //guardo imatge perfil a carpeta
+
+                    //substituim a base de dades (original)
+                    $sql= "UPDATE user SET user.img_path = ? WHERE user.id =?";
+                    $info = $app['db']->fetchAssoc( $sql, array ((string) $filename,(string) $id));
+                }
+/*
                 $lastInsertedId = $app['db']->fetchAssoc('SELECT id FROM user ORDER BY id DESC LIMIT 1');
                 $id = $lastInsertedId['id'];
                 //$url = '/home' . $id;
                 $url = '/home';
 
                 return new RedirectResponse($url);
+                */
             } catch (Exception $e) {
                 $response->setStatusCode(Response::HTTP_BAD_REQUEST);
                 $content = $app['twig']->render('main_register.twig', [
@@ -293,8 +361,54 @@ class DatabaseController{
                 $response->setContent($content);
                 return $response;
             }
+
+            while (ob_get_status()) //neteja per poder fer el Header
+            {
+                ob_end_clean();
+            }
+            if(!$tot_correcte){ //si algun dels camps que l'usuari ha posat no els ha posat bé
+                //header("location: /edicio_perfil_error");
+                //obtinc path imatge perfil
+                $info=$this->retornaImatgeNomDataUsuari($app);
+
+
+                $response = new Response();
+                $content = $app['twig']-> render('edicio_perfil.twig',array('path_imatge'=>$info['img_path'],'nom_user'=>$info['username'],'data_naixement'=>$info['birthdate'],'error'=>"Error: Revisa tots els camps")); //mostrem per pantalla la pagina
+
+                $response->setContent($content);
+                return $response;
+            }
+            else{ //si s'ha enviat tot bé
+               // header("location: /home");
+                //obtinc path imatge perfil
+
+                $info=$this->retornaImatgeNomDataUsuari($app);
+
+                $response = new Response();
+                $content = $app['twig']-> render('edicio_perfil.twig',array('path_imatge'=>$info['img_path'],'nom_user'=>$info['username'],'data_naixement'=>$info['birthdate'],'error'=>"")); //mostrem per pantalla la pagina
+
+                $response->setContent($content);
+                return $response;
+            }
+
         }
+        return new Response();
     }
+
+
+    public function retornaImatgeNomDataUsuari(Application $app){
+        $id= $app['session']->get('id');
+          $sql = "SELECT * FROM user WHERE id=? ";
+            $info = $app['db']->fetchAssoc($sql, array((string)$id));
+
+            return $info;
+
+
+
+    }
+
+
+
 
 
 }
