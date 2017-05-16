@@ -182,16 +182,30 @@ class DatabaseController{
                 ]
             ]);
         }
-//        $response->setStatusCode(Response::HTTP_OK);
-//
-//        $response->setContent($content);
+
         return $info;
 
     }
+    public function searchLastUploaded (Application $app){
+        $response = new Response();
+
+        try {
+            $sql= "SELECT * FROM image ORDER BY id DESC LIMIT 5";
+            $info = $app['db']->fetchAll($sql);
 
 
+        }catch (Exception $e) {
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+            $content = $app['twig']->render('home.twig', [
+                'errors' => [
+                    'unexpected' => 'An error has occurred, please try it again later'
+                ]
+            ]);
+        }
 
+        return $info;
 
+    }
 
 
 
@@ -232,7 +246,7 @@ class DatabaseController{
                     );
 
                     $st = $app['db']->prepare("UPDATE user SET username='".$name. "' WHERE id='".$id. "'");
-                    $st->execute(array($username));
+                    $st->execute(array($name));
 
 
                 }

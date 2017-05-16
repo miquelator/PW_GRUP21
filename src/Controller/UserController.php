@@ -70,9 +70,11 @@ class UserController{
         $dbc = new DatabaseController();
         $info = $dbc->searchTopViews($app);
 
+        $info2 = $dbc->searchLastUploaded($app);
+
         $response = new Response();
         $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('home_logged.twig', array('tv0' => $info[0]['img_path'], 'tv1' => $info[1]['img_path'], 'tv2' => $info[2]['img_path'], 'tv3' => $info[3]['img_path'], 'tv4' => $info[4]['img_path']));
+        $content = $app['twig']->render('home_logged.twig', array('tv0' => $info[0]['img_path'], 'tv1' => $info[1]['img_path'], 'tv2' => $info[2]['img_path'], 'tv3' => $info[3]['img_path'], 'tv4' => $info[4]['img_path'], 'lu0' => $info2[0]['img_path'], 'lu1' => $info2[1]['img_path'], 'lu2' => $info2[2]['img_path'], 'lu3' => $info2[3]['img_path'], 'lu4' => $info2[4]['img_path']));
 
         $response->setContent($content);
         return $response;
