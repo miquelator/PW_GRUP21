@@ -24,7 +24,6 @@ $app->get('/login', 'PracticaFinal\\Controller\\UserController::login');
 $app->get('/edicio_perfil', 'PracticaFinal\\Controller\\UserController::edicioPerfil');
 $app->get('/edicio_perfil_error/', 'PracticaFinal\\Controller\\UserController::edicioPerfilError');
 $app->match('/users/edit', 'PracticaFinal\\Controller\\DatabaseController::postEdicioPerfil');
-
 $app->get('','PracticaFinal\Controller\UserController::goHome');
 $app->match('/users/edit', 'PracticaFinal\\Controller\\DatabaseController::postEdicioPerfil');
 $app->match('/users/comprovacio/register', 'PracticaFinal\\Controller\\UserController::comprovaRegister');
