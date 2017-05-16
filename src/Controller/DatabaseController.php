@@ -124,12 +124,6 @@ class DatabaseController{
         $path =  $request->get('path');
         $title = $request->get('title');
         $private = $request->get('private');
-
-
-
-
-
-
         $id = $app['session']->get('id');
 
         $path=htmlentities($path, ENT_QUOTES); //faig que no es pugui fer sql injection
@@ -153,6 +147,14 @@ class DatabaseController{
                 ]
             );
 
+
+            $sql= "SELECT * FROM user WHERE id = ?  ORDER BY id DESC LIMIT 1";
+            $info = $app['db']->fetchAssoc($sql, array ((int) $id));
+            $dbc = new DatabaseController();
+            $info1 = $dbc->searchTopViews($app);
+
+            $info2 = $dbc->searchLastUploaded($app);
+            $content = $app['twig']->render('home_logged.twig',array('name' => $info['username'],'email'=> $info['email'],'image'=>$info['img_path'],'tv0' => $info1[0]['img_path'], 'tv1' => $info1[1]['img_path'], 'tv2' => $info1[2]['img_path'], 'tv3' => $info1[3]['img_path'], 'tv4' => $info1[4]['img_path'], 'lu0' => $info2[0]['img_path'], 'lu1' => $info2[1]['img_path'], 'lu2' => $info2[2]['img_path'], 'lu3' => $info2[3]['img_path'], 'lu4' => $info2[4]['img_path']));
                 $content = $app['twig']->render('home_logged.twig');
 
 
