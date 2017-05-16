@@ -172,16 +172,6 @@ class DatabaseController{
         try {
             $sql= "SELECT * FROM image WHERE (private = 0) ORDER BY visits DESC LIMIT 5";
             $info = $app['db']->fetchAll($sql);
-            $tv0 = $info[0]['img_path'];
-            $tv1 = $info[1]['img_path'];
-
-            $tv2 = $info[2]['img_path'];
-            $tv3 = $info[3]['img_path'];
-            $tv4 = $info[4]['img_path'];
-            echo($tv4);
-
-            $content = $app['twig']->render('home_logged.twig', array('tv0' => $tv4, 'tv1' => $tv4));
-           // var_dump($info);
 
 
         }catch (Exception $e) {
@@ -192,10 +182,10 @@ class DatabaseController{
                 ]
             ]);
         }
-        $response->setStatusCode(Response::HTTP_OK);
-
-        $response->setContent($content);
-        return $response;
+//        $response->setStatusCode(Response::HTTP_OK);
+//
+//        $response->setContent($content);
+        return $info;
 
     }
 

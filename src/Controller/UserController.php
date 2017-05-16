@@ -67,15 +67,12 @@ class UserController{
     }
     public function goHomeLogged(Application $app)
     {
+        $dbc = new DatabaseController();
+        $info = $dbc->searchTopViews($app);
 
         $response = new Response();
-
         $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('home_logged.twig');
-
-
-        $dbc = new DatabaseController();
-        $dbc->searchTopViews($app);
+        $content = $app['twig']->render('home_logged.twig', array('tv0' => $info[0]['img_path'], 'tv1' => $info[1]['img_path'], 'tv2' => $info[2]['img_path'], 'tv3' => $info[3]['img_path'], 'tv4' => $info[4]['img_path']));
 
         $response->setContent($content);
         return $response;
