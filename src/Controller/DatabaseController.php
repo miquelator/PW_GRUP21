@@ -120,16 +120,38 @@ class DatabaseController{
     }
 
     public function dataPhoto (Application $app, Request $request){ //es crida a partir del login
+        $dbc = new DatabaseController();
+        $info = $dbc->searchTopViews($app);
+
+        $info2 = $dbc->searchLastUploaded($app);
+
+        for ($i = 0; $i < 5; $i++) {
+
+            $tv[$i] = $info[$i]['img_path'];
+            $lu[$i] = $info2[$i]['img_path'];
+
+            $titles1[$i] = $info[$i]['title'];
+            $titles2[$i] = $info2[$i]['title'];
+
+            $data1 = substr($info[$i]['created_at'], 0, 10);
+            $data2 = substr($info2[$i]['created_at'], 0, 10);
+
+            $dates1[$i] = $data1;
+            $dates2[$i] = $data2;
+
+            $likes1[$i] = $info[$i]['likes'];
+            $likes2[$i] = $info2[$i]['likes'];
+
+            $views1[$i] = $info[$i]['visits'];
+
+        }
+
+
         $response = new Response();
         $foto =  $request->files->get('imgInp');
         $path =  $request->get('path');
         $title = $request->get('title');
         $private = $request->get('private');
-
-
-
-
-
 
         $id = $app['session']->get('id');
 
@@ -154,7 +176,7 @@ class DatabaseController{
                 ]
             );
 
-                $content = $app['twig']->render('home_logged.twig');
+                $content = $app['twig']->render('home_logged.twig', array('tv' => $tv, 'lu' => $lu, 't1' => $titles1, 't2' => $titles2,'d1' => $dates1, 'd2' => $dates2, 'l1' => $likes1, 'l2' => $likes2, 'v1' => $views1));
 
 
 
