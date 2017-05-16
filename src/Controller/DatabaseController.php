@@ -86,12 +86,18 @@ class DatabaseController{
             $sql= "SELECT * FROM user WHERE (username = ? or email = ?) and password = ?  ORDER BY id DESC LIMIT 1";
             $info = $app['db']->fetchAssoc($sql, array ((string) $name,(string) $name,(string)$password));
 
+            $dbc = new DatabaseController();
+            $info1 = $dbc->searchTopViews($app);
+
+            $info2 = $dbc->searchLastUploaded($app);
+
             if ($info==false){
 
-                $content = $app['twig']->render('home.twig');
+                $content = $app['twig']->render('home_logged.twig');
             }
             else{
-                $content = $app['twig']->render('home_logged.twig',array('name' => $info['username'],'email'=> $info['email'],'image'=>$info['img_path']));
+
+                $content = $app['twig']->render('home_logged.twig',array('name' => $info['username'],'email'=> $info['email'],'image'=>$info['img_path'],'tv0' => $info1[0]['img_path'], 'tv1' => $info1[1]['img_path'], 'tv2' => $info1[2]['img_path'], 'tv3' => $info1[3]['img_path'], 'tv4' => $info1[4]['img_path'], 'lu0' => $info2[0]['img_path'], 'lu1' => $info2[1]['img_path'], 'lu2' => $info2[2]['img_path'], 'lu3' => $info2[3]['img_path'], 'lu4' => $info2[4]['img_path']));
                 $classeBaseController=new BaseController(); //Creo classe per cridar metode
                 $classeBaseController->creaSession($app, $info['id']); //crido metode
 

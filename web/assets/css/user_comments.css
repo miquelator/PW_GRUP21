@@ -22,7 +22,12 @@
 }
 
 div{
-  padding-bottom: 78%;
+    border-bottom: 10px;
+
+}
+.col-md-4{
+    width: 70%;
+
 }
 
 p.narrow{
