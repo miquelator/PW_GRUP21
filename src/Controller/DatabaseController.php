@@ -126,13 +126,14 @@ class DatabaseController{
 
             }
 
+
             if ($info==false){
 
-                $content = $app['twig']->render('home_logged.twig');
+                $content = $app['twig']->render('login.twig');
             }
             else{
 
-                $content = $app['twig']->render('home_logged.twig',array('name' => $info['username'],'email'=> $info['email'],'image'=>$info['img_path'],'tv' => $tv, 'lu' => $lu, 't1' => $titles1, 't2' => $titles2,'d1' => $dates1, 'd2' => $dates2, 'l1' => $likes1, 'l2' => $likes2, 'v1' => $views1));
+                $content = $app['twig']->render('home_logged.twig',array('name' => $info['username'],'email'=> $info['email'],'image'=>$info['img_path'],'info1' => $info1, 'info2' => $info2));
                 $classeBaseController=new BaseController(); //Creo classe per cridar metode
                 $classeBaseController->creaSession($app, $info['id']); //crido metode
 
@@ -202,7 +203,7 @@ class DatabaseController{
 
         $path=htmlentities($path, ENT_QUOTES); //faig que no es pugui fer sql injection
         $title=htmlentities($title, ENT_QUOTES);
-        $filename= 'assets/Pictures/No_Perfil'.'.'.$path;
+        $filename= 'assets/Pictures/No_Perfil'.'/'.$path;
         $destdir = 'assets/Pictures/No_Perfil';
         $foto->move($destdir,$filename);
         $date = date('Y/m/d h:i:s', time());
@@ -221,8 +222,7 @@ class DatabaseController{
                 ]
             );
 
-                $content = $app['twig']->render('home_logged.twig', array('tv' => $tv, 'lu' => $lu, 't1' => $titles1, 't2' => $titles2,'d1' => $dates1, 'd2' => $dates2, 'l1' => $likes1, 'l2' => $likes2, 'v1' => $views1));
-
+            $content = $app['twig']->render('home_logged.twig',array('name' => $info['username'],'email'=> $info['email'],'image'=>$info['img_path'],'info1' => $info1, 'info2' => $info2));
 
 
         }catch (Exception $e) {

@@ -15,6 +15,10 @@
 	{#<a href="/login" class="btn btn-default">Afegir Foto</a>#}
 	<a href="/user_comments" class="btn btn-warning">Comment List</a>
 	<a href="/edicio_perfil" class="btn btn-success">Edit Profile</a>
+	<div class="pull-right">
+		<a href="/logout" class="btn btn-danger">Logout</a>
+
+	</div>
 
 	{#<a href="/mostViewed" class="btn btn-primary">GetMostViewed</a>#}
 	<h1> FALTA CAMPS USER,LAST COMMENT I QUE ES PUGUI COMENTAR </h1>
@@ -46,54 +50,19 @@
 
 			<div class="tab-content">
 				<div class="tab-pane fade in active" id="most_viewed">
+					{% for img in info1 %}
+
 					<div class="row">
 
-						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
 
-							<img src="{{ tv[0] }}"
+						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+							<img src=" {{ img.img_path}} "
 								 class="img-responsive">
-							<h4>{{ t1[0] }}</h4>
+							<h4>{{ img.title }}</h4>
 							<h4>User</h4>
-							<h4>{{ d1[0] }}</h4>
-							<h4>{{ l1[0] }} Likes</h4>
-							<h4>{{ v1[0] }} Visites</h4>
-							<form id=formulari enctype="multipart/form-data" name="formulari" class="form-horizontal" method="POST" action="/home_log/comment">
-
-								<div class="form-group">
-									<label for="comment">Comment:</label>
-									<textarea class="form-control" rows="5" id="comment"></textarea>
-								</div>
-								<i class="fa fa-heart"></i>
-								<a href="/home_log/comment" class="btn btn-success">Comment</a>
-
-							</form>
-							<button type="button" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-heart"></i></button><i class="fa fa-heart"></i>
-						</div><!--col-md-4 col-sm-6 col-xs-6-->
-
-
-						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-							<img src="{{ tv[1] }}"
-								 class="img-responsive">
-                            <h4>{{ t1[1] }}</h4>
-                            <h4>User</h4>
-                            <h4>{{ d1[1] }}</h4>
-                            <h4>{{ l1[1] }} Likes</h4>
-                            <h4>{{ v1[1] }} Visites</h4>
-							<div class="form-group">
-								<label for="comment">Comment:</label>
-								<textarea class="form-control" rows="5" id="comment"></textarea>
-							</div>
-							<a href="/home_log" class="btn btn-success">Comment</a>
-						</div><!--col-md-4 col-sm-6 col-xs-6-->
-
-						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-							<img src="{{ tv[2] }}"
-								 class="img-responsive">
-                            <h4>{{ t1[2] }}</h4>
-                            <h4>User</h4>
-                            <h4>{{ d1[2] }}</h4>
-                            <h4>{{ l1[2] }} Likes</h4>
-                            <h4>{{ v1[2] }} Visites</h4>
+							<h4>{{ img.created_at }}</h4>
+							<h4>{{ img.likes }} Likes</h4>
+							<h4>{{ img.visits }} Visites</h4>
 							<div class="form-group">
 								<label for="comment">Comment:</label>
 								<textarea class="form-control" rows="5" id="comment"></textarea>
@@ -102,163 +71,80 @@
 						</div><!--col-md-4 col-sm-6 col-xs-6-->
 
 
-						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
 
-							<img src="{{ tv[3] }}"
-								 class="img-responsive">
-                            <h4>{{ t1[3] }}</h4>
-                            <h4>User</h4>
-                            <h4>{{ d1[3] }}</h4>
-                            <h4>{{ l1[3] }} Likes</h4>
-                            <h4>{{ v1[3] }} Visites</h4>
-							<div class="form-group">
-								<label for="comment">Comment:</label>
-								<textarea class="form-control" rows="5" id="comment"></textarea>
-							</div>
-							<a href="/home_log" class="btn btn-success">Comment</a>
-
-						</div><!--col-md-4 col-sm-6 col-xs-6-->
-
-						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-							<img src="{{ tv[4] }}"
-								 class="img-responsive">
-                            <h4>{{ t1[4] }}</h4>
-                            <h4>User</h4>
-                            <h4>{{ d1[4] }}</h4>
-                            <h4>{{ l1[4] }} Likes</h4>
-                            <h4>{{ v1[4] }} Visites</h4>
-							<div class="form-group">
-								<label for="comment">Comment:</label>
-								<textarea class="form-control" rows="5" id="comment"></textarea>
-							</div>
-							<a href="/home_log" class="btn btn-success">Comment</a>
-						</div><!--col-md-4 col-sm-6 col-xs-12-->
+						<!--
 
 
 					</div><!--row-->
 
-				</div><!----most_viewed-->
+						{% endfor %}
+
+					</div><!----most_viewed-->
 
 
 				<div class="tab-pane fade" id="last_uploaded">
 
-					<div class="row">
-						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+					{% for img in info2 %}
 
-							<img src="{{ lu[0] }}"
-								 class="img-responsive">
-                            <h4>{{ t2[0] }}</h4>
-                            <h4>User</h4>
-                            <h4>{{ d2[0] }}</h4>
-                            <h4>{{ l2[0] }} Likes</h4>
-							<h4>Last Comment</h4>
-							<div class="form-group">
-								<label for="comment">Comment:</label>
-								<textarea class="form-control" rows="5" id="comment"></textarea>
-							</div>
-							<a href="/home_log" class="btn btn-success">Comment</a>
-						</div><!--col-md-4 col-sm-6 col-xs-6-->
+						<div class="row">
 
-						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-							<img src="{{ lu[1] }}"
-								 class="img-responsive">
-                            <h4>{{ t2[1] }}</h4>
-                            <h4>User</h4>
-                            <h4>{{ d2[1] }}</h4>
-                            <h4>{{ l2[1] }} Likes</h4>
-							<h4>Last Comment</h4>
-							<div class="form-group">
-								<label for="comment">Comment:</label>
-								<textarea class="form-control" rows="5" id="comment"></textarea>
-							</div>
-							<a href="/home_log" class="btn btn-success">Comment</a>
-						</div><!--col-md-4 col-sm-6 col-xs-6-->
 
-						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-							<img src="{{ lu[2] }}"
-								 class="img-responsive">
-                            <h4>{{ t2[2] }}</h4>
-                            <h4>User</h4>
-                            <h4>{{ d2[2] }}</h4>
-                            <h4>{{ l2[2] }} Likes</h4>
-							<h4>Last Comment</h4>
-							<div class="form-group">
-								<label for="comment">Comment:</label>
-								<textarea class="form-control" rows="5" id="comment"></textarea>
-							</div>
-							<a href="/home_log" class="btn btn-success">Comment</a>
-						</div><!--col-md-4 col-sm-6 col-xs-6-->
+								<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+									<img src=" {{ img.img_path}} "
+										 class="img-responsive">
+									<h4>{{ img.title }}</h4>
+									<h4>User</h4>
+									<h4>{{ img.created_at }}</h4>
+									<h4>{{ img.likes }} Likes</h4>
+									<h4>Last Comment</h4>
+									<div class="form-group">
+										<label for="comment">Comment:</label>
+										<textarea class="form-control" rows="5" id="comment"></textarea>
+									</div>
+									<a href="/home_log" class="btn btn-success">Comment</a>
+								</div><!--col-md-4 col-sm-6 col-xs-6-->
 
-						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
 
-							<img src="{{ lu[3] }}"
-								 class="img-responsive">
-                            <h4>{{ t2[3] }}</h4>
-                            <h4>User</h4>
-                            <h4>{{ d2[3] }}</h4>
-                            <h4>{{ l2[3] }} Likes</h4>
-							<h4>Last Comment</h4>
-							<div class="form-group">
-								<label for="comment">Comment:</label>
-								<textarea class="form-control" rows="5" id="comment"></textarea>
-							</div>
-							<a href="/home_log" class="btn btn-success">Comment</a>
 
-						</div><!--col-md-4 col-sm-6 col-xs-6-->
+						<!--
 
-						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-							<img src="{{ lu[4] }}"
-								 class="img-responsive">
-                            <h4>{{ t2[4] }}</h4>
-                            <h4>User</h4>
-                            <h4>{{ d2[4] }}</h4>
-                            <h4>{{ l2[4] }} Likes</h4>
-							<h4>Last Comment</h4>
-							<div class="form-group">
-								<label for="comment">Comment:</label>
-								<textarea class="form-control" rows="5" id="comment"></textarea>
-							</div>
-							<a href="/home_log" class="btn btn-success">Comment</a>
-						</div><!--col-md-4 col-sm-6 col-xs-6-->
 
 					</div><!--row-->
 
+					{% endfor %}
 
 				</div><!----last_uploaded-->
 				<div class="tab-pane fade" id="fashion">
 
 
+					{% for img in info2 %}
+
 					<div class="row">
-						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
 
-							<img src="http://lorempixel.com/500/500/fashion/1/"
-								 class="img-responsive">
-
-
-						</div><!--col-md-4 col-sm-6 col-xs-6-->
 
 						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-							<img src="http://lorempixel.com/500/500/fashion/7/"
+							<img src=" {{ img.img_path}} "
 								 class="img-responsive">
+							<h4>{{ img.title }}</h4>
+							<h4>User</h4>
+							<h4>{{ img.created_at }}</h4>
+							<h4>{{ img.likes }} Likes</h4>
+							<h4>Last Comment</h4>
+							<div class="form-group">
+								<label for="comment">Comment:</label>
+								<textarea class="form-control" rows="5" id="comment"></textarea>
+							</div>
+							<a href="/home_log" class="btn btn-success">Comment</a>
 						</div><!--col-md-4 col-sm-6 col-xs-6-->
 
-						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-							<img src="http://lorempixel.com/500/500/fashion/8/"
-								 class="img-responsive">
-						</div><!--col-md-4 col-sm-6 col-xs-6-->
 
-						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
 
-							<img src="http://lorempixel.com/500/500/fashion/4/"
-								 class="img-responsive">
+						<!--
 
-						</div><!--col-md-4 col-sm-6 col-xs-6-->
 
-						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-							<img src="http://lorempixel.com/500/500/fashion/5/"
-								 class="img-responsive">
-						</div><!--col-md-4 col-sm-6 col-xs-6-->
+					</div><!--row-->
 
+						{% endfor %}
 
 					</div><!--row-->
 
