@@ -50,10 +50,10 @@
 
 			<div class="tab-content">
 				<div class="tab-pane fade in active" id="most_viewed">
-					{% for img in info1 %}
+
 
 					<div class="row">
-
+                        {% for img in info1 %}
 
 						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
 							<img src=" {{ img.img_path}} "
@@ -70,24 +70,20 @@
 							<a href="/home_log" class="btn btn-success">Comment</a>
 						</div><!--col-md-4 col-sm-6 col-xs-6-->
 
-
-
-						<!--
-
-
+                        {% endfor %}
 					</div><!--row-->
 
-						{% endfor %}
+
 
 					</div><!----most_viewed-->
 
 
 				<div class="tab-pane fade" id="last_uploaded">
 
-					{% for img in info2 %}
+
 
 						<div class="row">
-
+                            {% for img in info2 %}
 
 								<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
 									<img src=" {{ img.img_path}} "
@@ -106,12 +102,12 @@
 
 
 
-						<!--
+                            {% endfor %}
 
 
 					</div><!--row-->
 
-					{% endfor %}
+
 
 				</div><!----last_uploaded-->
 				<div class="tab-pane fade" id="fashion">
