@@ -14,6 +14,7 @@ $before=function(Request $request, Application $app){ //si es crida, fa que s'ac
 $app->get('/users/get/{id}','PracticaFinal\Controller\UserController::getAction');
 $app->get('/home','PracticaFinal\Controller\UserController::goHome');
 $app->get('/home_log','PracticaFinal\Controller\UserController::goHomeLogged');
+$app->get('/home_log/comment','PracticaFinal\Controller\UserController::comment');
 $app->get('/user_comments','PracticaFinal\Controller\UserController::userComments');
 //$app->match('/users/add','PracticaFinal\Controller\DatabaseController::postAction');
 $app->get('/register/', 'PracticaFinal\\Controller\\UserController::register');

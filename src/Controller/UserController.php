@@ -141,6 +141,45 @@ class UserController{
         $response->setContent($content);
         return $response;
     }
+    public function comment(Application $app){
+
+        $dbc = new DatabaseController();
+        $info = $dbc->searchTopViews($app);
+
+        $info2 = $dbc->searchLastUploaded($app);
+        //var_dump($app['session']->get('id'));
+        $dbc->uploadComment($app);
+
+        for ($i = 0; $i < 5; $i++) {
+
+            $tv[$i] = $info[$i]['img_path'];
+            $lu[$i] = $info2[$i]['img_path'];
+
+            $titles1[$i] = $info[$i]['title'];
+            $titles2[$i] = $info2[$i]['title'];
+
+
+            $data1 = substr($info[$i]['created_at'], 0, 10);
+            $data2 = substr($info2[$i]['created_at'], 0, 10);
+
+            $dates1[$i] = $data1;
+            $dates2[$i] = $data2;
+
+            $likes1[$i] = $info[$i]['likes'];
+            $likes2[$i] = $info2[$i]['likes'];
+
+            $views1[$i] = $info[$i]['visits'];
+
+        }
+
+        $response = new Response();
+        $response->setStatusCode(Response::HTTP_OK);
+        // $content = $app['twig']->render('home_logged.twig', array('tv0' => $info[0]['img_path'], 'tv1' => $info[1]['img_path'], 'tv2' => $info[2]['img_path'], 'tv3' => $info[3]['img_path'], 'tv4' => $info[4]['img_path'], 'lu0' => $info2[0]['img_path'], 'lu1' => $info2[1]['img_path'], 'lu2' => $info2[2]['img_path'], 'lu3' => $info2[3]['img_path'], 'lu4' => $info2[4]['img_path'],));
+        $content = $app['twig']->render('home_logged.twig', array('tv' => $tv, 'lu' => $lu, 't1' => $titles1, 't2' => $titles2,'d1' => $dates1, 'd2' => $dates2, 'l1' => $likes1, 'l2' => $likes2, 'v1' => $views1));
+
+        $response->setContent($content);
+        return $response;
+    }
     public function userComments(Application $app)
     {
 
@@ -194,6 +233,7 @@ class UserController{
         $response->setContent($content);
         return $response;
     }
+
 
     public function registerError(Application $app){ //envio amb un missatge d'error
 

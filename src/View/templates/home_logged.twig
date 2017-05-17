@@ -57,13 +57,16 @@
 							<h4>{{ d1[0] }}</h4>
 							<h4>{{ l1[0] }} Likes</h4>
 							<h4>{{ v1[0] }} Visites</h4>
+							<form id=formulari enctype="multipart/form-data" name="formulari" class="form-horizontal" method="POST" action="/home_log/comment">
 
-							<div class="form-group">
-								<label for="comment">Comment:</label>
-								<textarea class="form-control" rows="5" id="comment"></textarea>
-							</div>
-							<i class="fa fa-heart"></i>
-							<a href="/home_log" class="btn btn-success">Comment</a>
+								<div class="form-group">
+									<label for="comment">Comment:</label>
+									<textarea class="form-control" rows="5" id="comment"></textarea>
+								</div>
+								<i class="fa fa-heart"></i>
+								<a href="/home_log/comment" class="btn btn-success">Comment</a>
+
+							</form>
 							<button type="button" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-heart"></i></button><i class="fa fa-heart"></i>
 						</div><!--col-md-4 col-sm-6 col-xs-6-->
 

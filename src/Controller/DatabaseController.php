@@ -87,10 +87,35 @@ class DatabaseController{
             $sql= "SELECT * FROM user WHERE (username = ? or email = ?) and password = ?  ORDER BY id DESC LIMIT 1";
             $info = $app['db']->fetchAssoc($sql, array ((string) $name,(string) $name,(string)$password));
 
+
             $dbc = new DatabaseController();
             $info1 = $dbc->searchTopViews($app);
 
             $info2 = $dbc->searchLastUploaded($app);
+
+
+
+            for ($i = 0; $i < 5; $i++) {
+
+                $tv[$i] = $info1[$i]['img_path'];
+                $lu[$i] = $info2[$i]['img_path'];
+
+                $titles1[$i] = $info1[$i]['title'];
+                $titles2[$i] = $info2[$i]['title'];
+
+
+                $data1 = substr($info1[$i]['created_at'], 0, 10);
+                $data2 = substr($info2[$i]['created_at'], 0, 10);
+
+                $dates1[$i] = $data1;
+                $dates2[$i] = $data2;
+
+                $likes1[$i] = $info1[$i]['likes'];
+                $likes2[$i] = $info2[$i]['likes'];
+
+                $views1[$i] = $info1[$i]['visits'];
+
+            }
 
             if ($info==false){
 
@@ -98,7 +123,7 @@ class DatabaseController{
             }
             else{
 
-                $content = $app['twig']->render('home_logged.twig',array('name' => $info['username'],'email'=> $info['email'],'image'=>$info['img_path'],'tv0' => $info1[0]['img_path'], 'tv1' => $info1[1]['img_path'], 'tv2' => $info1[2]['img_path'], 'tv3' => $info1[3]['img_path'], 'tv4' => $info1[4]['img_path'], 'lu0' => $info2[0]['img_path'], 'lu1' => $info2[1]['img_path'], 'lu2' => $info2[2]['img_path'], 'lu3' => $info2[3]['img_path'], 'lu4' => $info2[4]['img_path']));
+                $content = $app['twig']->render('home_logged.twig',array('name' => $info['username'],'email'=> $info['email'],'image'=>$info['img_path'],'tv' => $tv, 'lu' => $lu, 't1' => $titles1, 't2' => $titles2,'d1' => $dates1, 'd2' => $dates2, 'l1' => $likes1, 'l2' => $likes2, 'v1' => $views1));
                 $classeBaseController=new BaseController(); //Creo classe per cridar metode
                 $classeBaseController->creaSession($app, $info['id']); //crido metode
 
@@ -261,6 +286,38 @@ class DatabaseController{
         return $info;
 
     }
+
+    public function uploadComment (Application $app){
+        $response = new Response();
+        $id = $app['session']->get('id');
+        try {
+            $app['db']->insert('comentaris', [
+                    'id_user' => $id,
+                    'id_imatge' => 9,
+                    'comentari'=> "Comment1",
+
+                ]
+            );
+
+            $url = '/home_log';
+
+            return new RedirectResponse($url);
+
+        } catch (Exception $e) {
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+            $content = $app['twig']->render('main_register.twig', [
+                'errors' => [
+                    'unexpected' => 'An error has occurred, please try it again later'
+                ]
+            ]);
+            $response->setContent($content);
+            return $response;
+        }
+        return $info;
+
+    }
+
+
 
 
 
