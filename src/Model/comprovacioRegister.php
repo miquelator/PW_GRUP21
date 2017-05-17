@@ -63,7 +63,7 @@ class comprovacioRegister
 
         function validName($name)
         {
-            if ($name !== '' && ctype_alnum($name)) {//comprovo alfanumerics
+            if ($name !== ' ' && ctype_alnum($name)) {//comprovo alfanumerics
                 return true;
             } else {
                 echo "Nom fallat.  ";

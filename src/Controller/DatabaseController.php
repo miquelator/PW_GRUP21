@@ -95,35 +95,47 @@ class DatabaseController{
 
 
 
-            for ($i = 0; $i < 5; $i++) {
+            for ($i = 0; $i < count($info1); $i++) {
 
                 $tv[$i] = $info1[$i]['img_path'];
-                $lu[$i] = $info2[$i]['img_path'];
 
                 $titles1[$i] = $info1[$i]['title'];
-                $titles2[$i] = $info2[$i]['title'];
-
 
                 $data1 = substr($info1[$i]['created_at'], 0, 10);
-                $data2 = substr($info2[$i]['created_at'], 0, 10);
 
                 $dates1[$i] = $data1;
-                $dates2[$i] = $data2;
 
                 $likes1[$i] = $info1[$i]['likes'];
-                $likes2[$i] = $info2[$i]['likes'];
 
                 $views1[$i] = $info1[$i]['visits'];
 
             }
 
+            for ($i = 0; $i < count($info2); $i++) {
+
+                $lu[$i] = $info2[$i]['img_path'];
+
+                $titles2[$i] = $info2[$i]['title'];
+
+                $data2 = substr($info2[$i]['created_at'], 0, 10);
+
+                $dates2[$i] = $data2;
+
+                $likes2[$i] = $info2[$i]['likes'];
+
+
+            }
+
+
             if ($info==false){
+
+                $content = $app['twig']->render('login.twig');
                 //si no ha pogut entrar
                 $content = $app['twig']->render('login.twig',array('error'=>"Usuari o contrasenya erronis"));
             }
             else{
 
-                $content = $app['twig']->render('home_logged.twig',array('name' => $info['username'],'email'=> $info['email'],'image'=>$info['img_path'],'tv' => $tv, 'lu' => $lu, 't1' => $titles1, 't2' => $titles2,'d1' => $dates1, 'd2' => $dates2, 'l1' => $likes1, 'l2' => $likes2, 'v1' => $views1));
+                $content = $app['twig']->render('home_logged.twig',array('name' => $info['username'],'email'=> $info['email'],'image'=>$info['img_path'],'info1' => $info1, 'info2' => $info2));
                 $classeBaseController=new BaseController(); //Creo classe per cridar metode
                 $classeBaseController->creaSession($app, $info['id']); //crido metode
 
@@ -146,28 +158,39 @@ class DatabaseController{
 
     public function dataPhoto (Application $app, Request $request){ //es crida a partir del login
         $dbc = new DatabaseController();
-        $info = $dbc->searchTopViews($app);
+        $info1 = $dbc->searchTopViews($app);
 
         $info2 = $dbc->searchLastUploaded($app);
 
-        for ($i = 0; $i < 5; $i++) {
 
-            $tv[$i] = $info[$i]['img_path'];
-            $lu[$i] = $info2[$i]['img_path'];
+        for ($i = 0; $i < count($info1); $i++) {
 
-            $titles1[$i] = $info[$i]['title'];
-            $titles2[$i] = $info2[$i]['title'];
+            $tv[$i] = $info1[$i]['img_path'];
 
-            $data1 = substr($info[$i]['created_at'], 0, 10);
-            $data2 = substr($info2[$i]['created_at'], 0, 10);
+            $titles1[$i] = $info1[$i]['title'];
+
+            $data1 = substr($info1[$i]['created_at'], 0, 10);
 
             $dates1[$i] = $data1;
+
+            $likes1[$i] = $info1[$i]['likes'];
+
+            $views1[$i] = $info1[$i]['visits'];
+
+        }
+
+        for ($i = 0; $i < count($info2); $i++) {
+
+            $lu[$i] = $info2[$i]['img_path'];
+
+            $titles2[$i] = $info2[$i]['title'];
+
+            $data2 = substr($info2[$i]['created_at'], 0, 10);
+
             $dates2[$i] = $data2;
 
-            $likes1[$i] = $info[$i]['likes'];
             $likes2[$i] = $info2[$i]['likes'];
 
-            $views1[$i] = $info[$i]['visits'];
 
         }
 
@@ -182,7 +205,7 @@ class DatabaseController{
 
         $path=htmlentities($path, ENT_QUOTES); //faig que no es pugui fer sql injection
         $title=htmlentities($title, ENT_QUOTES);
-        $filename= 'assets/Pictures/No_Perfil'.'.'.$path;
+        $filename= 'assets/Pictures/No_Perfil'.'/'.$path;
         $destdir = 'assets/Pictures/No_Perfil';
         $foto->move($destdir,$filename);
         $date = date('Y/m/d h:i:s', time());
@@ -201,8 +224,7 @@ class DatabaseController{
                 ]
             );
 
-                $content = $app['twig']->render('home_logged.twig', array('tv' => $tv, 'lu' => $lu, 't1' => $titles1, 't2' => $titles2,'d1' => $dates1, 'd2' => $dates2, 'l1' => $likes1, 'l2' => $likes2, 'v1' => $views1));
-
+            $content = $app['twig']->render('home_logged.twig',array('name' => $info['username'],'email'=> $info['email'],'image'=>$info['img_path'],'info1' => $info1, 'info2' => $info2));
 
 
         }catch (Exception $e) {
