@@ -28,7 +28,7 @@ $app->match('/users/edit', 'PracticaFinal\\Controller\\DatabaseController::postE
 $app->match('/users/comprovacio/register', 'PracticaFinal\\Controller\\UserController::comprovaRegister');
 $app->get('/searchUser', 'PracticaFinal\\Controller\\DatabaseController::searchUser');
 $app->get('/upload', 'PracticaFinal\\Controller\\UserController::uploadPhoto');
-
+$app->get('/logout', 'PracticaFinal\\Controller\\BaseController::tancaSession');
 $app->match('/dataPhoto', 'PracticaFinal\\Controller\\DatabaseController::dataPhoto');
 
 
