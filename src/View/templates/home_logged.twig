@@ -15,7 +15,11 @@
 	{#<a href="/login" class="btn btn-default">Afegir Foto</a>#}
 	<a href="/user_comments" class="btn btn-warning">Comment List</a>
 	<a href="/edicio_perfil" class="btn btn-success">Edit Profile</a>
+	<div class="pull-right">
+		<a href="/logout" class="btn btn-danger">Logout</a>
 
+	</div>
+<!---vgvvvvvvv!-->
 	{#<a href="/mostViewed" class="btn btn-primary">GetMostViewed</a>#}
 	<h1> FALTA CAMPS USER,LAST COMMENT I QUE ES PUGUI COMENTAR </h1>
 	<section>
@@ -46,6 +50,7 @@
 
 			<div class="tab-content">
 				<div class="tab-pane fade in active" id="most_viewed">
+					{% for img in info1 %}
 
 					<div class="row">
 						{% for img in info1 %}
