@@ -19,7 +19,7 @@
 		<a href="/logout" class="btn btn-danger">Logout</a>
 
 	</div>
-<!---vgvvvvvvv!-->
+
 	{#<a href="/mostViewed" class="btn btn-primary">GetMostViewed</a>#}
 	<h1> FALTA CAMPS USER,LAST COMMENT I QUE ES PUGUI COMENTAR </h1>
 	<section>
@@ -53,7 +53,8 @@
 					{% for img in info1 %}
 
 					<div class="row">
-						{% for img in info1 %}
+
+
 						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
 							<img src=" {{ img.img_path}} "
 								 class="img-responsive">
@@ -67,14 +68,54 @@
 								<textarea class="form-control" rows="5" id="comment"></textarea>
 							</div>
 							<a href="/home_log" class="btn btn-success">Comment</a>
-							<input type="submit" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-heart"></i><i class="fa fa-heart"></i>
 						</div><!--col-md-4 col-sm-6 col-xs-6-->
+
+
+
+						<!--
+
+
+					</div><!--row-->
+
 						{% endfor %}
-					</div>
-				</div><!----most_viewed-->
+
+					</div><!----most_viewed-->
 
 
 				<div class="tab-pane fade" id="last_uploaded">
+
+					{% for img in info2 %}
+
+						<div class="row">
+
+
+								<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+									<img src=" {{ img.img_path}} "
+										 class="img-responsive">
+									<h4>{{ img.title }}</h4>
+									<h4>User</h4>
+									<h4>{{ img.created_at }}</h4>
+									<h4>{{ img.likes }} Likes</h4>
+									<h4>Last Comment</h4>
+									<div class="form-group">
+										<label for="comment">Comment:</label>
+										<textarea class="form-control" rows="5" id="comment"></textarea>
+									</div>
+									<a href="/home_log" class="btn btn-success">Comment</a>
+								</div><!--col-md-4 col-sm-6 col-xs-6-->
+
+
+
+						<!--
+
+
+					</div><!--row-->
+
+					{% endfor %}
+
+				</div><!----last_uploaded-->
+				<div class="tab-pane fade" id="fashion">
+
 
 					{% for img in info2 %}
 
@@ -94,14 +135,22 @@
 								<textarea class="form-control" rows="5" id="comment"></textarea>
 							</div>
 							<a href="/home_log" class="btn btn-success">Comment</a>
-							<input type="submit" class="btn btn-danger btn-circle btn-lg"><i class="glyphicon glyphicon-heart"></i>
 						</div><!--col-md-4 col-sm-6 col-xs-6-->
 
 
-						{% endfor %}
-					</div>
 
-				</div><!----last_uploaded-->
+						<!--
+
+
+					</div><!--row-->
+
+						{% endfor %}
+
+					</div><!--row-->
+
+				</div><!--three-->
+
+
 
 			</div>
 
