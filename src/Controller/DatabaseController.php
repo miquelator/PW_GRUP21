@@ -95,25 +95,34 @@ class DatabaseController{
 
 
 
-            for ($i = 0; $i < 5; $i++) {
+            for ($i = 0; $i < count($info1); $i++) {
 
                 $tv[$i] = $info1[$i]['img_path'];
-                $lu[$i] = $info2[$i]['img_path'];
 
                 $titles1[$i] = $info1[$i]['title'];
-                $titles2[$i] = $info2[$i]['title'];
-
 
                 $data1 = substr($info1[$i]['created_at'], 0, 10);
-                $data2 = substr($info2[$i]['created_at'], 0, 10);
 
                 $dates1[$i] = $data1;
-                $dates2[$i] = $data2;
 
                 $likes1[$i] = $info1[$i]['likes'];
-                $likes2[$i] = $info2[$i]['likes'];
 
                 $views1[$i] = $info1[$i]['visits'];
+
+            }
+
+            for ($i = 0; $i < count($info2); $i++) {
+
+                $lu[$i] = $info2[$i]['img_path'];
+
+                $titles2[$i] = $info2[$i]['title'];
+
+                $data2 = substr($info2[$i]['created_at'], 0, 10);
+
+                $dates2[$i] = $data2;
+
+                $likes2[$i] = $info2[$i]['likes'];
+
 
             }
 
@@ -146,28 +155,39 @@ class DatabaseController{
 
     public function dataPhoto (Application $app, Request $request){ //es crida a partir del login
         $dbc = new DatabaseController();
-        $info = $dbc->searchTopViews($app);
+        $info1 = $dbc->searchTopViews($app);
 
         $info2 = $dbc->searchLastUploaded($app);
 
-        for ($i = 0; $i < 5; $i++) {
 
-            $tv[$i] = $info[$i]['img_path'];
-            $lu[$i] = $info2[$i]['img_path'];
+        for ($i = 0; $i < count($info1); $i++) {
 
-            $titles1[$i] = $info[$i]['title'];
-            $titles2[$i] = $info2[$i]['title'];
+            $tv[$i] = $info1[$i]['img_path'];
 
-            $data1 = substr($info[$i]['created_at'], 0, 10);
-            $data2 = substr($info2[$i]['created_at'], 0, 10);
+            $titles1[$i] = $info1[$i]['title'];
+
+            $data1 = substr($info1[$i]['created_at'], 0, 10);
 
             $dates1[$i] = $data1;
+
+            $likes1[$i] = $info1[$i]['likes'];
+
+            $views1[$i] = $info1[$i]['visits'];
+
+        }
+
+        for ($i = 0; $i < count($info2); $i++) {
+
+            $lu[$i] = $info2[$i]['img_path'];
+
+            $titles2[$i] = $info2[$i]['title'];
+
+            $data2 = substr($info2[$i]['created_at'], 0, 10);
+
             $dates2[$i] = $data2;
 
-            $likes1[$i] = $info[$i]['likes'];
             $likes2[$i] = $info2[$i]['likes'];
 
-            $views1[$i] = $info[$i]['visits'];
 
         }
 
