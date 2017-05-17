@@ -1,6 +1,7 @@
 <?php
 
-$app->register(new Silex\Provider\TwigServiceProvider(), array('twig.path'=>__DIR__.'/../../src/View/templates',));
+$app->register(new Silex\Provider\TwigServiceProvider(),
+    array('twig.path'=>__DIR__.'/../../src/View/templates','debug' => true,));
 
 $app->register(new Silex\Provider\DoctrineServiceProvider(),array(
 	'db.options'=>array(

@@ -21,7 +21,7 @@ class UserController{
         $response->setContent($content);
         return $response;
     }
-
+/*
     public function edicioPerfilError(Application $app){
         //obtinc path imatge perfil
         $database= new DatabaseController();
@@ -33,7 +33,7 @@ class UserController{
         $response->setContent($content);
         return $response;
     }
-
+*/
 
         public function getAction(Application $app, $id)
     {
@@ -211,7 +211,7 @@ class UserController{
             $password = $request->get('password');
 
             $response->setStatusCode(Response::HTTP_OK);
-            $content = $app['twig']->render('login.twig');
+            $content = $app['twig']->render('login.twig',array('error'=>""));
             $response->setContent($content);
             return $response;
 

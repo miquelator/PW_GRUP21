@@ -118,8 +118,8 @@ class DatabaseController{
             }
 
             if ($info==false){
-
-                $content = $app['twig']->render('home_logged.twig');
+                //si no ha pogut entrar
+                $content = $app['twig']->render('login.twig',array('error'=>"Usuari o contrasenya erronis"));
             }
             else{
 
@@ -324,7 +324,6 @@ class DatabaseController{
     public function postEdicioPerfil(Application $app, Request $request)//rep de Edicio perfil
     {
         //  var_dump($request);
-        ob_start(); //assegura que no hi haura outputs per poder fer el header
 
 
         $id = $app['session']->get('id'); //guardo id d'usuari actual
@@ -348,7 +347,6 @@ class DatabaseController{
 
             try {
 
-                $qb = $app['db']->createQueryBuilder();//inicio base
 
 
                 //actualitzem la base de dades els camps que s'han omplert. Es fa uddate quan id=id
@@ -360,8 +358,10 @@ class DatabaseController{
                     //actualitzo bases
                     $comprovacio= new comprovacioRegister();
                     if($comprovacio->validName($name)){
+                        //$qb = $app['db']->createQueryBuilder();//inicio base
+
                         $sql= "UPDATE user SET user.username = ? WHERE user.id =?";
-                        $info = $app['db']->fetchAssoc( $sql, array ((string) $name,(string) $id));
+                         $app['db']->executeUpdate( $sql, array ((string) $name,(string) $id));
 
                         /*
                         $qb = $app['db']->createQueryBuilder();
@@ -384,8 +384,10 @@ class DatabaseController{
                     //comprovo que es correcte
                     $comprovacio= new comprovacioRegister();
                     if($comprovacio->validData($data)){
+
+
                         $sql= "UPDATE user SET user.birthdate = ? WHERE user.id =?";
-                        $info = $app['db']->fetchAssoc( $sql, array ((string) $data,(string) $id));
+                        $info = $app['db']->executeUpdate( $sql, array ((string) $data,(string) $id));
                         /*
                         $qb->update('user')
                             ->set('user.birthdate', $data)
@@ -402,8 +404,9 @@ class DatabaseController{
                 if (strlen($password) != 0) {
                     $comprovacio= new comprovacioRegister();
                     if($comprovacio->validPassword($password,$confirm)){
+
                         $sql= "UPDATE user SET user.password = ? WHERE user.id =?";
-                        $info = $app['db']->fetchAssoc( $sql, array ((string) $password,(string) $id));
+                        $info = $app['db']->executeUpdate( $sql, array ((string) $password,(string) $id));
                     }
                     else{
                         $tot_correcte=false;
@@ -417,8 +420,9 @@ class DatabaseController{
                     $perfil->move($destdir,$filename); //guardo imatge perfil a carpeta
 
                     //substituim a base de dades (original)
+
                     $sql= "UPDATE user SET user.img_path = ? WHERE user.id =?";
-                    $info = $app['db']->fetchAssoc( $sql, array ((string) $filename,(string) $id));
+                    $info = $app['db']->executeUpdate( $sql, array ((string) $filename,(string) $id));
                 }
 /*
                 $lastInsertedId = $app['db']->fetchAssoc('SELECT id FROM user ORDER BY id DESC LIMIT 1');
@@ -439,10 +443,7 @@ class DatabaseController{
                 return $response;
             }
 
-            while (ob_get_status()) //neteja per poder fer el Header
-            {
-                ob_end_clean();
-            }
+
             if(!$tot_correcte){ //si algun dels camps que l'usuari ha posat no els ha posat bé
                 //header("location: /edicio_perfil_error");
                 //obtinc path imatge perfil
@@ -462,7 +463,7 @@ class DatabaseController{
                 $info=$this->retornaImatgeNomDataUsuari($app);
 
                 $response = new Response();
-                $content = $app['twig']-> render('edicio_perfil.twig',array('path_imatge'=>$info['img_path'],'nom_user'=>$info['username'],'data_naixement'=>$info['birthdate'],'error'=>"")); //mostrem per pantalla la pagina
+                $content = $app['twig']-> render('edicio_perfil.twig',array('path_imatge'=>$filename,'nom_user'=>$info['username'],'data_naixement'=>$info['birthdate'],'error'=>"Dades canviades correctament")); //mostrem per pantalla la pagina
 
                 $response->setContent($content);
                 return $response;
