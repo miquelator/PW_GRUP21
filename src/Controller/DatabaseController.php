@@ -93,46 +93,13 @@ class DatabaseController{
 
             $info2 = $dbc->searchLastUploaded($app);
 
-
-
-            for ($i = 0; $i < count($info1); $i++) {
-
-                $tv[$i] = $info1[$i]['img_path'];
-
-                $titles1[$i] = $info1[$i]['title'];
-
-                $data1 = substr($info1[$i]['created_at'], 0, 10);
-
-                $dates1[$i] = $data1;
-
-                $likes1[$i] = $info1[$i]['likes'];
-
-                $views1[$i] = $info1[$i]['visits'];
-
-            }
-
-            for ($i = 0; $i < count($info2); $i++) {
-
-                $lu[$i] = $info2[$i]['img_path'];
-
-                $titles2[$i] = $info2[$i]['title'];
-
-                $data2 = substr($info2[$i]['created_at'], 0, 10);
-
-                $dates2[$i] = $data2;
-
-                $likes2[$i] = $info2[$i]['likes'];
-
-
-            }
-
             if ($info==false){
 
                 $content = $app['twig']->render('home_logged.twig');
             }
             else{
 
-                $content = $app['twig']->render('home_logged.twig',array('name' => $info['username'],'email'=> $info['email'],'image'=>$info['img_path'],'tv' => $tv, 'lu' => $lu, 't1' => $titles1, 't2' => $titles2,'d1' => $dates1, 'd2' => $dates2, 'l1' => $likes1, 'l2' => $likes2, 'v1' => $views1));
+                $content = $app['twig']->render('home_logged.twig',array( 'info1' => $info1,'info2' => $info2));
                 $classeBaseController=new BaseController(); //Creo classe per cridar metode
                 $classeBaseController->creaSession($app, $info['id']); //crido metode
 
@@ -307,14 +274,14 @@ class DatabaseController{
 
     }
 
-    public function uploadComment (Application $app){
+    public function uploadComment (Application $app, Request $request){
         $response = new Response();
         $id = $app['session']->get('id');
         try {
             $app['db']->insert('comentaris', [
                     'id_user' => $id,
                     'id_imatge' => 9,
-                    'comentari'=> "Comment1",
+                    'comentari'=> $request->get('comentari1'),
 
                 ]
             );
