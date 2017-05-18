@@ -20,6 +20,9 @@
   box-sizing: border-box;
 
 }
+footer{
+  position: fixed;
+}
 .board > div.board-inner{
 }
 
