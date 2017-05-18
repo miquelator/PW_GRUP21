@@ -70,7 +70,9 @@
 								<input type="submit"  value="Comment" name="button" class="btn btn-success">
 
 							</form>
-							<button class="btn btn-warning" href="/home_log/like/{{ img.id }}/{{ img.title }}/{{ img.user_id }}" >M'agrada</button>
+							<form method="get" name="form2" action="/home_log/like/{{ img.id }}/{{ img.title }}/{{ img.user_id }}">
+								<input type="submit"  value="M'agrada" name="button" class="btn btn-warning">
+							</form>
 
 
 						</div><!--col-md-4 col-sm-6 col-xs-6-->
@@ -106,8 +108,9 @@
 										</div>
 										<input type="submit"  value="Comment" name="button" class="btn btn-success">
                                         </form>
-									<button class="btn btn-warning" href="/home_log/like/{{ img.id }}/{{ img.title }}/{{ img.user_id }}" >M'agrada</button>
-
+									<form method="get" name="form2" action="/home_log/like/{{ img.id }}/{{ img.title }}/{{ img.user_id }}">
+										<input type="submit"  value="M'agrada" name="button" class="btn btn-warning">
+									</form>
 								</div><!--col-md-4 col-sm-6 col-xs-6-->
 
 

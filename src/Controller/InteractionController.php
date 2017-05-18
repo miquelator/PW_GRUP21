@@ -55,7 +55,6 @@ class InteractionController{
         $id = $request->get('id'); //id de la imatge
         $title = $request->get('title');
         $user_id = $request->get('user_id');//id del creador de la imatge
-        var_dump($user_id);
         $dbc->pujaNotificacions($app,$id,$title, $user_id,'Comentari:');
 
 
@@ -76,6 +75,8 @@ class InteractionController{
         $response->setContent($content);
         return $response;
     }
+
+
     public function userComments(Application $app)
     {
         //comprovo que l'usuari estigui loguejat. Si no ho esta, el redirigeixo
@@ -107,6 +108,7 @@ class InteractionController{
 
     public function like(Application $app, Request $request)
     {
+
         //comprovo que l'usuari estigui loguejat. Si no ho esta, el redirigeixo
         if (!$app['session']->has('id')) { //no esta loguejat
             $response = new Response();
@@ -129,7 +131,7 @@ class InteractionController{
         $info2 = $dbc->searchLastUploaded($app);
         //var_dump($app['session']->get('id'));
 
-        $dbc->uploadLike($app, $request);
+        $dbc->uploadLike($app, $id); //actualitzo base de dades
 
 
 

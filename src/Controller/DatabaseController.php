@@ -480,6 +480,29 @@ class DatabaseController{
             ]
         );
     }
+    public function uploadLike (Application $app,$id){ //rep id imatge
+        $response = new Response();
+        try {
+            var_dump($id);
+            $sql= "UPDATE image SET likes = (likes+1) WHERE id =?";
+            $info = $app['db']->executeUpdate( $sql, array((string)$id));
+
+
+
+        } catch (Exception $e) {
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+            $content = $app['twig']->render('main_register.twig', [
+                'errors' => [
+                    'unexpected' => 'An error has occurred, please try it again later'
+                ]
+            ]);
+            $response->setContent($content);
+            return $response;
+        }
+
+
+    }
+
 
 
 
