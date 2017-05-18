@@ -171,6 +171,7 @@ class UserController{
         }
 
     public function showPhoto(Application $app, Request $request ){
+        ob_start(); //assegura que no hi haura outputs per poder fer el header
 
         $response = new Response();
         $imatge = $request->get('path');
@@ -181,7 +182,7 @@ class UserController{
 
 
         $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('showPhoto.twig', array('imatge'=>$imatge, 'titol' => $titol, 'created' => $created, 'likes' => $likes, 'visits' => $visits,));
+        $content = $app['twig']->render('showPhoto.twig', array('imatge'=> $imatge, 'titol' => $titol, 'created' => $created, 'likes' => $likes, 'visits' => $visits,));
         $response->setContent($content);
         return $response;
 
