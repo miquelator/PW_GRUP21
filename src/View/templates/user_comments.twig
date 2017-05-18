@@ -11,39 +11,16 @@
 {% block content %}
 	<a href="/home_log" class="btn btn-success">Home</a>
 	{#<a href="/mostViewed" class="btn btn-primary">GetMostViewed</a>#}
-	<h1>Cal fer que mostri tants comentaris com tingui, no un numero fix
-    Y QUE ESBORRI</h1>
+	<h1>comentaris</h1>
 	<section>
+        {% for comment in c %}
                 <div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
 					<div>
-						<textarea readonly class="form-control" rows="5" id="comment">{{ c[0] }}</textarea>
+						<textarea readonly class="form-control" rows="5" id="comment">{{ comment }}</textarea>
 						<a href="/user_comments" class="btn btn-danger">Delete</a>
 					</div>
                 </div>
-                <div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-                    <div>
-                        <textarea readonly class="form-control" rows="5" id="comment">{{ c[1] }}</textarea>
-                        <a href="/user_comments" class="btn btn-danger">Delete</a>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-                    <div>
-                        <textarea readonly class="form-control" rows="5" id="comment">{{ c[2] }}</textarea>
-                        <a href="/user_comments" class="btn btn-danger">Delete</a>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-                    <div>
-                        <textarea readonly class="form-control" rows="5" id="comment">{{ c[3] }}</textarea>
-                        <a href="/user_comments" class="btn btn-danger">Delete</a>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-                    <div>
-                        <textarea readonly class="form-control" rows="5" id="comment">{{ c[4] }}</textarea>
-                        <a href="/user_comments" class="btn btn-danger">Delete</a>
-                    </div>
-                </div>
+        {% endfor %}
 
 	</section>
 {% endblock %}

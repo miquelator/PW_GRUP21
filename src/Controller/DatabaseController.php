@@ -245,7 +245,6 @@ class DatabaseController{
 
     public function uploadComment (Application $app, Request $request){
         $response = new Response();
-        var_dump($request->get('comentari1'));
         $id = $app['session']->get('id');
         try {
             $app['db']->insert('comentaris', [
