@@ -17,8 +17,6 @@
 
 	</div>
 
-	{#<a href="/mostViewed" class="btn btn-primary">GetMostViewed</a>#}
-	<h1> FALTA CAMPS USER,LAST COMMENT I QUE ES PUGUI COMENTAR </h1>
 	<section>
 
 		<div class="board">
@@ -53,7 +51,7 @@
                         {% for img in info1 %}
 
 						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-							<img src="assets/Pictures/No_Perfil/{{img.img_path}} "
+							<img width="400px" height="300px" src="assets/Pictures/No_Perfil/{{img.img_path}} "
 								 class="img-responsive">
                             <h4 ><a href="/bigPhoto/{{ img.img_path}}/{{img.title }}/{{ img.created_at }}/{{ img.likes }}/{{ img.visits }}">User</a></h4>
 							<h4 >{{ img.title }}</h4>
@@ -86,7 +84,7 @@
                             {% for img in info2 %}
 
 								<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-                                    <img src="assets/Pictures/No_Perfil/{{ img.img_path}} "
+                                    <img width="400px" height="300px" src="assets/Pictures/No_Perfil/{{ img.img_path}} "
                                          class="img-responsive">
                                     <h4 ><a href="/bigPhoto/{{ img.img_path}}/{{img.title }}/{{ img.created_at }}/{{ img.likes }}/{{ img.visits }}">User</a></h4>
 									<h4 >{{ img.title }}</h4>
@@ -116,6 +114,7 @@
 			</div>
 
 		</div>
+			</div>
 
 	</section>
 {% endblock %}

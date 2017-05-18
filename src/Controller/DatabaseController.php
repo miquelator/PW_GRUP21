@@ -145,7 +145,6 @@ class DatabaseController{
         $destdir = 'assets/Pictures/No_Perfil';
         $foto->move($destdir,$filename);
         $date = date('Y/m/d h:i:s', time());
-        echo "date: ".$date;
         try {
             var_dump($private);
             $app['db']->insert('image', [
@@ -162,7 +161,7 @@ class DatabaseController{
 
             //$content = $app['twig']->render('home_logged.twig', array('info1' => $info1, 'info2' => $info2));
 
-            $content = $app['twig']->render('home_logged.twig',array('name' => $info['username'],'email'=> $info['email'],'image'=>$info['img_path'],'info1' => $info1, 'info2' => $info2));
+            $content = $app['twig']->render('home_logged.twig',array('name' => $app['session']->get('username'),$app['session']->get('img_path'),'info1' => $info1, 'info2' => $info2));
 
 
         }catch (Exception $e) {
