@@ -124,11 +124,9 @@ class UserController{
         $dbc = new DatabaseController();
 
         $comments = $dbc->searchCommentsUser($app);
-        $c[0] = $comments[0]['comentari'];
-        $c[1] = $comments[1]['comentari'];
-        $c[2] = $comments[2]['comentari'];
-        $c[3] = $comments[3]['comentari'];
-        $c[4] = $comments[4]['comentari'];
+        for ($i = 0; $i < count($comments); $i++) {
+            $c[$i] = $comments[$i]['comentari'];
+        }
 
         $response = new Response();
 
