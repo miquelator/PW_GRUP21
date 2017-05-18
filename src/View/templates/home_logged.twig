@@ -12,6 +12,8 @@
 	{#<a href="/login" class="btn btn-default">Afegir Foto</a>#}
 	<a href="/user_comments" class="btn btn-warning">Comment List</a>
 	<a href="/edicio_perfil" class="btn btn-success">Edit Profile</a>
+	<a href="/notificacions" class="btn btn-default">Notificacions</a>
+
 	<div class="pull-right">
 		<a href="/logout" class="btn btn-danger">Logout</a>
 
@@ -59,7 +61,8 @@
                             <h4>{{ img.likes }} Likes</h4>
 							<h4>{{ img.visits }} Visites</h4>
                             <h4>Last Comment</h4>
-							<form id=formulari enctype="multipart/form-data" name="formulari" class="form-horizontal" method="POST" action="/home_log/comment">
+
+							<form id=formulari enctype="multipart/form-data" name="formulari" class="form-horizontal" method="POST" action="/home_log/comment/{{ img.id }}/{{ img.title }}/{{ img.user_id }}">
 							<div class="form-group">
 									<label for="comment">Comment:</label>
 									<input type="text" class="form-control" rows="5" id="comentari1" name="comentari1">

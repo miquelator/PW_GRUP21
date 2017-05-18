@@ -9,49 +9,50 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserController{
 
-     public function edicioPerfil(Application $app){
+    public function edicioPerfil(Application $app)
+    {
 
 
-         //comprovo que l'usuari estigui loguejat. Si no ho esta, el redirigeixo
-         if(!$app['session']->has('id')) { //no esta loguejat
-             $response = new Response();
-             $content = $app['twig']->render('error.twig');
-             $response->setContent($content);
-             return $response;
-         }
-         else { //esta loguejat
+        //comprovo que l'usuari estigui loguejat. Si no ho esta, el redirigeixo
+        if (!$app['session']->has('id')) { //no esta loguejat
+            $response = new Response();
+            $content = $app['twig']->render('error.twig');
+            $response->setContent($content);
+            return $response;
+        } else { //esta loguejat
 
 
-             //obtinc path imatge perfil
-             $database = new DatabaseController();
-             $info = $database->retornaImatgeNomDataUsuari($app);
-             $response = new Response();
-             $content = $app['twig']->render('edicio_perfil.twig', array(
-                 'path_imatge' => $info['img_path'],
-                 'nom_user' => $info['username'],
-                 'data_naixement' => $info['birthdate'],
-                 'error' => ""
-             )); //mostrem per pantalla la pagina
+            //obtinc path imatge perfil
+            $database = new DatabaseController();
+            $info = $database->retornaImatgeNomDataUsuari($app);
+            $response = new Response();
+            $content = $app['twig']->render('edicio_perfil.twig', array(
+                'path_imatge' => $info['img_path'],
+                'nom_user' => $info['username'],
+                'data_naixement' => $info['birthdate'],
+                'error' => ""
+            )); //mostrem per pantalla la pagina
 
             $response->setContent($content);
-             return $response;
-         }
+            return $response;
+        }
     }
-/*
-    public function edicioPerfilError(Application $app){
-        //obtinc path imatge perfil
-        $database= new DatabaseController();
-        $info=$database->retornaImatgeNomDataUsuari($app);
 
-        $response = new Response();
-        $content = $app['twig']-> render('edicio_perfil.twig',array('path_imatge'=>$info['img_path'],'nom_user'=>$info['username'],'data_naixement'=>$info['birthdate'],'error'=>"Revisa")); //mostrem per pantalla la pagina
+    /*
+        public function edicioPerfilError(Application $app){
+            //obtinc path imatge perfil
+            $database= new DatabaseController();
+            $info=$database->retornaImatgeNomDataUsuari($app);
 
-        $response->setContent($content);
-        return $response;
-    }
-*/
+            $response = new Response();
+            $content = $app['twig']-> render('edicio_perfil.twig',array('path_imatge'=>$info['img_path'],'nom_user'=>$info['username'],'data_naixement'=>$info['birthdate'],'error'=>"Revisa")); //mostrem per pantalla la pagina
 
-        public function getAction(Application $app, $id)
+            $response->setContent($content);
+            return $response;
+        }
+    */
+
+    public function getAction(Application $app, $id)
     {
         $sql = "SELECT username FROM user WHERE id = ?";
         $user = $app['db']->fetchAssoc($sql, array((int)$id));
@@ -84,17 +85,17 @@ class UserController{
         $response = new Response();
 
         $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('home.twig', array( 'info1' => $info,'info2' => $info2));
-
+        $content = $app['twig']->render('home.twig', array('info1' => $info, 'info2' => $info2));
 
 
         $response->setContent($content);
         return $response;
     }
+
     public function goHomeLogged(Application $app)
     {
         //comprovo que l'usuari estigui loguejat. Si no ho esta, el redirigeixo
-        if(!$app['session']->has('id')) { //no esta loguejat
+        if (!$app['session']->has('id')) { //no esta loguejat
             $response = new Response();
             $content = $app['twig']->render('error.twig');
             $response->setContent($content);
@@ -107,35 +108,45 @@ class UserController{
 
         $response = new Response();
         $response->setStatusCode(Response::HTTP_OK);
-       // $content = $app['twig']->render('home_logged.twig', array('tv0' => $info[0]['img_path'], 'tv1' => $info[1]['img_path'], 'tv2' => $info[2]['img_path'], 'tv3' => $info[3]['img_path'], 'tv4' => $info[4]['img_path'], 'lu0' => $info2[0]['img_path'], 'lu1' => $info2[1]['img_path'], 'lu2' => $info2[2]['img_path'], 'lu3' => $info2[3]['img_path'], 'lu4' => $info2[4]['img_path'],));
-        $content = $app['twig']->render('home_logged.twig', array( 'info1' => $info,'info2' => $info2));
+        // $content = $app['twig']->render('home_logged.twig', array('tv0' => $info[0]['img_path'], 'tv1' => $info[1]['img_path'], 'tv2' => $info[2]['img_path'], 'tv3' => $info[3]['img_path'], 'tv4' => $info[4]['img_path'], 'lu0' => $info2[0]['img_path'], 'lu1' => $info2[1]['img_path'], 'lu2' => $info2[2]['img_path'], 'lu3' => $info2[3]['img_path'], 'lu4' => $info2[4]['img_path'],));
+        $content = $app['twig']->render('home_logged.twig', array('info1' => $info, 'info2' => $info2));
 
         $response->setContent($content);
         return $response;
     }
-    public function comment(Application $app, Request $request){
+
+    public function comment(Application $app, Request $request)
+    {
         //comprovo que l'usuari estigui loguejat. Si no ho esta, el redirigeixo
-        if(!$app['session']->has('id')) { //no esta loguejat
+        if (!$app['session']->has('id')) { //no esta loguejat
             $response = new Response();
             $content = $app['twig']->render('error.twig');
+
             $response->setContent($content);
             return $response;
         }
-
         $dbc = new DatabaseController();
+        //guardo la notificacio
+        $id = $request->get('id'); //id de la imatge
+        $title = $request->get('title');
+        $user_id = $request->get('user_id');//id del creador de la imatge
+        var_dump($user_id);
+        $dbc->pujaNotificacions($app,$id,$title, $user_id,'comentari');
+
+
         $info1 = $dbc->searchTopViews($app);
 
         $info2 = $dbc->searchLastUploaded($app);
         //var_dump($app['session']->get('id'));
 
-        $dbc->uploadComment($app,$request);
+        $dbc->uploadComment($app, $request);
 
 
 
         $response = new Response();
         $response->setStatusCode(Response::HTTP_OK);
         // $content = $app['twig']->render('home_logged.twig', array('tv0' => $info[0]['img_path'], 'tv1' => $info[1]['img_path'], 'tv2' => $info[2]['img_path'], 'tv3' => $info[3]['img_path'], 'tv4' => $info[4]['img_path'], 'lu0' => $info2[0]['img_path'], 'lu1' => $info2[1]['img_path'], 'lu2' => $info2[2]['img_path'], 'lu3' => $info2[3]['img_path'], 'lu4' => $info2[4]['img_path'],));
-        $content = $app['twig']->render('home_logged.twig', array('info1' => $info1,'info2' => $info2));
+        $content = $app['twig']->render('home_logged.twig', array('info1' => $info1, 'info2' => $info2));
 
         $response->setContent($content);
         return $response;
@@ -168,12 +179,13 @@ class UserController{
     }
 
 
-        public function login(Application $app, Request $request ){
+    public function login(Application $app, Request $request)
+    {
 
-            $response = new Response();
+        $response = new Response();
 
-            $name = $request->get('name');
-            $password = $request->get('password');
+        $name = $request->get('name');
+        $password = $request->get('password');
 
             $response->setStatusCode(Response::HTTP_OK);
             $content = $app['twig']->render('login.twig',array('error'=>""));
@@ -192,36 +204,42 @@ class UserController{
     public function register(Application $app){ //pas 1 de register
 
         $response = new Response();
-        $linkbool=false;
+        $linkbool = false;
 
-        $content = $app['twig']-> render('main_register.twig',array('error' => "",'link_activacio'=>"",'linkbool'=>$linkbool)); //no envio res com a missatge d'error
+        $content = $app['twig']->render('main_register.twig', array(
+            'error' => "",
+            'link_activacio' => "",
+            'linkbool' => $linkbool
+        )); //no envio res com a missatge d'error
         $response->setContent($content);
         return $response;
     }
 
-/*
-    public function registerError(Application $app){ //envio amb un missatge d'error
+    /*
+        public function registerError(Application $app){ //envio amb un missatge d'error
 
-        $response = new Response();
-        $linkbool=false;
-        $content = $app['twig']-> render('main_register.twig',array('error' => "Error: Revisa els camps",'link_activacio'=>"",'linkbool'=>$linkbool)); // envio  missatge d'error
-        $response->setContent($content);
+            $response = new Response();
+            $linkbool=false;
+            $content = $app['twig']-> render('main_register.twig',array('error' => "Error: Revisa els camps",'link_activacio'=>"",'linkbool'=>$linkbool)); // envio  missatge d'error
+            $response->setContent($content);
+            return $response;
+        }
+    */
+    public function comprovaRegister(Application $app, Request $request)
+    {
+        $comprovacio = new comprovacioRegister();
+        $response = $comprovacio->comprovacioRegisterModel($app, $request);
+
         return $response;
     }
-*/
-    public function comprovaRegister(Application $app, Request $request){
-        $comprovacio= new comprovacioRegister();
-        $response=$comprovacio->comprovacioRegisterModel($app, $request);
 
-        return $response;
-    }
+    public function activaLink(Application $app, Request $request)
+    { //pas 3 de register
 
-    public function activaLink(Application $app, Request $request){ //pas 3 de register
-
-        $id=$request->get('id');
+        $id = $request->get('id');
         //creem una session amb l'id de l'usuari:
-        $classeBaseController=new BaseController(); //Creo classe per cridar metode
-        $classeBaseController->creaSession($app, $id,'id'); //crido metode
+        $classeBaseController = new BaseController(); //Creo classe per cridar metode
+        $classeBaseController->creaSession($app, $id, 'id'); //crido metode
 
 
 
@@ -231,22 +249,24 @@ class UserController{
         return new RedirectResponse($url);
         */
         $dbc = new DatabaseController();
-        $username=$dbc->retornaNom($app, $id);
-        $classeBaseController->creaSession($app, $username,'username'); //crido metode
+        $username = $dbc->retornaNom($app, $id);
+        $classeBaseController->creaSession($app, $username, 'username'); //crido metode
         $info1 = $dbc->searchTopViews($app); //obtinc fotos
         $info2 = $dbc->searchLastUploaded($app);
 
-        $response= new Response();
+        $response = new Response();
         $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('home_logged.twig',array('name' => $username,'info1' => $info1, 'info2' => $info2));
+        $content = $app['twig']->render('home_logged.twig',
+            array('name' => $username, 'info1' => $info1, 'info2' => $info2));
         $response->setContent($content);
         return $response;
 
     }
 
-    public function logout(Application $app, Request $request){
+    public function logout(Application $app, Request $request)
+    {
         //tanquem sessio
-        $classeBaseController=new BaseController(); //Creo classe per cridar metode
+        $classeBaseController = new BaseController(); //Creo classe per cridar metode
         $classeBaseController->tancaSession($app); //crido metode
 
 
@@ -256,8 +276,7 @@ class UserController{
         $response = new Response();
 
         $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('home.twig', array( 'info1' => $info,'info2' => $info2));
-
+        $content = $app['twig']->render('home.twig', array('info1' => $info, 'info2' => $info2));
 
 
         $response->setContent($content);
@@ -265,15 +284,43 @@ class UserController{
 
     }
 
-/*
-    public function registerAmbLink(Application $app, Request $request){ //pas 2 de register
-        $id=$request->get('id');
+    public function notificacions(Application $app, Request $request)
+    {
+
+        //comprovo que l'usuari estigui loguejat. Si no ho esta, el redirigeixo
+        if (!$app['session']->has('id')) { //no esta loguejat
+            $response = new Response();
+            $content = $app['twig']->render('error.twig');
+            $response->setContent($content);
+            return $response;
+        }
+
+
+        $data=new DatabaseController();
+        $info=$data->repNotificacions($app);
+        $size=count($info);
+        for ($i = 0; $i < count($info); $i++) {
+            $nom_user[$i] = $info[$i]['username'];
+            $titol_imatge[$i] = $info[$i]['titol_imatge'];
+            $tipus[$i] = $info[$i]['tipus'];
+        }
+
         $response = new Response();
-        $content = $app['twig']-> render('main_register.twig',array('error' => "",'link_activacio'=>"<a href=\"/activacio_link/".$id."\">Clica per activar el teu usuari</a>")); //no envio res com a missatge d'error
+        $response->setStatusCode(Response::HTTP_OK);
+        $content = $app['twig']->render('notificacions.twig', array('size'=>$size,'nom_user' => $nom_user, 'titol_imatge' => $titol_imatge,'tipus' => $tipus));
+
+
         $response->setContent($content);
         return $response;
+
     }
-*/
+
+
+
+
+
+
+
 }
 
         ?>

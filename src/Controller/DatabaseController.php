@@ -133,10 +133,9 @@ class DatabaseController{
             $info = $app['db']->fetchAssoc($sql, array ((string) $name,(string) $name,(string)$password));
 
 
-            $dbc = new DatabaseController();
-            $info1 = $dbc->searchTopViews($app);
+            $info1 = $this->searchTopViews($app);
 
-            $info2 = $dbc->searchLastUploaded($app);
+            $info2 = $this->searchLastUploaded($app);
 
             if ($info==false){
 
@@ -203,6 +202,7 @@ class DatabaseController{
 
                 ]
             );
+
 
             $url = '/home_log';
 
@@ -413,6 +413,29 @@ class DatabaseController{
         }
     }
 
+    public function retornaNomImatge(Application $app, $id){ //Li passo id de la imatge
+        try {
+
+
+            $sql= "SELECT * FROM image WHERE id=? ";
+            $info = $app['db']->fetchAssoc($sql, array ((string) $id));
+
+
+            return $info['title'];
+
+
+
+        }catch (Exception $e) {
+            $response=new Response();
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+            $content = $app['twig']->render('home.twig', [
+                'errors' => [
+                    'unexpected' => 'An error has occurred, please try it again later'
+                ]
+            ]);
+        }
+    }
+
 
     public function diesPassats(Application $app, $created_at){ //retorna el num de dies passats de que es va crear la imatge
         $now = new \DateTime();
@@ -422,6 +445,41 @@ class DatabaseController{
 
     }
 
+    public function repNotificacions(Application $app){
+        $id = $app['session']->get('id');
+        try {
+            $sql = "SELECT * FROM notificacions WHERE id_creador_imatge = ? ORDER BY id DESC";
+            $info = $app['db']->fetchAll($sql, array((string)$id));
+            return $info;
+        }catch (Exception $e) {
+            $response=new Response();
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+            $content = $app['twig']->render('home.twig', [
+                'errors' => [
+                    'unexpected' => 'An error has occurred, please try it again later'
+                ]
+            ]);
+
+        }
+    }
+
+    public function pujaNotificacions(Application $app,$id_imatge,$title, $id_creador_imatge,$tipus){ //tipus es 'comentari' o 'like'
+
+        //$id = $app['session']->get('id');
+        $username = $app['session']->get('username');
+
+
+        $app['db']->insert('notificacions', [
+                'id_imatge' => $id_imatge,
+                'username'=> $username, //nom del qui ha fet el comment/like
+                'titol_imatge'=>$title,
+                'tipus'=>$tipus,
+                'id_creador_imatge'=>$id_creador_imatge
+
+
+            ]
+        );
+    }
 
 
 
