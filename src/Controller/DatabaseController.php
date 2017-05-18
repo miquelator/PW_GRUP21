@@ -72,7 +72,52 @@ class DatabaseController{
             }
         }
     }
+    public function searchCommentsUser (Application $app){
+        $id = $app['session']->get('id');
+        $response = new Response();
 
+        try {
+
+
+            $sql= "SELECT * FROM comentaris WHERE id_user = ? ORDER BY id DESC";
+            $info = $app['db']->fetchAll($sql, array ((string) $id));
+
+
+
+
+        }catch (Exception $e) {
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+            $content = $app['twig']->render('home.twig', [
+                'errors' => [
+                    'unexpected' => 'An error has occurred, please try it again later'
+                ]
+            ]);
+        }
+
+        return $info;
+
+    }
+
+    public function searchTopViews (Application $app){
+        $response = new Response();
+
+        try {
+            $sql= "SELECT * FROM image WHERE (private = 0) ORDER BY visits DESC LIMIT 5";
+            $info = $app['db']->fetchAll($sql);
+
+
+        }catch (Exception $e) {
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+            $content = $app['twig']->render('home.twig', [
+                'errors' => [
+                    'unexpected' => 'An error has occurred, please try it again later'
+                ]
+            ]);
+        }
+
+        return $info;
+
+    }
     public function searchUser (Application $app, Request $request){ //es crida a partir del login
         $response = new Response();
 

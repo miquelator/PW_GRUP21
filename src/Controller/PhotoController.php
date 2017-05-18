@@ -28,9 +28,10 @@ class PhotoController{
         $filename= $path;
         $destdir = 'assets/Pictures/No_Perfil';
         $foto->move($destdir,$filename);
+
         $date = date('Y/m/d h:i:s', time());
         try {
-            var_dump($private);
+
             $app['db']->insert('image', [
                     'user_id' => $id,
                     'title' => $title,
@@ -64,26 +65,7 @@ class PhotoController{
 
     }
 
-    public function searchTopViews (Application $app){
-        $response = new Response();
 
-        try {
-            $sql= "SELECT * FROM image WHERE (private = 0) ORDER BY visits DESC LIMIT 5";
-            $info = $app['db']->fetchAll($sql);
-
-
-        }catch (Exception $e) {
-            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
-            $content = $app['twig']->render('home.twig', [
-                'errors' => [
-                    'unexpected' => 'An error has occurred, please try it again later'
-                ]
-            ]);
-        }
-
-        return $info;
-
-    }
     public function showPhoto(Application $app, Request $request ){
         //comprovo que l'usuari estigui loguejat. Si no ho esta, el redirigeixo
         if(!$app['session']->has('id')) { //no esta loguejat
@@ -109,31 +91,6 @@ class PhotoController{
 
     }
 
-    public function searchCommentsUser (Application $app){
-        $id = $app['session']->get('id');
-        $response = new Response();
-
-        try {
-
-
-            $sql= "SELECT * FROM comentaris WHERE id_user = ? ORDER BY id DESC";
-            $info = $app['db']->fetchAll($sql, array ((string) $id));
-
-
-
-
-        }catch (Exception $e) {
-            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
-            $content = $app['twig']->render('home.twig', [
-                'errors' => [
-                    'unexpected' => 'An error has occurred, please try it again later'
-                ]
-            ]);
-        }
-
-        return $info;
-
-    }
 
     public function uploadPhoto(Application $app)
     {
