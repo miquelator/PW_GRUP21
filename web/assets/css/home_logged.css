@@ -20,6 +20,10 @@
   box-sizing: border-box;
 
 }
+.img-responsive{
+  width: 400px;
+  height: 300px;
+}
 footer{
   position: fixed;
 }
