@@ -25,23 +25,17 @@ class BaseController{
 
     public function creaSession(Application $app, $id){ //creem sessio amb l'id de l'usuari loguejat
 
-
         if($app['session']->has('id')){ //si ja existeix, la borro
             $app['session']->remove('id');
         }
 
-       //la creo
+        //la creo
         $app['session']->set('id',$id);
 
     }
 
     public function tancaSession(Application $app){
-        $response = new Response();
-
         $app['session']->remove('id');
-        $content = $app['twig']->render('home.twig');
-        $response->setContent($content);
-        return $response;
     }
 
 

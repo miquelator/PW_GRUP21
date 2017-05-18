@@ -63,11 +63,13 @@
 							<h4>{{ img.created_at }}</h4>
 							<h4>{{ img.likes }} Likes</h4>
 							<h4>{{ img.visits }} Visites</h4>
-							<div class="form-group">
-								<label for="comment">Comment:</label>
-								<textarea class="form-control" rows="5" id="comment"></textarea>
-							</div>
-							<a href="/home_log" class="btn btn-success">Comment</a>
+							<form id=formulari enctype="multipart/form-data" name="formulari" class="form-horizontal" method="POST" action="/home_log/comment">
+								<div class="form-group">
+									<label for="comment">Comment:</label>
+									<input type="text" class="form-control" rows="5" id="comentari1" name="comentari1">
+								</div>
+								<input type="submit"  value="Comment" name="button" class="btn btn-success">
+							</form>
 						</div><!--col-md-4 col-sm-6 col-xs-6-->
 
                         {% endfor %}
@@ -93,11 +95,13 @@
 									<h4>{{ img.created_at }}</h4>
 									<h4>{{ img.likes }} Likes</h4>
 									<h4>Last Comment</h4>
-									<div class="form-group">
-										<label for="comment">Comment:</label>
-										<textarea class="form-control" rows="5" id="comment"></textarea>
-									</div>
-									<a href="/home_log" class="btn btn-success">Comment</a>
+									<form id=formulari enctype="multipart/form-data" name="formulari" class="form-horizontal" method="POST" action="/home_log/comment">
+										<div class="form-group">
+											<label for="comment">Comment:</label>
+											<input type="text" class="form-control" rows="5" id="comentari1" name="comentari1">
+										</div>
+										<input type="submit"  value="Comment" name="button" class="btn btn-success">
+									</form>
 								</div><!--col-md-4 col-sm-6 col-xs-6-->
 
 
