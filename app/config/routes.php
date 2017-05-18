@@ -15,6 +15,9 @@ $app->get('/users/get/{id}','PracticaFinal\Controller\UserController::getAction'
 $app->get('/home','PracticaFinal\Controller\UserController::goHome');
 $app->get('/home_log','PracticaFinal\Controller\UserController::goHomeLogged');
 $app->match('/home_log/comment/{id}/{title}/{user_id}','PracticaFinal\Controller\InteractionController::comment');
+$app->get('/user_comments','PracticaFinal\Controller\UserController::userComments');
+$app->get('/user_comments/delete/{id}','PracticaFinal\Controller\UserController::deleteComment');
+$app->match('/home_log/comment/{id}/{title}/{user_id}','PracticaFinal\Controller\InteractionController::comment');
 $app->get('/home_log/like/{id}/{title}/{user_id}','PracticaFinal\Controller\InteractionController::like');
 
 $app->get('/user_comments','PracticaFinal\Controller\InteractionController::userComments');

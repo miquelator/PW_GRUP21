@@ -221,6 +221,51 @@ class DatabaseController{
         return $info;
 
     }
+    public function eraseComment (Application $app,  $id){
+        $response = new Response();
+
+        $app['db']->delete('comentaris', array ('id' => $id));
+
+
+
+    }
+    public function checkUserComment (Application $app, $id_img){
+
+        $response = new Response();
+        $check = true;
+        $id = $app['session']->get('id');
+
+        try {
+            $sql= "SELECT * FROM comentaris";
+            $info = $app['db']->fetchAll($sql);
+
+
+        }catch (Exception $e) {
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+            $content = $app['twig']->render('home.twig', [
+                'errors' => [
+                    'unexpected' => 'An error has occurred, please try it again later'
+                ]
+            ]);
+        }
+
+        for ($i = 0; $i < count($info); $i++) {
+//            echo $info[$i]['id_user'].'/';
+//            echo $id.'/';
+//            echo $info[$i]['id_imatge'].'/';
+            echo $id_img.'///////////';
+
+            if($info[$i]['id_user'] == $id && $info[$i]['id_imatge'] == $id_img){
+                $check = false;
+                echo 'Entra';
+            }
+        }
+
+
+        return $check;
+
+
+    }
 
 
 

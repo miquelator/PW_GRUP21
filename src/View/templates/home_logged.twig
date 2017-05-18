@@ -53,7 +53,7 @@
                         {% for img in info1 %}
 
 						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-							<img   src="assets/Pictures/No_Perfil/{{img.img_path}} "
+							<img src="assets/Pictures/No_Perfil/{{img.img_path}} "
 								 class="img-responsive">
                             <h4 ><a href="/showUser/{{ img.user_id }}">{{ img.user_nom }}</a></h4>
 							<h4 ><a href="/bigPhoto/{{ img.img_path}}/{{img.title }}/{{ img.created_at }}/{{ img.likes }}/{{ img.visits }}/{{ img.user_nom }}/{{ img.id }}">{{ img.title }}</a></h4>
@@ -68,7 +68,6 @@
 									<input type="text" class="form-control" rows="5" id="comentari1" name="comentari1">
 								</div>
 								<input type="submit"  value="Comment" name="button" class="btn btn-success">
-
 							</form>
 							<form method="get" name="form2" action="/home_log/like/{{ img.id }}/{{ img.title }}/{{ img.user_id }}">
 								<input type="submit"  value="M'agrada" name="button" class="btn btn-warning">
@@ -93,7 +92,7 @@
                             {% for img in info2 %}
 
 								<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-                                    <img width="400px" height="300px" src="assets/Pictures/No_Perfil/{{ img.img_path}} "
+                                    <img src="assets/Pictures/No_Perfil/{{ img.img_path}} "
                                          class="img-responsive">
 									<h4 ><a href="/showUser/{{img.user_id  }}">{{ img.user_nom }}</a></h4>
 									<h4 ><a href="/bigPhoto/{{ img.img_path}}/{{img.title }}/{{ img.created_at }}/{{ img.likes }}/{{ img.visits }}/{{ img.user_nom }}/{{ img.id }}">{{ img.title }}</a></h4>

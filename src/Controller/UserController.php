@@ -6,6 +6,7 @@ use PracticaFinal\Controller\DatabaseController;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class UserController{
 
@@ -109,8 +110,8 @@ class UserController{
         return $response;
     }
 
-    public function goHomeLogged(Application $app)
-    {
+
+    public function goHomeLogged(Application $app){
         //comprovo que l'usuari estigui loguejat. Si no ho esta, el redirigeixo
         if (!$app['session']->has('id')) { //no esta loguejat
             $response = new Response();
@@ -236,14 +237,7 @@ class UserController{
 
         $response->setContent($content);
         return $response;
-
     }
-
-
-
-
-
-
 
 
 }
