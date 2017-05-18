@@ -1,24 +1,28 @@
 {% extends "base.twig" %}
-{% block title %}Comments{% endblock %}
+{% block title %}Notificacions{% endblock %}
 {% block head %}
 	{{ parent() }}
 
 
-	<link rel="stylesheet" type="text/css" href="{{ asset('user_comments.css','css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('notificacions.css','css') }}">
 {% endblock %}
 {% block content %}
 	<a href="/home_log" class="btn btn-success">Home</a>
-	{#<a href="/mostViewed" class="btn btn-primary">GetMostViewed</a>#}
-	<h1>comentaris</h1>
+	<h1>Notificacions</h1>
 	<section>
-        {% for comment in c %}
-                <div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-					<div>
-						<textarea readonly class="form-control" rows="5" id="comment">{{ comment }}</textarea>
-						<a href="/user_comments" class="btn btn-danger">Delete</a>
+	{% if size != 0 %}
+
+        {% for i in 0..size - 1 %}
+                <div class="col-md-4 col-sm-6 col-xs-6 thumbnail noti">
+					<div >
+                        <h4> {{ tipus[i] }} <h4>
+                        <h5> Qui ho ha fet: {{ nom_user[i] }} <h5>
+                        <h5> A la imatge: {{ titol_imatge[i] }} <h5>
+
 					</div>
                 </div>
         {% endfor %}
+     {% endif %}
 
 	</section>
 {% endblock %}

@@ -14,7 +14,7 @@ $before=function(Request $request, Application $app){ //si es crida, fa que s'ac
 $app->get('/users/get/{id}','PracticaFinal\Controller\UserController::getAction');
 $app->get('/home','PracticaFinal\Controller\UserController::goHome');
 $app->get('/home_log','PracticaFinal\Controller\UserController::goHomeLogged');
-$app->match('/home_log/comment','PracticaFinal\Controller\UserController::comment');
+$app->match('/home_log/comment/{id}/{title}/{user_id}','PracticaFinal\Controller\UserController::comment');
 $app->get('/user_comments','PracticaFinal\Controller\UserController::userComments');
 //$app->match('/users/add','PracticaFinal\Controller\DatabaseController::postAction');
 $app->get('/register/', 'PracticaFinal\\Controller\\UserController::register');
@@ -32,6 +32,8 @@ $app->match('/dataPhoto', 'PracticaFinal\\Controller\\PhotoController::dataPhoto
 $app->get('/bigPhoto/{path}/{titol}/{created}/{likes}/{visits}/{user}', 'PracticaFinal\\Controller\\PhotoController::showPhoto');
 $app->get('/activacio_link/{id}', 'PracticaFinal\\Controller\\UserController::activaLink');
 //$app->get('/register_amb_link/{id}', 'PracticaFinal\\Controller\\UserController::registerAmbLink');
+$app->get('/notificacions', 'PracticaFinal\\Controller\\UserController::notificacions');
+
 
 
 
