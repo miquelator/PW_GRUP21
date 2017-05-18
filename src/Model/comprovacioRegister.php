@@ -107,17 +107,19 @@ class comprovacioRegister
 
         function validData($data_naixement)
         {
-
+            $now = new \DateTime();
             $d = \DateTime::createFromFormat('Y-m-d', $data_naixement);
-
             if ($d && $d->format('Y-m-d') == $data_naixement) {
-                return true;
-            } else {
-                return false;
+                if($now>$d){ //comprovo si es futur
+                    return true;
+                }
+
             }
-
-
+            return false;
         }
+
+
+
 
         function validPassword($password, $confirm) //s'ha de ficar numeros i majuscules
         {

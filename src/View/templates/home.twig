@@ -2,11 +2,121 @@
 {% block title %}Home{% endblock %}
 {% block head %}
 	{{ parent() }}
-
+	<style type="text/css" xmlns="http://www.w3.org/1999/html">
+		h1{text-transform: uppercase;}
+	</style>
+	<link rel="stylesheet" type="text/css" href="{{ asset('home_logged.css','css') }}">
 {% endblock %}
 {% block content %}
 	<a href="/register" class="btn btn-success">Registra't</a>
 	<a href="/login" class="btn btn-primary">Login</a>
 
 	<h1>Home </h1>
+
+	<section>
+
+		<div class="board">
+
+			<div class="board-inner">
+				<ul class="nav nav-tabs" id="myTab">
+					<div class="liner"></div>
+					<li class="active">
+						<a href="#most_viewed" data-toggle="tab" title="most_viewed">
+                      <span class="round-tabs one">
+                              Most Viewed
+                      </span>
+						</a></li>
+
+					<li><a href="#last_uploaded" data-toggle="tab" title="last_uploaded">
+                     <span class="round-tabs two">
+                         <!--<i class="fa fa-glass" aria-hidden="true"></i>-->
+                         Last Uploaded
+                     </span>
+						</a>
+					</li>
+
+
+
+				</ul></div>
+
+			<div class="tab-content">
+				<div class="tab-pane fade in active" id="most_viewed">
+
+
+					<div class="row">
+						{% for img in info1 %}
+
+							<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+								<img src=" {{ img.img_path}} "
+									 class="img-responsive">
+								<h4 name="{{ img.title }}" id="{{ img.title }}"><a href="/bigPhoto">{{ img.title }}</a></h4>
+								<h4>User</h4>
+								<h4 name="{{ img.created_at }}" id="{{ img.created_at }}">{{ img.created_at }}</h4>
+								<h4 name="{{ img.likes }}" id="{{ img.likes }}">{{ img.likes }} Likes</h4>
+								<h4 name="{{ img.visits }}" id="{{ img.visits }}">{{ img.visits }} Visites</h4>
+								<h4>Last Comment</h4>
+								<form id=formulari enctype="multipart/form-data" name="formulari" class="form-horizontal" method="POST" action="/home_log/comment">
+									<div class="form-group">
+										<label for="comment">Comment:</label>
+										<input type="text" class="form-control" rows="5" id="comentari1" name="comentari1">
+									</div>
+									<input type="submit"  value="Comment" name="button" class="btn btn-success">
+								</form>
+							</div><!--col-md-4 col-sm-6 col-xs-6-->
+
+						{% endfor %}
+					</div><!--row-->
+
+
+
+				</div><!----most_viewed-->
+
+
+				<div class="tab-pane fade" id="last_uploaded">
+
+
+
+					<div class="row">
+						{% for img in info2 %}
+
+							<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+								<img name="{{ img.img_path }}" id="{{ img.img_path }}"src=" {{ img.img_path}} "
+									 class="img-responsive">
+								<h4 name="{{ img.title }}" id="{{ img.title }}"><a>{{ img.title }}</a></h4>
+								<h4>User</h4>
+								<h4 name="{{ img.created_at }}" id="{{ img.created_at }}">{{ img.created_at }}</h4>
+								<h4 name="{{ img.likes }}" id="{{ img.likes }}">{{ img.likes }} Likes</h4>
+								<h4>Last Comment</h4>
+								<form id=formulari enctype="multipart/form-data" name="formulari" class="form-horizontal" method="POST" action="/home_log/comment">
+									<div class="form-group">
+										<label for="comment">Comment:</label>
+										<input type="text" class="form-control" rows="5" id="comentari1" name="comentari1">
+									</div>
+									<input type="submit"  value="Comment" name="button" class="btn btn-success">
+								</form>
+							</div><!--col-md-4 col-sm-6 col-xs-6-->
+
+
+
+						{% endfor %}
+
+
+					</div><!--row-->
+
+
+
+
+
+				</div>
+
+			</div>
+
+	</section>
+{% endblock %}
+{% block scripts %}
+	<script src="{{ asset('jquery.js','js') }}" type="text/javascript" charset="utf-8"></script>
+	<script src="{{ asset('bootstrap.js','js') }}" type="text/javascript" charset="utf-8"></script>
+	<script src="{{ asset('home_logged.js','js') }}" type="text/javascript" charset="utf-8"></script>
+
+
 {% endblock %}

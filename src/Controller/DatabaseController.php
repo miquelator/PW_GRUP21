@@ -147,7 +147,7 @@ class DatabaseController{
         $date = date('Y/m/d h:i:s', time());
         echo "date: ".$date;
         try {
-
+            var_dump($private);
             $app['db']->insert('image', [
                     'user_id' => $id,
                     'title' => $title,
@@ -451,7 +451,7 @@ class DatabaseController{
 
     }
 
-    public function retornaNom(Application $app, $id){ //cridat a ActivaLink, userscontroller
+    public function retornaNom(Application $app, $id){ //cridat a ActivaLink, userscontroller. No se li pot passar id per session
         try {
 
 
@@ -472,6 +472,15 @@ class DatabaseController{
                 ]
             ]);
         }
+    }
+
+
+    public function diesPassats(Application $app, $created_at){ //retorna el num de dies passats de que es va crear la imatge
+        $now = new \DateTime();
+        $d = \DateTime::createFromFormat('Y-m-d H:i:s', $created_at);
+
+        $interval = $now->diff($d);
+
     }
 
 

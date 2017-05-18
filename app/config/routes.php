@@ -27,7 +27,7 @@ $app->match('/users/comprovacio/register', 'PracticaFinal\\Controller\\UserContr
 
 $app->get('/searchUser', 'PracticaFinal\\Controller\\DatabaseController::searchUser');
 $app->get('/upload', 'PracticaFinal\\Controller\\UserController::uploadPhoto');
-$app->get('/logout', 'PracticaFinal\\Controller\\BaseController::tancaSession');
+$app->get('/logout', 'PracticaFinal\\Controller\\UserController::logout');
 $app->match('/dataPhoto', 'PracticaFinal\\Controller\\DatabaseController::dataPhoto');
 $app->get('/bigPhoto/{path}/{titol}/{created}/{likes}/{visits}', 'PracticaFinal\\Controller\\UserController::showPhoto');
 $app->get('/activacio_link/{id}', 'PracticaFinal\\Controller\\UserController::activaLink');

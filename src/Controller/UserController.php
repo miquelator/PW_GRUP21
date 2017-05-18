@@ -15,7 +15,7 @@ class UserController{
          //comprovo que l'usuari estigui loguejat. Si no ho esta, el redirigeixo
          if(!$app['session']->has('id')) { //no esta loguejat
              $response = new Response();
-             $content = $app['twig']->render('login.twig',array('error'=>"Error: abans has d'iniciar sessió"));
+             $content = $app['twig']->render('error.twig');
              $response->setContent($content);
              return $response;
          }
@@ -90,10 +90,13 @@ class UserController{
     public function goHome(Application $app)
     {
 
+        $dbc = new DatabaseController();
+        $info = $dbc->searchTopViews($app);
+        $info2 = $dbc->searchLastUploaded($app);
         $response = new Response();
 
-            $response->setStatusCode(Response::HTTP_OK);
-            $content = $app['twig']->render('home.twig');
+        $response->setStatusCode(Response::HTTP_OK);
+        $content = $app['twig']->render('home.twig', array( 'info1' => $info,'info2' => $info2));
 
 
 
@@ -102,6 +105,14 @@ class UserController{
     }
     public function goHomeLogged(Application $app)
     {
+        //comprovo que l'usuari estigui loguejat. Si no ho esta, el redirigeixo
+        if(!$app['session']->has('id')) { //no esta loguejat
+            $response = new Response();
+            $content = $app['twig']->render('error.twig');
+            $response->setContent($content);
+            return $response;
+        }
+
         $dbc = new DatabaseController();
         $info = $dbc->searchTopViews($app);
         $info2 = $dbc->searchLastUploaded($app);
@@ -115,6 +126,13 @@ class UserController{
         return $response;
     }
     public function comment(Application $app, Request $request){
+        //comprovo que l'usuari estigui loguejat. Si no ho esta, el redirigeixo
+        if(!$app['session']->has('id')) { //no esta loguejat
+            $response = new Response();
+            $content = $app['twig']->render('error.twig');
+            $response->setContent($content);
+            return $response;
+        }
 
         $dbc = new DatabaseController();
         $info1 = $dbc->searchTopViews($app);
@@ -136,6 +154,13 @@ class UserController{
     }
     public function userComments(Application $app)
     {
+        //comprovo que l'usuari estigui loguejat. Si no ho esta, el redirigeixo
+        if(!$app['session']->has('id')) { //no esta loguejat
+            $response = new Response();
+            $content = $app['twig']->render('error.twig');
+            $response->setContent($content);
+            return $response;
+        }
 
         $dbc = new DatabaseController();
 
@@ -171,7 +196,13 @@ class UserController{
         }
 
     public function showPhoto(Application $app, Request $request ){
-        ob_start(); //assegura que no hi haura outputs per poder fer el header
+        //comprovo que l'usuari estigui loguejat. Si no ho esta, el redirigeixo
+        if(!$app['session']->has('id')) { //no esta loguejat
+            $response = new Response();
+            $content = $app['twig']->render('error.twig');
+            $response->setContent($content);
+            return $response;
+        }
 
         $response = new Response();
         $imatge = $request->get('path');
@@ -244,6 +275,27 @@ class UserController{
         $response= new Response();
         $response->setStatusCode(Response::HTTP_OK);
         $content = $app['twig']->render('home_logged.twig',array('name' => $username,'info1' => $info1, 'info2' => $info2));
+        $response->setContent($content);
+        return $response;
+
+    }
+
+    public function logout(Application $app, Request $request){
+        //tanquem sessio
+        $classeBaseController=new BaseController(); //Creo classe per cridar metode
+        $classeBaseController->tancaSession($app); //crido metode
+
+
+        $dbc = new DatabaseController();
+        $info = $dbc->searchTopViews($app);
+        $info2 = $dbc->searchLastUploaded($app);
+        $response = new Response();
+
+        $response->setStatusCode(Response::HTTP_OK);
+        $content = $app['twig']->render('home.twig', array( 'info1' => $info,'info2' => $info2));
+
+
+
         $response->setContent($content);
         return $response;
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace PracticaFinal\Controller;
 
 use Silex\Application;
@@ -30,7 +31,7 @@ class ServerController{
         $response->setContent($content);
         return $response;
     }
-*/
+
     public function goHome(Application $app)
     {
 
@@ -44,6 +45,7 @@ class ServerController{
         $response->setContent($content);
         return $response;
     }
+
     public function postAction(Application $app, Request $request) //registra usuari
     {
         //  var_dump($request);
@@ -117,6 +119,6 @@ class ServerController{
         $response->setContent($content);
         return $response;
     }
-
+*/
 
 }
