@@ -153,7 +153,8 @@ class DatabaseController{
                     'img_path'=>$filename,
                     'visits'=>'0',
                     'private'=>$private,
-                    'created_at'=>$date
+                    'created_at'=>$date,
+                    'user_nom'=>$app['session']->get('username')
 
 
                 ]
@@ -347,13 +348,7 @@ class DatabaseController{
 
                         $sql= "UPDATE user SET user.birthdate = ? WHERE user.id =?";
                         $info = $app['db']->executeUpdate( $sql, array ((string) $data,(string) $id));
-                        /*
-                        $qb->update('user')
-                            ->set('user.birthdate', $data)
-                            ->where('user.id = :id')
-                            ->setParameter('id', $id);
-                        $qb->execute();
-                        */
+
                     }
                     else{
                         $tot_correcte=false;
