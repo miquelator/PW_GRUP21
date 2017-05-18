@@ -154,10 +154,20 @@ class UserController{
             return $response;
 
 
-
-
-
         }
+
+    public function showPhoto(Application $app, Request $request ){
+
+        $response = new Response();
+
+        var_dump($request);
+        $response->setStatusCode(Response::HTTP_OK);
+        $content = $app['twig']->render('home.twig');
+        $response->setContent($content);
+        return $response;
+
+
+    }
 
 
 
