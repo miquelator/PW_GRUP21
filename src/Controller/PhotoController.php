@@ -81,10 +81,12 @@ class PhotoController{
         $created = $request->get('created');
         $likes = $request->get('likes');
         $visits = $request->get('visits');
+        $user = $request->get('user');
+
 
 
         $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('showPhoto.twig', array('imatge'=> $imatge, 'titol' => $titol, 'created' => $created, 'likes' => $likes, 'visits' => $visits,));
+        $content = $app['twig']->render('showPhoto.twig', array('imatge'=> $imatge, 'titol' => $titol, 'created' => $created, 'likes' => $likes, 'visits' => $visits, 'user'=>$user));
         $response->setContent($content);
         return $response;
 
