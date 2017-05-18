@@ -174,10 +174,14 @@ class UserController{
     public function showPhoto(Application $app, Request $request ){
 
         $response = new Response();
+        $titol = $request->get('titol');
+        $created = $request->get('created');
+        $likes = $request->get('likes');
+        $visits = $request->get('visits');
 
-        var_dump($request);
+
         $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('home.twig');
+        $content = $app['twig']->render('showPhoto.twig', array('tv0' => $request[0]['img_path'], 'tv1' => $info[1]['img_path'], 'tv2' => $info[2]['img_path'], 'tv3' => $info[3]['img_path'], 'tv4' => $info[4]['img_path'], 'lu0' => $info2[0]['img_path'], 'lu1' => $info2[1]['img_path'], 'lu2' => $info2[2]['img_path'], 'lu3' => $info2[3]['img_path'], 'lu4' => $info2[4]['img_path'],));
         $response->setContent($content);
         return $response;
 

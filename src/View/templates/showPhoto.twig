@@ -1,0 +1,15 @@
+{% extends "base.twig" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+    {{ parent() }}
+    <style type="text/css" xmlns="http://www.w3.org/1999/html">
+        h1{text-transform: uppercase;}
+    </style>
+{% endblock %}
+{% block content %}
+    <h1>Titol: {{ titol }} </h1>
+    <h1>{{ created }} </h1>
+    <h1>{{ likes }} likes</h1>
+    <h1>{{ visits }} visits</h1>
+
+{% endblock %}
