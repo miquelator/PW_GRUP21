@@ -73,19 +73,7 @@ class UserController{
         $response->setContent($content);
         return $response;
     }
-    public function uploadPhoto(Application $app)
-    {
 
-        $response = new Response();
-
-        $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('upload.twig');
-
-
-
-        $response->setContent($content);
-        return $response;
-    }
 
     public function goHome(Application $app)
     {
@@ -195,30 +183,6 @@ class UserController{
 
         }
 
-    public function showPhoto(Application $app, Request $request ){
-        //comprovo que l'usuari estigui loguejat. Si no ho esta, el redirigeixo
-        if(!$app['session']->has('id')) { //no esta loguejat
-            $response = new Response();
-            $content = $app['twig']->render('error.twig');
-            $response->setContent($content);
-            return $response;
-        }
-
-        $response = new Response();
-        $imatge = $request->get('path');
-        $titol = $request->get('titol');
-        $created = $request->get('created');
-        $likes = $request->get('likes');
-        $visits = $request->get('visits');
-
-
-        $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('showPhoto.twig', array('imatge'=> $imatge, 'titol' => $titol, 'created' => $created, 'likes' => $likes, 'visits' => $visits,));
-        $response->setContent($content);
-        return $response;
-
-
-    }
 
 
 
