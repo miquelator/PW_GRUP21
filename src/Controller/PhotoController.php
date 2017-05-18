@@ -75,6 +75,7 @@ class PhotoController{
             return $response;
         }
 
+
         $response = new Response();
         $imatge = $request->get('path');
         $titol = $request->get('titol');
@@ -82,11 +83,15 @@ class PhotoController{
         $likes = $request->get('likes');
         $visits = $request->get('visits');
         $user = $request->get('user');
+        $id = $request->get('id');
 
 
+        $sql = "UPDATE image SET visits=?+1 WHERE id=?";
+
+        $app['db']->executeUpdate($sql, array((int) $visits, (int) $id));
 
         $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('showPhoto.twig', array('imatge'=> $imatge, 'titol' => $titol, 'created' => $created, 'likes' => $likes, 'visits' => $visits, 'user'=>$user));
+        $content = $app['twig']->render('showPhoto.twig', array('imatge'=> $imatge, 'titol' => $titol, 'created' => $created, 'likes' => $likes, 'visits' => $visits+1, 'user'=>$user));
         $response->setContent($content);
         return $response;
 
