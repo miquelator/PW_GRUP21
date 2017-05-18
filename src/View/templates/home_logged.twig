@@ -58,7 +58,7 @@
 						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
 							<img src=" {{ img.img_path}} "
 								 class="img-responsive">
-							<h4>{{ img.title }}</h4>
+							<h4><a href="/bigPhoto"> {{ img.title }}</a></h4>
 							<h4>User</h4>
 							<h4>{{ img.created_at }}</h4>
 							<h4>{{ img.likes }} Likes</h4>
@@ -121,14 +121,15 @@
 
 					<div class="row">
 
+                    <form id=formulari enctype="multipart/form-data" name="formulari" class="form-horizontal" method="POST" action="/users/comprovacio/register">
 
 						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-							<img src=" {{ img.img_path}} "
+							<img name="{{ img.img_path }}" id="{{ img.img_path }}"src=" {{ img.img_path}} "
 								 class="img-responsive">
-							<h4>{{ img.title }}</h4>
+							<h4 name="{{ img.title }}" id="{{ img.title }}">{{ img.title }}</h4>
 							<h4>User</h4>
-							<h4>{{ img.created_at }}</h4>
-							<h4>{{ img.likes }} Likes</h4>
+							<h4 name="{{ img.created_at }}" id="{{ img.created_at }}">{{ img.created_at }}</h4>
+							<h4 name="{{ img.likes }}" id="{{ img.likes }}">{{ img.likes }} Likes</h4>
 							<h4>Last Comment</h4>
 							<div class="form-group">
 								<label for="comment">Comment:</label>
@@ -136,6 +137,8 @@
 							</div>
 							<a href="/home_log" class="btn btn-success">Comment</a>
 						</div><!--col-md-4 col-sm-6 col-xs-6-->
+
+                    </form>
 
 
 
