@@ -11,15 +11,32 @@ class UserController{
 
      public function edicioPerfil(Application $app){
 
-         //obtinc path imatge perfil
-         $database= new DatabaseController();
-         $info=$database->retornaImatgeNomDataUsuari($app);
 
-        $response = new Response();
-        $content = $app['twig']-> render('edicio_perfil.twig',array('path_imatge'=>$info['img_path'],'nom_user'=>$info['username'],'data_naixement'=>$info['birthdate'],'error'=>"")); //mostrem per pantalla la pagina
+         //comprovo que l'usuari estigui loguejat. Si no ho esta, el redirigeixo
+         if(!$app['session']->has('id')) { //no esta loguejat
+             $response = new Response();
+             $content = $app['twig']->render('login.twig',array('error'=>"Error: abans has d'iniciar sessió"));
+             $response->setContent($content);
+             return $response;
+         }
+         else { //esta loguejat
 
-        $response->setContent($content);
-        return $response;
+
+             //obtinc path imatge perfil
+             $database = new DatabaseController();
+             $info = $database->retornaImatgeNomDataUsuari($app);
+
+             $response = new Response();
+             $content = $app['twig']->render('edicio_perfil.twig', array(
+                 'path_imatge' => $info['img_path'],
+                 'nom_user' => $info['username'],
+                 'data_naixement' => $info['birthdate'],
+                 'error' => ""
+             )); //mostrem per pantalla la pagina
+
+             $response->setContent($content);
+             return $response;
+         }
     }
 /*
     public function edicioPerfilError(Application $app){
@@ -172,27 +189,70 @@ class UserController{
 
 
 
-    public function register(Application $app){
+    public function register(Application $app){ //pas 1 de register
 
         $response = new Response();
-        $content = $app['twig']-> render('main_register.twig',array('error' => "")); //no envio res com a missatge d'error
+        $linkbool=false;
+
+        $content = $app['twig']-> render('main_register.twig',array('error' => "",'link_activacio'=>"",'linkbool'=>$linkbool)); //no envio res com a missatge d'error
         $response->setContent($content);
         return $response;
     }
 
-
+/*
     public function registerError(Application $app){ //envio amb un missatge d'error
 
         $response = new Response();
-        $content = $app['twig']-> render('main_register.twig',array('error' => "Error: Revisa els camps")); // envio  missatge d'error
+        $linkbool=false;
+        $content = $app['twig']-> render('main_register.twig',array('error' => "Error: Revisa els camps",'link_activacio'=>"",'linkbool'=>$linkbool)); // envio  missatge d'error
         $response->setContent($content);
         return $response;
     }
-
+*/
     public function comprovaRegister(Application $app, Request $request){
         $comprovacio= new comprovacioRegister();
-        $comprovacio->comprovacioRegisterModel($app, $request);
+        $response=$comprovacio->comprovacioRegisterModel($app, $request);
+
+        return $response;
     }
+
+    public function activaLink(Application $app, Request $request){ //pas 3 de register
+
+        $id=$request->get('id');
+        //creem una session amb l'id de l'usuari:
+        $classeBaseController=new BaseController(); //Creo classe per cridar metode
+        $classeBaseController->creaSession($app, $id,'id'); //crido metode
+
+
+
+        //redirigim a la home
+        /*
+        $url = '/home';
+        return new RedirectResponse($url);
+        */
+        $dbc = new DatabaseController();
+        $username=$dbc->retornaNom($app, $id);
+        $classeBaseController->creaSession($app, $username,'username'); //crido metode
+        $info1 = $dbc->searchTopViews($app); //obtinc fotos
+        $info2 = $dbc->searchLastUploaded($app);
+
+        $response= new Response();
+        $response->setStatusCode(Response::HTTP_OK);
+        $content = $app['twig']->render('home_logged.twig',array('name' => $username,'info1' => $info1, 'info2' => $info2));
+        $response->setContent($content);
+        return $response;
+
     }
+
+/*
+    public function registerAmbLink(Application $app, Request $request){ //pas 2 de register
+        $id=$request->get('id');
+        $response = new Response();
+        $content = $app['twig']-> render('main_register.twig',array('error' => "",'link_activacio'=>"<a href=\"/activacio_link/".$id."\">Clica per activar el teu usuari</a>")); //no envio res com a missatge d'error
+        $response->setContent($content);
+        return $response;
+    }
+*/
+}
 
         ?>

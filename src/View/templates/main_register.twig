@@ -19,7 +19,13 @@
                 </div>
             </div>
             <h4>{{ error }}</h4> <!--mostro el que he rebut del render de l'UserController, o res o Revisa-->
-            <p>{{ link_activacio }}  </p>       <div class="main-login main-center cols-sm-8">
+
+            <!--Entra a l'if per activar el link de registre-->
+            {% if linkbool == true %}
+                <p><a href="/activacio_link/{{ link_activacio }}">Clica aquí per activar el teu usuari</a></p>
+            {% endif %}
+
+                 <div class="main-login main-center cols-sm-8">
                 <form id=formulari enctype="multipart/form-data" name="formulari" class="form-horizontal" method="POST" action="/users/comprovacio/register">
 
                     <div class="form-group">

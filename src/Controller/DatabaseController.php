@@ -13,8 +13,8 @@ class DatabaseController{
 
     public function postAction(Application $app, Request $request) //registra usuari. Cridat a Comprovacioregistre
     {
-        //  var_dump($request);
-        $response = new Response();
+
+
         if ($request->isMethod('POST')) {
             // Validate
             $name = $request->get('name');
@@ -32,16 +32,22 @@ class DatabaseController{
 
             $lastInsertedId = $app['db']->fetchAssoc('SELECT id FROM user ORDER BY id DESC LIMIT 1');
             $id = 1;
+            //si
+
             if ($lastInsertedId!=false){
+
                 $classeBaseController=new BaseController(); //Creo classe per cridar metode
-                $classeBaseController->creaSession($app, $id); //crido metode
+                $classeBaseController->creaSession($app, $id,'id'); //crido metode
                 $id =$lastInsertedId['id']+1;
             }
+            //no
             $filename= 'assets/Pictures/'.$id.'.'.$perfil->getClientOriginalExtension();
             $destdir = 'assets/Pictures/';
             $perfil->move($destdir,$filename);
 
+
             try {
+                //inserim a bd
                 $app['db']->insert('user', [
                         'username' => $name,
                         'email' => $email,
@@ -56,19 +62,13 @@ class DatabaseController{
 
                 //creem una session amb l'id de l'usuari:
                 $classeBaseController=new BaseController(); //Creo classe per cridar metode
-                $classeBaseController->creaSession($app, $id); //crido metode
-                $url = '/home';
+                $classeBaseController->creaSession($app, $id,'id'); //crido metode
+                return $id;
 
-                return new RedirectResponse($url);
             } catch (Exception $e) {
-                $response->setStatusCode(Response::HTTP_BAD_REQUEST);
-                $content = $app['twig']->render('main_register.twig', [
-                    'errors' => [
-                        'unexpected' => 'An error has occurred, please try it again later'
-                    ]
-                ]);
-                $response->setContent($content);
-                return $response;
+               //error
+                var_dump("no");
+                return 0;
             }
         }
     }
@@ -103,7 +103,9 @@ class DatabaseController{
 
                 $content = $app['twig']->render('home_logged.twig',array('name' => $info['username'],'email'=> $info['email'],'image'=>$info['img_path'],'info1' => $info1, 'info2' => $info2));
                 $classeBaseController=new BaseController(); //Creo classe per cridar metode
-                $classeBaseController->creaSession($app, $info['id']); //crido metode
+                $classeBaseController->creaSession($app, $info['id'],'id'); //crido metode
+                $classeBaseController->creaSession($app, $info['username'],'username'); //crido metode
+                $classeBaseController->creaSession($app, $info['img_path'],'img_path'); //crido metode
 
             }
 
@@ -371,7 +373,7 @@ class DatabaseController{
                     }
 
                 }
-                if (!is_null($perfil)) {
+                if (!is_null($perfil)) { //img_path
                     //guardem imatge a carpeta
                     $filename= 'assets/Pictures/'.$id.'.'.$perfil->getClientOriginalExtension();
                     $destdir = 'assets/Pictures/';
@@ -381,6 +383,12 @@ class DatabaseController{
 
                     $sql= "UPDATE user SET user.img_path = ? WHERE user.id =?";
                     $info = $app['db']->executeUpdate( $sql, array ((string) $filename,(string) $id));
+
+
+                    //la guardem a session
+                    $classeBaseController=new BaseController(); //Creo classe per cridar metode
+                    $classeBaseController->creaSession($app, $filename,'img_path'); //crido metode
+
                 }
 /*
                 $lastInsertedId = $app['db']->fetchAssoc('SELECT id FROM user ORDER BY id DESC LIMIT 1');
@@ -421,7 +429,7 @@ class DatabaseController{
                 $info=$this->retornaImatgeNomDataUsuari($app);
 
                 $response = new Response();
-                $content = $app['twig']-> render('edicio_perfil.twig',array('path_imatge'=>$filename,'nom_user'=>$info['username'],'data_naixement'=>$info['birthdate'],'error'=>"Dades canviades correctament")); //mostrem per pantalla la pagina
+                $content = $app['twig']-> render('edicio_perfil.twig',array('path_imatge'=>$info['img_path'],'nom_user'=>$info['username'],'data_naixement'=>$info['birthdate'],'error'=>"Dades canviades correctament")); //mostrem per pantalla la pagina
 
                 $response->setContent($content);
                 return $response;
@@ -443,6 +451,28 @@ class DatabaseController{
 
     }
 
+    public function retornaNom(Application $app, $id){ //cridat a ActivaLink, userscontroller
+        try {
+
+
+            $sql= "SELECT * FROM user WHERE id=? ";
+            $info = $app['db']->fetchAssoc($sql, array ((string) $id));
+
+
+            return $info['username'];
+
+
+
+        }catch (Exception $e) {
+            $response=new Response();
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+            $content = $app['twig']->render('home.twig', [
+                'errors' => [
+                    'unexpected' => 'An error has occurred, please try it again later'
+                ]
+            ]);
+        }
+    }
 
 
 

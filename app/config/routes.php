@@ -18,17 +18,21 @@ $app->match('/home_log/comment','PracticaFinal\Controller\UserController::commen
 $app->get('/user_comments','PracticaFinal\Controller\UserController::userComments');
 //$app->match('/users/add','PracticaFinal\Controller\DatabaseController::postAction');
 $app->get('/register/', 'PracticaFinal\\Controller\\UserController::register');
-$app->get('/register_error/', 'PracticaFinal\\Controller\\UserController::registerError');
+//$app->get('/register_error/', 'PracticaFinal\\Controller\\UserController::registerError');
 $app->get('/login', 'PracticaFinal\\Controller\\UserController::login');
-$app->get('/edicio_perfil', 'PracticaFinal\\Controller\\UserController::edicioPerfil');
+$app->get('/edicio_perfil', 'PracticaFinal\\Controller\\UserController::edicioPerfil'); //carrega edicio perfil
 $app->get('','PracticaFinal\Controller\UserController::goHome');
-$app->match('/users_edit', 'PracticaFinal\\Controller\\DatabaseController::postEdicioPerfil');
+$app->match('/users_edit', 'PracticaFinal\\Controller\\DatabaseController::postEdicioPerfil'); //post de edicio perfil
 $app->match('/users/comprovacio/register', 'PracticaFinal\\Controller\\UserController::comprovaRegister');
+
 $app->get('/searchUser', 'PracticaFinal\\Controller\\DatabaseController::searchUser');
 $app->get('/upload', 'PracticaFinal\\Controller\\UserController::uploadPhoto');
 $app->get('/logout', 'PracticaFinal\\Controller\\BaseController::tancaSession');
 $app->match('/dataPhoto', 'PracticaFinal\\Controller\\DatabaseController::dataPhoto');
 $app->match('/bigPhoto', 'PracticaFinal\\Controller\\UserController::showPhoto');
+$app->get('/activacio_link/{id}', 'PracticaFinal\\Controller\\UserController::activaLink');
+//$app->get('/register_amb_link/{id}', 'PracticaFinal\\Controller\\UserController::registerAmbLink');
+
 
 
 
