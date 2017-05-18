@@ -28,6 +28,7 @@ $app->get('/searchUser', 'PracticaFinal\\Controller\\DatabaseController::searchU
 $app->get('/upload', 'PracticaFinal\\Controller\\UserController::uploadPhoto');
 $app->get('/logout', 'PracticaFinal\\Controller\\BaseController::tancaSession');
 $app->match('/dataPhoto', 'PracticaFinal\\Controller\\DatabaseController::dataPhoto');
+$app->match('/bigPhoto', 'PracticaFinal\\Controller\\UserController::showPhoto');
 
 
 

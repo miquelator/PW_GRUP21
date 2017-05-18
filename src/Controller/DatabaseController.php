@@ -101,7 +101,7 @@ class DatabaseController{
             }
             else{
 
-                $content = $app['twig']->render('home_logged.twig',array( 'info1' => $info1,'info2' => $info2));
+                $content = $app['twig']->render('home_logged.twig',array('name' => $info['username'],'email'=> $info['email'],'image'=>$info['img_path'],'info1' => $info1, 'info2' => $info2));
                 $classeBaseController=new BaseController(); //Creo classe per cridar metode
                 $classeBaseController->creaSession($app, $info['id']); //crido metode
 
@@ -127,38 +127,6 @@ class DatabaseController{
         $info1 = $dbc->searchTopViews($app);
 
         $info2 = $dbc->searchLastUploaded($app);
-
-
-        for ($i = 0; $i < count($info1); $i++) {
-
-            $tv[$i] = $info1[$i]['img_path'];
-
-            $titles1[$i] = $info1[$i]['title'];
-
-            $data1 = substr($info1[$i]['created_at'], 0, 10);
-
-            $dates1[$i] = $data1;
-
-            $likes1[$i] = $info1[$i]['likes'];
-
-            $views1[$i] = $info1[$i]['visits'];
-
-        }
-
-        for ($i = 0; $i < count($info2); $i++) {
-
-            $lu[$i] = $info2[$i]['img_path'];
-
-            $titles2[$i] = $info2[$i]['title'];
-
-            $data2 = substr($info2[$i]['created_at'], 0, 10);
-
-            $dates2[$i] = $data2;
-
-            $likes2[$i] = $info2[$i]['likes'];
-
-
-        }
 
 
         $response = new Response();
@@ -189,6 +157,8 @@ class DatabaseController{
 
                 ]
             );
+
+            //$content = $app['twig']->render('home_logged.twig', array('info1' => $info1, 'info2' => $info2));
 
             $content = $app['twig']->render('home_logged.twig',array('name' => $info['username'],'email'=> $info['email'],'image'=>$info['img_path'],'info1' => $info1, 'info2' => $info2));
 

@@ -109,41 +109,11 @@ class UserController{
         $dbc->uploadComment($app,$request);
 
 
-        for ($i = 0; $i < count($info1); $i++) {
-
-            $tv[$i] = $info1[$i]['img_path'];
-
-            $titles1[$i] = $info1[$i]['title'];
-
-            $data1 = substr($info1[$i]['created_at'], 0, 10);
-
-            $dates1[$i] = $data1;
-
-            $likes1[$i] = $info1[$i]['likes'];
-
-            $views1[$i] = $info1[$i]['visits'];
-
-        }
-
-        for ($i = 0; $i < count($info2); $i++) {
-
-            $lu[$i] = $info2[$i]['img_path'];
-
-            $titles2[$i] = $info2[$i]['title'];
-
-            $data2 = substr($info2[$i]['created_at'], 0, 10);
-
-            $dates2[$i] = $data2;
-
-            $likes2[$i] = $info2[$i]['likes'];
-
-
-        }
 
         $response = new Response();
         $response->setStatusCode(Response::HTTP_OK);
         // $content = $app['twig']->render('home_logged.twig', array('tv0' => $info[0]['img_path'], 'tv1' => $info[1]['img_path'], 'tv2' => $info[2]['img_path'], 'tv3' => $info[3]['img_path'], 'tv4' => $info[4]['img_path'], 'lu0' => $info2[0]['img_path'], 'lu1' => $info2[1]['img_path'], 'lu2' => $info2[2]['img_path'], 'lu3' => $info2[3]['img_path'], 'lu4' => $info2[4]['img_path'],));
-        $content = $app['twig']->render('home_logged.twig', array('tv' => $tv, 'lu' => $lu, 't1' => $titles1, 't2' => $titles2,'d1' => $dates1, 'd2' => $dates2, 'l1' => $likes1, 'l2' => $likes2, 'v1' => $views1));
+        $content = $app['twig']->render('home_logged.twig', array('info1' => $info1,'info2' => $info2));
 
         $response->setContent($content);
         return $response;
@@ -184,10 +154,20 @@ class UserController{
             return $response;
 
 
-
-
-
         }
+
+    public function showPhoto(Application $app, Request $request ){
+
+        $response = new Response();
+
+        var_dump($request);
+        $response->setStatusCode(Response::HTTP_OK);
+        $content = $app['twig']->render('home.twig');
+        $response->setContent($content);
+        return $response;
+
+
+    }
 
 
 
