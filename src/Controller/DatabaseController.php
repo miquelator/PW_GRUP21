@@ -41,7 +41,7 @@ class DatabaseController{
                 $id =$lastInsertedId['id']+1;
             }
             //no
-            $filename= 'assets/Pictures/'.$id.'.'.$perfil->getClientOriginalExtension();
+            $filename= $id.'.'.$perfil->getClientOriginalExtension();
             $destdir = 'assets/Pictures/';
             $perfil->move($destdir,$filename);
 
@@ -141,7 +141,7 @@ class DatabaseController{
 
         $path=htmlentities($path, ENT_QUOTES); //faig que no es pugui fer sql injection
         $title=htmlentities($title, ENT_QUOTES);
-        $filename= 'assets/Pictures/No_Perfil'.'/'.$path;
+        $filename= $path;
         $destdir = 'assets/Pictures/No_Perfil';
         $foto->move($destdir,$filename);
         $date = date('Y/m/d h:i:s', time());
@@ -375,7 +375,7 @@ class DatabaseController{
                 }
                 if (!is_null($perfil)) { //img_path
                     //guardem imatge a carpeta
-                    $filename= 'assets/Pictures/'.$id.'.'.$perfil->getClientOriginalExtension();
+                    $filename= $id.'.'.$perfil->getClientOriginalExtension();
                     $destdir = 'assets/Pictures/';
                     $perfil->move($destdir,$filename); //guardo imatge perfil a carpeta
 

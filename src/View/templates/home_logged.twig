@@ -56,10 +56,11 @@
                         {% for img in info1 %}
 
 						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-							<img src=" {{ img.img_path}} "
+							<img src="assets/Pictures/No_Perfil/{{img.img_path}} "
 								 class="img-responsive">
                             <h4 ><a href="/bigPhoto/{{ img.img_path}}/{{img.title }}/{{ img.created_at }}/{{ img.likes }}/{{ img.visits }}">User</a></h4>
-                            <h4 >{{ img.created_at }}</h4>
+							<h4 >{{ img.title }}</h4>
+							<h4 >{{ img.created_at }}</h4>
                             <h4>{{ img.likes }} Likes</h4>
 							<h4>{{ img.visits }} Visites</h4>
                             <h4>Last Comment</h4>
@@ -88,10 +89,11 @@
                             {% for img in info2 %}
 
 								<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-                                    <img src=" {{ img.img_path}} "
+                                    <img src="assets/Pictures/No_Perfil/{{ img.img_path}} "
                                          class="img-responsive">
                                     <h4 ><a href="/bigPhoto/{{ img.img_path}}/{{img.title }}/{{ img.created_at }}/{{ img.likes }}/{{ img.visits }}">User</a></h4>
-                                    <h4>{{ img.created_at }}</h4>
+									<h4 >{{ img.title }}</h4>
+									<h4>{{ img.created_at }}</h4>
                                     <h4>{{ img.likes }} Likes</h4>
 									<h4>Last Comment</h4>
 									<form id=formulari enctype="multipart/form-data" name="formulari" class="form-horizontal" method="POST" action="/home_log/comment">

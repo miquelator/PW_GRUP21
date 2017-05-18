@@ -25,7 +25,6 @@ class UserController{
              //obtinc path imatge perfil
              $database = new DatabaseController();
              $info = $database->retornaImatgeNomDataUsuari($app);
-
              $response = new Response();
              $content = $app['twig']->render('edicio_perfil.twig', array(
                  'path_imatge' => $info['img_path'],
@@ -34,7 +33,7 @@ class UserController{
                  'error' => ""
              )); //mostrem per pantalla la pagina
 
-             $response->setContent($content);
+            $response->setContent($content);
              return $response;
          }
     }
@@ -174,6 +173,7 @@ class UserController{
     public function showPhoto(Application $app, Request $request ){
 
         $response = new Response();
+        $imatge = $request->get('path');
         $titol = $request->get('titol');
         $created = $request->get('created');
         $likes = $request->get('likes');
@@ -181,7 +181,7 @@ class UserController{
 
 
         $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('showPhoto.twig', array('tv0' => $request[0]['img_path'], 'tv1' => $info[1]['img_path'], 'tv2' => $info[2]['img_path'], 'tv3' => $info[3]['img_path'], 'tv4' => $info[4]['img_path'], 'lu0' => $info2[0]['img_path'], 'lu1' => $info2[1]['img_path'], 'lu2' => $info2[2]['img_path'], 'lu3' => $info2[3]['img_path'], 'lu4' => $info2[4]['img_path'],));
+        $content = $app['twig']->render('showPhoto.twig', array('imatge'=>$imatge, 'titol' => $titol, 'created' => $created, 'likes' => $likes, 'visits' => $visits,));
         $response->setContent($content);
         return $response;
 
