@@ -13,11 +13,11 @@
 	{% if size != 0 %}
 
         {% for i in 0..size - 1 %}
-                <div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-					<div>
-                        <h4> {{ tipus }} <h4>
-                        <h5> Qui ho ha fet: {{ nom_user }} <h5>
-                        <h5> A la imatge: {{ titol_imatge }} <h5>
+                <div class="col-md-4 col-sm-6 col-xs-6 thumbnail noti">
+					<div >
+                        <h4> {{ tipus[i] }} <h4>
+                        <h5> Qui ho ha fet: {{ nom_user[i] }} <h5>
+                        <h5> A la imatge: {{ titol_imatge[i] }} <h5>
 
 					</div>
                 </div>

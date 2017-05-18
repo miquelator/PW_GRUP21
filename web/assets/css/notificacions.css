@@ -211,6 +211,10 @@ li.active:after {
     color: #ffffff;
 }
 
+.noti{
+    background-color:#FACC2E;
+
+}
 
 
 @media( max-width : 585px ){
