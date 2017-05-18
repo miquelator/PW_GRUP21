@@ -75,6 +75,23 @@ class UserController{
         return $response;
     }
 
+    public function showUser(Application $app, Request $request)
+    {
+
+        $response = new Response();
+
+        $id=$request->get('id');
+        $sql= "SELECT * FROM user WHERE id=? ";
+        $info = $app['db']->fetchAssoc($sql, array ((string) $id));
+
+        $response->setStatusCode(Response::HTTP_OK);
+        $content = $app['twig']->render('showUser.twig',array('name'=>$info['username'],'email'=>$info['email'],'image'=>$info['img_path']));
+
+
+
+        $response->setContent($content);
+        return $response;
+    }
 
     public function goHome(Application $app)
     {

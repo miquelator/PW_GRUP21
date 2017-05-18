@@ -35,6 +35,7 @@ $app->get('/bigPhoto/{path}/{titol}/{created}/{likes}/{visits}/{user}/{id}', 'Pr
 $app->get('/activacio_link/{id}', 'PracticaFinal\\Controller\\UserController::activaLink');
 //$app->get('/register_amb_link/{id}', 'PracticaFinal\\Controller\\UserController::registerAmbLink');
 $app->get('/notificacions', 'PracticaFinal\\Controller\\InteractionController::notificacions');
+$app->get('/showUser/{id}', 'PracticaFinal\\Controller\\UserController::showUser');
 
 
 
