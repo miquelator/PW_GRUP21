@@ -143,7 +143,7 @@ class PhotoController
 
 
 
-/*
+
     function resize($newWidth, $targetFile, $originalFile) {
 
 
@@ -184,6 +184,6 @@ if (file_exists($targetFile)) {
 unlink($targetFile);
 }
 $image_save_func($tmp, "$targetFile.$new_image_ext");
-}
+
 }
 ?>

@@ -82,8 +82,8 @@ class UserController{
         $response = new Response();
 
         $id=$request->get('id');
-        $sql= "SELECT * FROM user WHERE id=? ";
-        $sql2= "SELECT * FROM image WHERE user_id=? ";
+        $sql= "SELECT * FROM user WHERE id = ? ";
+        $sql2= "SELECT * FROM image WHERE user_id = ? and private = 0 ORDER BY created_at";
 
         $info = $app['db']->fetchAssoc($sql, array ((string) $id));
         $fotos = $app['db']->fetchAll($sql2, array ((string) $id));
