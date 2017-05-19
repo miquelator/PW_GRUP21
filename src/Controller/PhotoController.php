@@ -67,6 +67,8 @@ class PhotoController
         $content = $app['twig']->render('home_logged.twig', array('info1' => $info1,'info2' => $info2));
         $response->setContent($content);
         //return $response;
+        return new RedirectResponse("/home_log");
+
 
     }
 
