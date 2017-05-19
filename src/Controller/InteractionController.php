@@ -152,18 +152,17 @@ class InteractionController{
         $id = $request->get('id'); //id de la imatge
         $title = $request->get('title');
         $user_id = $request->get('user_id');//id del creador de la imatge
-        var_dump($user_id);
         $dbc->pujaNotificacions($app,$id,$title, $user_id,'Like:');
 
 
-        $info1 = $dbc->searchTopViews($app);
 
-        $info2 = $dbc->searchLastUploaded($app);
         //var_dump($app['session']->get('id'));
 
         $dbc->uploadLike($app, $id); //actualitzo base de dades
 
+        $info1 = $dbc->searchTopViews($app);
 
+        $info2 = $dbc->searchLastUploaded($app);
 
         $response = new Response();
         $response->setStatusCode(Response::HTTP_OK);

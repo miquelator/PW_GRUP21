@@ -67,7 +67,6 @@ class DatabaseController{
 
             } catch (Exception $e) {
                //error
-                var_dump("no");
                 return 0;
             }
         }
@@ -287,11 +286,7 @@ class DatabaseController{
             $password = $request->get('password');
             $confirm=$request->get('confirm');
             $perfil = $request->files->get('imatge_perfil');
-            //borrar:
-            var_dump($name);
-            var_dump($data);
-            var_dump($password);
-            var_dump($perfil);
+
 
             $tot_correcte=true;
 
@@ -528,7 +523,6 @@ class DatabaseController{
     public function uploadLike (Application $app,$id){ //rep id imatge
         $response = new Response();
         try {
-            var_dump($id);
             $sql= "UPDATE image SET likes = (likes+1) WHERE id =?";
             $info = $app['db']->executeUpdate( $sql, array((string)$id));
 

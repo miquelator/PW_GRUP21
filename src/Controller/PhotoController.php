@@ -7,8 +7,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class PhotoController{
-    public function dataPhoto (Application $app, Request $request){ //es crida a partir del login
+class PhotoController
+{
+    public function dataPhoto(Application $app, Request $request)
+    { //es crida a partir del login
         $dbc = new DatabaseController();
         $info1 = $dbc->searchTopViews($app);
 
@@ -16,8 +18,8 @@ class PhotoController{
 
 
         $response = new Response();
-        $foto =  $request->files->get('imgInp');
-        $path =  $request->get('path');
+        $foto = $request->files->get('imgInp');
+        $path = $request->get('path');
         $title = $request->get('title');
         $private = $request->get('private');
         if ($private ){
@@ -27,11 +29,14 @@ class PhotoController{
         }
         $id = $app['session']->get('id');
 
-        $path=htmlentities($path, ENT_QUOTES); //faig que no es pugui fer sql injection
-        $title=htmlentities($title, ENT_QUOTES);
-        $filename= $path;
+        $path = htmlentities($path, ENT_QUOTES); //faig que no es pugui fer sql injection
+        $title = htmlentities($title, ENT_QUOTES);
+        $filename = $path;
         $destdir = 'assets/Pictures/No_Perfil';
-        $foto->move($destdir,$filename);
+        $foto->move($destdir, $filename);
+
+        //canvio tamany imatge
+        //$this->resizeImage($filename);
 
         $date = date('Y/m/d h:i:s', time());
         try {
@@ -39,19 +44,22 @@ class PhotoController{
             $app['db']->insert('image', [
                     'user_id' => $id,
                     'title' => $title,
-                    'img_path'=>$filename,
-                    'visits'=>'0',
-                    'private'=>$private,
-                    'created_at'=>$date,
-                    'user_nom'=>$app['session']->get('username')
+                    'img_path' => $filename,
+                    'visits' => '0',
+                    'private' => $private,
+                    'created_at' => $date,
+                    'user_nom' => $app['session']->get('username')
 
 
                 ]
             );
 
+            //$content = $app['twig']->render('home_logged.twig', array('info1' => $info1, 'info2' => $info2));
+
+            //$content = $app['twig']->render('home_logged.twig',array('name' => $app['session']->get('username'),$app['session']->get('img_path'),'info1' => $info1, 'info2' => $info2));
 
 
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             $response->setStatusCode(Response::HTTP_BAD_REQUEST);
             $content = $app['twig']->render('home.twig', [
                 'errors' => [
@@ -64,13 +72,13 @@ class PhotoController{
         $response->setContent($content);
         //return $response;
 
-        return new RedirectResponse("/home_log");
     }
 
 
-    public function showPhoto(Application $app, Request $request ){
+    public function showPhoto(Application $app, Request $request)
+    {
         //comprovo que l'usuari estigui loguejat. Si no ho esta, el redirigeixo
-        if(!$app['session']->has('id')) { //no esta loguejat
+        if (!$app['session']->has('id')) { //no esta loguejat
             $response = new Response();
             $content = $app['twig']->render('error.twig');
             $response->setContent($content);
@@ -115,6 +123,32 @@ class PhotoController{
         return $response;
     }
 
+
+    public function resizeImage($filename){ //rep l'image path
+
+        $img = imagecreatefromjpeg($filename);
+        return imagescale($img, 660, 384);
+
+        /*
+        //The blur factor where &gt; 1 is blurry, &lt; 1 is sharp.
+        $imagick = new \Imagick(realpath("assets/Pictures/No_Perfil/".$filename));
+
+        $imagick->resizeImage(400, 400, imagick::FILTER_LANCZOS, 1);
+        $imagick->writeImage( "assets/Pictures/No_Perfil/".$filename );
+*/
+    }
+
+
+
+}
+
+
+
+
+
+
+
+/*
     function resize($newWidth, $targetFile, $originalFile) {
 
 

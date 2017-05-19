@@ -11,7 +11,7 @@
 	<a href="/upload" class="btn btn-default">Afegir Foto</a>
 	{#<a href="/login" class="btn btn-default">Afegir Foto</a>#}
 	<a href="/user_comments" class="btn btn-warning">Comment List</a>
-	<a href="/edicio_perfil" class="btn btn-success">Edit Profile</a>
+	<a href="/edicio_perfil" class="btn btn-success">Edita el perfil</a>
 	<a href="/notificacions" class="btn btn-default">Notificacions</a>
 
 	<div class="pull-right">
@@ -29,14 +29,14 @@
 					<li class="active">
 						<a href="#most_viewed" data-toggle="tab" title="most_viewed">
                       <span class="round-tabs one">
-                              Most Viewed
+                              Més vistes
                       </span>
 						</a></li>
 
 					<li><a href="#last_uploaded" data-toggle="tab" title="last_uploaded">
                      <span class="round-tabs two">
                          <!--<i class="fa fa-glass" aria-hidden="true"></i>-->
-                         Last Uploaded
+                         Últimes pujades
                      </span>
 						</a>
 					</li>
@@ -52,19 +52,19 @@
 					<div class="row">
                         {% for img in info1 %}
 
-						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-							<img src="assets/Pictures/No_Perfil/{{img.img_path}} "
+						<div class="col-md-4 col-sm-6 col-xs-6 thumbnail paquet">
+							<img   src="assets/Pictures/No_Perfil/{{img.img_path}} "
 								 class="img-responsive">
                             <h4 ><a href="/showUser/{{ img.user_id }}">{{ img.user_nom }}</a></h4>
 							<h4 ><a href="/bigPhoto/{{ img.img_path}}/{{img.title }}/{{ img.created_at }}/{{ img.likes }}/{{ img.visits }}/{{ img.user_nom }}/{{ img.id }}">{{ img.title }}</a></h4>
 							<h4 >{{ img.created_at }}</h4>
                             <h4>{{ img.likes }} Likes</h4>
 							<h4>{{ img.visits }} Visites</h4>
-                            <h4>Last Comment</h4>
+                            <h4>Últim comentari</h4>
 
 							<form id=formulari enctype="multipart/form-data" name="formulari" class="form-horizontal" method="POST" action="/home_log/comment/{{ img.id }}/{{ img.title }}/{{ img.user_id }}">
 							<div class="form-group">
-									<label for="comment">Comment:</label>
+									<label class="comment" for="comment">Comentari:</label>
 									<input type="text" class="form-control" rows="5" id="comentari1" name="comentari1">
 								</div>
 								<input type="submit"  value="Comment" name="button" class="btn btn-success">
@@ -91,18 +91,18 @@
 						<div class="row">
                             {% for img in info2 %}
 
-								<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
-                                    <img src="assets/Pictures/No_Perfil/{{ img.img_path}} "
+								<div class="col-md-4 col-sm-6 col-xs-6 thumbnail paquet">
+                                    <img  width="400" height="300" src="assets/Pictures/No_Perfil/{{ img.img_path}} "
                                          class="img-responsive">
 									<h4 ><a href="/showUser/{{img.user_id  }}">{{ img.user_nom }}</a></h4>
 									<h4 ><a href="/bigPhoto/{{ img.img_path}}/{{img.title }}/{{ img.created_at }}/{{ img.likes }}/{{ img.visits }}/{{ img.user_nom }}/{{ img.id }}">{{ img.title }}</a></h4>
 									<h4 >{{ img.created_at }}</h4>
 									<h4>{{ img.likes }} Likes</h4>
 									<h4>{{ img.visits }} Visites</h4>
-									<h4>Last Comment</h4>
+									<h4>Últim comentari</h4>
 									<form id=formulari enctype="multipart/form-data" name="formulari" class="form-horizontal" method="POST" action="/home_log/comment/{{ img.id }}/{{ img.title }}/{{ img.user_id }}">
 										<div class="form-group">
-											<label for="comment">Comment:</label>
+											<label class="comment" for="comment">Comentari:</label>
 											<input type="text" class="form-control" rows="5" id="comentari1" name="comentari1">
 										</div>
 										<input type="submit"  value="Comment" name="button" class="btn btn-success">

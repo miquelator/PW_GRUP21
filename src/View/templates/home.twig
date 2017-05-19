@@ -23,14 +23,14 @@
 					<li class="active">
 						<a href="#most_viewed" data-toggle="tab" title="most_viewed">
                       <span class="round-tabs one">
-                              Most Viewed
+                              Més vistes
                       </span>
 						</a></li>
 
 					<li><a href="#last_uploaded" data-toggle="tab" title="last_uploaded">
                      <span class="round-tabs two">
                          <!--<i class="fa fa-glass" aria-hidden="true"></i>-->
-                         Last Uploaded
+                         Últimes pujades
                      </span>
 						</a>
 					</li>
@@ -54,10 +54,10 @@
 								<h4 name="{{ img.created_at }}" id="{{ img.created_at }}">{{ img.created_at }}</h4>
 								<h4 name="{{ img.likes }}" id="{{ img.likes }}">{{ img.likes }} Likes</h4>
 								<h4 name="{{ img.visits }}" id="{{ img.visits }}">{{ img.visits }} Visites</h4>
-								<h4>Last Comment</h4>
+								<h4>Últim comentari</h4>
 								<form id=formulari enctype="multipart/form-data" name="formulari" class="form-horizontal" method="POST" action="/home_log/comment">
 									<div class="form-group">
-										<label for="comment">Comment:</label>
+										<label class="comment" for="comment">Comentari:</label>
 										<input type="text" class="form-control" rows="5" id="comentari1" name="comentari1">
 									</div>
 									<input type="submit"  value="Comment" name="button" class="btn btn-success">
@@ -89,7 +89,7 @@
 								<h4>Last Comment</h4>
 								<form id=formulari enctype="multipart/form-data" name="formulari" class="form-horizontal" method="POST" action="/home_log/comment">
 									<div class="form-group">
-										<label for="comment">Comment:</label>
+										<label class="comment" for="comment">Comentari:</label>
 										<input type="text" class="form-control" rows="5" id="comentari1" name="comentari1">
 									</div>
 									<input type="submit"  value="Comment" name="button" class="btn btn-success">
