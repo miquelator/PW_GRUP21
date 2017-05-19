@@ -173,7 +173,7 @@ class DatabaseController{
         $response = new Response();
 
         try {
-            $sql= "SELECT * FROM image ORDER BY id DESC LIMIT 5";
+            $sql= "SELECT * FROM image WHERE (private = 0) ORDER BY id DESC LIMIT 5";
             $info = $app['db']->fetchAll($sql);
 
 
