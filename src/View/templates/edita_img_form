@@ -1,0 +1,12 @@
+<form  id="photo" enctype="multipart/form-data" name="photo" class="form-horizontal" method="POST" action="/edita_imatge_form">
+
+    <select name="private">Privadesa
+        <option value="0">Pública</option>
+        <option value="1">Privada</option>
+
+    </select>
+    <div class="titol">
+        <input type="text" class="form-control" placeholder="Títol" id="title" name="title">
+    </div>
+    <input type="submit"  value="Delete" name="button" class="btn btn-danger">
+</form>

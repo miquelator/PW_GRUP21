@@ -193,12 +193,19 @@ class PhotoController
     public function editaImatge(Application $app)
     {
 
+
+        $id=$app['session']->get('id');
+        $sql= "SELECT * FROM user WHERE id = ? ";
+        $sql2= "SELECT * FROM image WHERE user_id = ? and private = 0 ORDER BY created_at";
+        $sql3= "SELECT count(id) FROM comentaris WHERE id_user = ?";
+
+
+        $info = $app['db']->fetchAssoc($sql, array ((string) $id));
+        $fotos = $app['db']->fetchAll($sql2, array ((string) $id));
         $response = new Response();
 
         $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('edita_imatge.twig');
-
-
+        $content = $app['twig']->render('edita_imatge.twig',array('name'=>$info['username'],'imatge'=>$info['img_path'],'fotos'=>$fotos));
 
         $response->setContent($content);
         return $response;

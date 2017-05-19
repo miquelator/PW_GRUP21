@@ -2,44 +2,28 @@
 {% block title %}Edita Imatge{% endblock %}
 {% block head %}
     {{ parent() }}
-    <link rel="stylesheet" type="text/css" href="{{ asset('showPhoto.css','css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('editaFoto.css','css') }}">
 
 {% endblock %}
 {% block content %}
     <a href="/home_log" id="patras" class="btn btn-success">Enrere</a>
-    <img  src="/../assets/Pictures/No_Perfil/{{imatge}}" class="img-responsive">
-{% for img in info1 %}
+    <img  src="/../assets/Pictures/{{imatge}}" class="img-responsive">
+{% for img in fotos %}
 
     <div class="col-md-4 col-sm-6 col-xs-6 thumbnail paquet">
         <img   src="assets/Pictures/No_Perfil/{{img.img_path}} "
                class="img-responsive">
-        <h4 ><a href="/showUser/{{ img.user_id }}">{{ img.user_nom }}</a></h4>
-        <h4 ><a href="/bigPhoto/{{ img.img_path}}/{{img.title }}/{{ img.created_at }}/{{ img.likes }}/{{ img.visits }}/{{ img.user_nom }}/{{ img.id }}">{{ img.title }}</a></h4>
-        <h4 >{{ img.created_at }}</h4>
-        <h4>{{ img.likes }} Likes</h4>
-        <h4>{{ img.visits }} Visites</h4>
 
+        <a href="/edita_imatge/edita/{{ img.id }}" class="btn btn-primary">Edita</a>
         <a href="/edita_imatge/delete/{{ img.id }}" class="btn btn-danger">Delete</a>
 
-        <form  id="photo" enctype="multipart/form-data" name="photo" class="form-horizontal" method="POST" action="/edita_imatge_form">
 
-            <select name="private">Privadesa
-                <option value="0">Pública</option>
-                <option value="1">Privada</option>
-
-            </select>
-            <div class="titol">
-                <input type="text" class="form-control" placeholder="Títol" id="title" name="title">
-            </div>
-            <input type="submit"  value="Delete" name="button" class="btn btn-danger">
-        </form>
 
 
 
     </div><!--col-md-4 col-sm-6 col-xs-6-->
 {% endfor %}
 
-    <h1>Titol: {{ titol }} </h1>
 
 {% endblock %}
 
