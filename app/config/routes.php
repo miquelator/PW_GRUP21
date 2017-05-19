@@ -39,6 +39,7 @@ $app->get('/activacio_link/{id}', 'PracticaFinal\\Controller\\UserController::ac
 //$app->get('/register_amb_link/{id}', 'PracticaFinal\\Controller\\UserController::registerAmbLink');
 $app->get('/notificacions', 'PracticaFinal\\Controller\\InteractionController::notificacions');
 $app->get('/showUser/{id}', 'PracticaFinal\\Controller\\UserController::showUser');
+$app->get('/edita_imatge', 'PracticaFinal\\Controller\\PhotoController::editaImatge');
 
 
 

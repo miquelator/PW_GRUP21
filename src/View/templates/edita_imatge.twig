@@ -1,0 +1,25 @@
+{% extends "base.twig" %}
+{% block title %}Edita Imatge{% endblock %}
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('showPhoto.css','css') }}">
+
+{% endblock %}
+{% block content %}
+    <a href="/home_log" id="patras" class="btn btn-success">Enrere</a>
+    <img  src="/../assets/Pictures/No_Perfil/{{imatge}}" class="img-responsive">
+    <h1>Autor: {{ user}}</h1>
+    <h1>Titol: {{ titol }} </h1>
+<form  id="photo" enctype="multipart/form-data" name="photo" class="form-horizontal" method="POST" action="/edita_imatge">
+
+    <select name="private">Privadesa
+        <option value="0">Pública</option>
+        <option value="1">Privada</option>
+
+    </select>
+    <div class="titol">
+        <input type="text" class="form-control" placeholder="Títol" id="title" name="title">
+    </div>
+    </form>
+{% endblock %}
+
