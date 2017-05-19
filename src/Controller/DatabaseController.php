@@ -555,6 +555,15 @@ class DatabaseController{
 
     }
 
+    public function eraseImage (Application $app,  $id){ //id de la imatge
+        $response = new Response();
+
+        $app['db']->delete('image', array ('id' => $id));
+
+
+
+    }
+
 
 
 

@@ -66,6 +66,7 @@ class PhotoController
         $response->setStatusCode(Response::HTTP_OK);
         $content = $app['twig']->render('home_logged.twig', array('info1' => $info1,'info2' => $info2));
         $response->setContent($content);
+        //return $response;
         return new RedirectResponse("/home_log");
 
 
@@ -134,7 +135,7 @@ class PhotoController
         $imagick->writeImage( "assets/Pictures/No_Perfil/".$filename );
 */
     }
-    public function editaImatge(Application $app, Request $request)
+    public function editaImatgeForm(Application $app, Request $request)
     {
         //comprovo que l'usuari estigui loguejat. Si no ho esta, el redirigeixo
         if (!$app['session']->has('id')) { //no esta loguejat
@@ -146,20 +147,39 @@ class PhotoController
         }
         $dbc = new DatabaseController();
         //guardo la notificacio
-        $id = $request->get('id'); //id de la imatge
+        $private = $request->get('private'); //id de la imatge
         $title = $request->get('title');
-        $user_id = $request->get('user_id');//id del creador de la imatge
-        $dbc->pujaNotificacions($app,$id,$title, $user_id,'Like:');
+
+
+        if (strlen($title) != 0) {
+
+
+                $sql= "UPDATE image SET title = ? WHERE id =?";
+                $info = $app['db']->executeUpdate( $sql, array ((string) $password,(string) $id));
+
+
+        }
+        if (!is_null($perfil)) { //img_path
+            //guardem imatge a carpeta
+            $filename= $id.'.'.$perfil->getClientOriginalExtension();
+            $destdir = 'assets/Pictures/';
+            $perfil->move($destdir,$filename); //guardo imatge perfil a carpeta
+
+            //substituim a base de dades (original)
+
+            $sql= "UPDATE user SET user.img_path = ? WHERE user.id =?";
+            $info = $app['db']->executeUpdate( $sql, array ((string) $filename,(string) $id));
+
+
+            //la guardem a session
+            $classeBaseController=new BaseController(); //Creo classe per cridar metode
+            $classeBaseController->creaSession($app, $filename,'img_path'); //crido metode
+
+        }
 
 
 
-        //var_dump($app['session']->get('id'));
 
-        $dbc->uploadLike($app, $id); //actualitzo base de dades
-
-        $info1 = $dbc->searchTopViews($app);
-
-        $info2 = $dbc->searchLastUploaded($app);
 
         $response = new Response();
         $response->setStatusCode(Response::HTTP_OK);
@@ -170,9 +190,45 @@ class PhotoController
         return $response;
     }
 
+    public function editaImatge(Application $app)
+    {
 
+        $response = new Response();
+
+        $response->setStatusCode(Response::HTTP_OK);
+        $content = $app['twig']->render('edita_imatge.twig');
+
+
+
+        $response->setContent($content);
+        return $response;
+    }
+
+    public function deleteImage(Application $app,Request $request)
+    {
+
+        $dbc = new DatabaseController();
+
+        $request->get('id'); //id de la imatge
+
+        //$dbc->searchCommentsUser($app);
+        $comments = $dbc->searchCommentsUser($app);
+        for ($i = 0; $i < count($comments); $i++) {
+            $c[$i] = $comments[$i]['comentari'];
+            $ids[$i] = $comments[$i]['id'];
+        }
+        $id = $request->get('id');
+        $dbc->eraseComment($app,$id);
+
+        return new RedirectResponse("/user_comments");
+    }
 
 
 }
+
+
+
+
+
 
 ?>

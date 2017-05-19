@@ -12,6 +12,8 @@
 	<a href="/user_comments" class="btn btn-warning">Comment List</a>
 	<a href="/edicio_perfil" class="btn btn-success">Edita el perfil</a>
 	<a href="/notificacions" class="btn btn-default">Notificacions</a>
+	<a href="/edita_imatge" class="btn btn-warning">Edita Imatge</a>
+
 
 	<div class="pull-right">
 		<a href="/logout" class="btn btn-danger">Logout</a>
@@ -59,8 +61,7 @@
 							<h4 >{{ img.created_at }}</h4>
                             <h4>{{ img.likes }} Likes</h4>
 							<h4>{{ img.visits }} Visites</h4>
-                            <h4>Últim comentari:</h4>
-                            <h5>{{ img.ultim_comentari }}</h5>
+
 
 							<form id=formulari enctype="multipart/form-data" name="formulari" class="form-horizontal" method="POST" action="/home_log/comment/{{ img.id }}/{{ img.title }}/{{ img.user_id }}">
 							<div class="form-group">
@@ -98,7 +99,6 @@
 									<h4 ><a href="/bigPhoto/{{ img.img_path}}/{{img.title }}/{{ img.created_at }}/{{ img.likes }}/{{ img.visits }}/{{ img.user_nom }}/{{ img.id }}">{{ img.title }}</a></h4>
 									<h4 >{{ img.created_at }}</h4>
 									<h4>{{ img.likes }} Likes</h4>
-									<h4>{{ img.visits }} Visites</h4>
                                     <h4>Últim comentari:</h4>
                                     <h5>{{ img.ultim_comentari }}</h5>
 									<form id=formulari enctype="multipart/form-data" name="formulari" class="form-horizontal" method="POST" action="/home_log/comment/{{ img.id }}/{{ img.title }}/{{ img.user_id }}">
