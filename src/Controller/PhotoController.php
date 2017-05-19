@@ -20,7 +20,11 @@ class PhotoController{
         $path =  $request->get('path');
         $title = $request->get('title');
         $private = $request->get('private');
-
+        if ($private ){
+            $private = 1;
+        }else{
+            $private = 0;
+        }
         $id = $app['session']->get('id');
 
         $path=htmlentities($path, ENT_QUOTES); //faig que no es pugui fer sql injection
@@ -45,9 +49,6 @@ class PhotoController{
                 ]
             );
 
-            //$content = $app['twig']->render('home_logged.twig', array('info1' => $info1, 'info2' => $info2));
-
-            $content = $app['twig']->render('home_logged.twig',array('name' => $app['session']->get('username'),$app['session']->get('img_path'),'info1' => $info1, 'info2' => $info2));
 
 
         }catch (Exception $e) {
@@ -58,11 +59,11 @@ class PhotoController{
                 ]
             ]);
         }
-        $response->setStatusCode(Response::HTTP_OK);
+      //  $response->setStatusCode(Response::HTTP_OK);
 
-        $response->setContent($content);
-        return $response;
-
+      //  $response->setContent($content);
+     //   return $response;
+        return new RedirectResponse("/home_log");
     }
 
 
