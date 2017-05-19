@@ -6,13 +6,17 @@
 
 {% endblock %}
 {% block content %}
-    <a href="/home_log" id="patras" class="btn btn-success">Enrere</a>
-    <img  src="/../assets/Pictures/No_Perfil/{{imatge}}" class="img-responsive">
-    <h1>Autor: {{ user}}</h1>
-    <h1>Titol: {{ titol }} </h1>
-    <h1>{{ created }} </h1>
-    <h1>{{ likes }} likes</h1>
-    <h1>{{ visits }} visits</h1>
+
+        <a href="/home_log" id="patras" class="btn btn-success">Enrere</a>
+
+        <img  src="/../assets/Pictures/No_Perfil/{{imatge}}" class="img-responsive img">
+    <div id="e">
+        <h1>Autor: {{ user}}</h1>
+        <h3>Titol: {{ titol }} </h3>
+        <h3>{{ created }} </h3>
+        <h3>{{ likes }} likes</h3>
+        <h3>{{ visits }} visits</h3>
+    </div>
 
 {% endblock %}
 

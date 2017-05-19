@@ -1,6 +1,18 @@
 .iperfil{
-    width: 400px;
+    width: 150px;
 }
 .img{
     width: 200px;
+
+}
+.iperfil{
+    border-style: dotted;
+    border-color: #122b40;
+}
+.im{
+    border-style: dotted;
+    border-color: #9acfea;
+}
+#a{
+    margin-left: 10px;
 }

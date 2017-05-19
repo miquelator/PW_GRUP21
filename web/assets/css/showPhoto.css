@@ -3,3 +3,12 @@
     margin-bottom: 20px;
 
 }
+
+#e{
+    border-style: dotted;
+    border-color: #9acfea;
+}
+
+.img{
+    width: 400px;
+}

@@ -89,6 +89,8 @@ class comprovacioRegister
 
         function validName($name)
         {
+            //Trec espais pk no doni error
+            $name=str_replace(' ','',$name);
             if ($name !== '' && ctype_alnum($name)) {//comprovo alfanumerics
                 return true;
             } else {

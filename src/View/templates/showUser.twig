@@ -8,17 +8,22 @@
     <a href="/home_log" id="patras" class="btn btn-success">Enrere</a>
 
     <h1>{{ name }}!</h1>
-    <img class="iperfil" src="/../../assets/Pictures/{{image}}">
+    <div class="perf">
+        <h3 class="perfil">Imatge de perfil:</h3>
+        <img class="iperfil" src="/../../assets/Pictures/{{image}}">
+    </div>
     <h2>Comentaris fets: {{ numcom }}</h2>
+    <div class="im">
     <h2>Fotografies penjades:</h2>
     <div class="row">
         {% for img in fotos %}
             <div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
                 <img src="/../../assets/Pictures/No_Perfil/{{img.img_path}} "
                      class="img">
-                <h4 ><a href="/bigPhoto/{{ img.img_path}}/{{img.title }}/{{ img.created_at }}/{{ img.likes }}/{{ img.visits }}/{{ img.user_nom }}/{{ img.id }}">{{ img.title }}</a></h4>
+                <h4 ><a id="a" href="/bigPhoto/{{ img.img_path}}/{{img.title }}/{{ img.created_at }}/{{ img.likes }}/{{ img.visits }}/{{ img.user_nom }}/{{ img.id }}">{{ img.title }}</a></h4>
             </div>
 
         {% endfor %}
+    </div>
     </div>
 {% endblock %}
