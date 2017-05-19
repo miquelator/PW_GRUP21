@@ -7,11 +7,9 @@
 {% block content %}
     <a href="/home_log" id="patras" class="btn btn-success">Enrere</a>
 
-    <h1>Hello {{ name }}!</h1>
-    <h3>Email: {{ email }}!</h3>
-    <h1>{{ image }}</h1>
+    <h1>{{ name }}!</h1>
     <img src="/../../assets/Pictures/{{image}}">
-
+    <h2>Fotografies penjades:</h2>
     <div class="row">
         {% for img in fotos %}
             <div class="col-md-4 col-sm-6 col-xs-6 thumbnail">

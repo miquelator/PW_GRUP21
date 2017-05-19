@@ -22,11 +22,6 @@ class PhotoController
         $path = $request->get('path');
         $title = $request->get('title');
         $private = $request->get('private');
-        if ($private ){
-            $private = 1;
-        }else{
-            $private = 0;
-        }
         $id = $app['session']->get('id');
 
         $path = htmlentities($path, ENT_QUOTES); //faig que no es pugui fer sql injection
