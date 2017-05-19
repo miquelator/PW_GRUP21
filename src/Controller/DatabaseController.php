@@ -191,13 +191,13 @@ class DatabaseController{
 
     }
 
-    public function uploadComment (Application $app, Request $request){
+    public function uploadComment (Application $app, Request $request, $id_img){
         $response = new Response();
         $id = $app['session']->get('id');
         try {
             $app['db']->insert('comentaris', [
                     'id_user' => $id,
-                    'id_imatge' => 9,
+                    'id_imatge' => $id_img,
                     'comentari'=> $request->get('comentari1'),
 
                 ]
@@ -248,7 +248,7 @@ class DatabaseController{
                 ]
             ]);
         }
-        //var_dump($info);
+        var_dump($info);
         for ($i = 0; $i < count($info); $i++) {
             echo $info[$i]['id_user'].'/';
             echo $id.'/';

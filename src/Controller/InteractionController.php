@@ -59,22 +59,32 @@ class InteractionController{
         $dbc->pujaNotificacions($app,$id,$title, $user_id,'Comentari:');
 
 
-        if($dbc->checkUserComment($app, $request->get('id'))){
+        if($dbc->checkUserComment($app, $id)){
             $info1 = $dbc->searchTopViews($app);
 
             $info2 = $dbc->searchLastUploaded($app);
             //var_dump($app['session']->get('id'));
 
-            $dbc->uploadComment($app,$request);
+            $dbc->uploadComment($app,$request,$id);
 
 
             $response->setStatusCode(Response::HTTP_OK);
             // $content = $app['twig']->render('home_logged.twig', array('tv0' => $info[0]['img_path'], 'tv1' => $info[1]['img_path'], 'tv2' => $info[2]['img_path'], 'tv3' => $info[3]['img_path'], 'tv4' => $info[4]['img_path'], 'lu0' => $info2[0]['img_path'], 'lu1' => $info2[1]['img_path'], 'lu2' => $info2[2]['img_path'], 'lu3' => $info2[3]['img_path'], 'lu4' => $info2[4]['img_path'],));
             $content = $app['twig']->render('home_logged.twig', array('info1' => $info1,'info2' => $info2));
+            $response->setContent($content);
+            echo 'true';
+            return new RedirectResponse("/home_log");
+            //return $response;
+        }else{
+            $info1 = $dbc->searchTopViews($app);
+            $info2 = $dbc->searchLastUploaded($app);
+            $response->setStatusCode(Response::HTTP_OK);
+            $content = $app['twig']->render('home_logged.twig', array('info1' => $info1,'info2' => $info2));
+            $response->setContent($content);
+            echo 'false';
 
             return new RedirectResponse("/home_log");
-        }else{
-            return new RedirectResponse("/home_log");
+            //return $response;
         }
 
     }
