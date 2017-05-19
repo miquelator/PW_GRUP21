@@ -6,7 +6,6 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-
 class PhotoController
 {
     public function dataPhoto(Application $app, Request $request)
@@ -35,6 +34,7 @@ class PhotoController
 
         $date = date('Y/m/d h:i:s', time());
         try {
+            $this->resizeImage($destdir+$filename); //
 
             $app['db']->insert('image', [
                     'user_id' => $id,
@@ -122,25 +122,31 @@ class PhotoController
     }
 
 
-    public function resizeImage($filename){ //rep l'image path
 
-        $img = imagecreatefromjpeg($filename);
-        return imagescale($img, 660, 384);
 
-        /*
-        //The blur factor where &gt; 1 is blurry, &lt; 1 is sharp.
-        $imagick = new \Imagick(realpath("assets/Pictures/No_Perfil/".$filename));
 
-        $imagick->resizeImage(400, 400, imagick::FILTER_LANCZOS, 1);
-        $imagick->writeImage( "assets/Pictures/No_Perfil/".$filename );
-*/
+
+
+    public function resizeImage($path){
+        $rutaImagenOriginal = $path;
+
+        $original = imagecreatefromjpeg($path);
+
+
+
+        list($ancho,$alto)=getimagesize($path);
+
+        $tmp=imagecreatetruecolor(400,400);
+
+        imagecopyresampled($tmp,$original,0,0,0,0,400, 400,400,400);
+
+        imagedestroy($original);
+
+
+
+        imagejpeg($tmp, $path, 100);
+
     }
-
-
-
-
-
-
 }
 
 
