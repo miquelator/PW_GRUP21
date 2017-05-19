@@ -278,6 +278,43 @@ class DatabaseController{
 
 
     }
+    public function checkUserLike (Application $app, $id_img){
+
+        $response = new Response();
+        $check = true;
+        $id = $app['session']->get('id');
+
+        try {
+            $sql= "SELECT * FROM likes";
+            $info = $app['db']->fetchAll($sql);
+
+
+        }catch (Exception $e) {
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+            $content = $app['twig']->render('home.twig', [
+                'errors' => [
+                    'unexpected' => 'An error has occurred, please try it again later'
+                ]
+            ]);
+        }
+        var_dump($info);
+        for ($i = 0; $i < count($info); $i++) {
+            echo $info[$i]['id_usuari'].'/';
+            echo $id.'/';
+            echo $info[$i]['id_imatge'].'/';
+            echo $id_img.'///////////';
+
+            if(($info[$i]['id_usuari'] == $id) && ($info[$i]['id_imatge'] == $id_img)){
+                $check = false;
+                echo 'Entra';
+            }
+        }
+
+
+        return $check;
+
+
+    }
 
 
 
@@ -533,13 +570,18 @@ class DatabaseController{
             ]
         );
     }
-    public function uploadLike (Application $app,$id){ //rep id imatge
+    public function uploadLike (Application $app,$id_img, $user_id){ //rep id imatge
         $response = new Response();
         try {
             $sql= "UPDATE image SET likes = (likes+1) WHERE id =?";
-            $info = $app['db']->executeUpdate( $sql, array((string)$id));
+            $info = $app['db']->executeUpdate( $sql, array((string)$id_img));
 
+            $app['db']->insert('likes', [
+                    'id_usuari' => $user_id,
+                    'id_imatge' => $id_img,
 
+                ]
+            );
 
         } catch (Exception $e) {
             $response->setStatusCode(Response::HTTP_BAD_REQUEST);
