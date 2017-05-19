@@ -59,7 +59,8 @@
 							<h4 >{{ img.created_at }}</h4>
                             <h4>{{ img.likes }} Likes</h4>
 							<h4>{{ img.visits }} Visites</h4>
-                            <h4>Últim comentari</h4>
+                            <h4>Últim comentari:</h4>
+                            <h5>{{ img.ultim_comentari }}</h5>
 
 							<form id=formulari enctype="multipart/form-data" name="formulari" class="form-horizontal" method="POST" action="/home_log/comment/{{ img.id }}/{{ img.title }}/{{ img.user_id }}">
 							<div class="form-group">
@@ -98,7 +99,8 @@
 									<h4 >{{ img.created_at }}</h4>
 									<h4>{{ img.likes }} Likes</h4>
 									<h4>{{ img.visits }} Visites</h4>
-									<h4>Últim comentari</h4>
+                                    <h4>Últim comentari:</h4>
+                                    <h5>{{ img.ultim_comentari }}</h5>
 									<form id=formulari enctype="multipart/form-data" name="formulari" class="form-horizontal" method="POST" action="/home_log/comment/{{ img.id }}/{{ img.title }}/{{ img.user_id }}">
 										<div class="form-group">
 											<label class="comment" for="comment">Comentari:</label>

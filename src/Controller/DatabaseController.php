@@ -191,9 +191,11 @@ class DatabaseController{
     }
 
     public function uploadComment (Application $app, Request $request, $id_img){
+
         $response = new Response();
         $id = $app['session']->get('id');
         try {
+            //pujo a bases
             $app['db']->insert('comentaris', [
                     'id_user' => $id,
                     'id_imatge' => $id_img,
@@ -201,6 +203,14 @@ class DatabaseController{
 
                 ]
             );
+
+            $comment=$request->get('comentari1');
+            var_dump("ID DE LA IMATGEEEEEEEEEEEEEEEEEEEEEEEEE".$id_img);
+            var_dump($comment);
+
+            //actualitzo lultima entrada
+           // $sql= "UPDATE image SET ultim_comentari=? WHERE id =?";
+           // $info = $app['db']->executeUpdate( $sql, array((string)$comment,(string)$id_img));
 
 
             $url = '/home_log';

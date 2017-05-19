@@ -52,14 +52,16 @@ class InteractionController{
             return $response;
         }
         $dbc = new DatabaseController();
+
         //guardo la notificacio
         $id = $request->get('id'); //id de la imatge
+        if($dbc->checkUserComment($app, $id)){ //comprova que no ha fet comentaris per aqeulla foto
         $title = $request->get('title');
         $user_id = $request->get('user_id');//id del creador de la imatge
         $dbc->pujaNotificacions($app,$id,$title, $user_id,'Comentari:');
 
 
-        if($dbc->checkUserComment($app, $id)){
+
             $info1 = $dbc->searchTopViews($app);
 
             $info2 = $dbc->searchLastUploaded($app);
