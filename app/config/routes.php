@@ -39,10 +39,9 @@ $app->get('/activacio_link/{id}', 'PracticaFinal\\Controller\\UserController::ac
 //$app->get('/register_amb_link/{id}', 'PracticaFinal\\Controller\\UserController::registerAmbLink');
 $app->get('/notificacions', 'PracticaFinal\\Controller\\InteractionController::notificacions');
 $app->get('/showUser/{id}', 'PracticaFinal\\Controller\\UserController::showUser');
-$app->get('/edita_imatge_form', 'PracticaFinal\\Controller\\PhotoController::editaImatgeForm');
-$app->get('/edita_imatge/delete/{id}','PracticaFinal\Controller\PhotoController::deleteImage');
-$app->get('/edita_imatge', 'PracticaFinal\\Controller\\PhotoController::editaImatge');
-$app->get('/edita_imatge/edita/{id}', 'PracticaFinal\\Controller\\PhotoController::editaImatgeForm');
+$app->get('/edita_imatge/delete/{id}','PracticaFinal\Controller\EditaFotoController::deleteImage');
+$app->get('/edita_imatge', 'PracticaFinal\\Controller\\EditaFotoController::editaImatge');
+$app->get('/edita_imatge/edita/{id}', 'PracticaFinal\\Controller\\EditaFotoController::editaImatgeForm');
 
 
 
