@@ -83,10 +83,14 @@ class UserController{
 
         $id=$request->get('id');
         $sql= "SELECT * FROM user WHERE id=? ";
+        $sql2= "SELECT * FROM image WHERE user_id=? ";
+
         $info = $app['db']->fetchAssoc($sql, array ((string) $id));
+        $fotos = $app['db']->fetchAll($sql2, array ((string) $id));
+
 
         $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('showUser.twig',array('name'=>$info['username'],'email'=>$info['email'],'image'=>$info['img_path']));
+        $content = $app['twig']->render('showUser.twig',array('name'=>$info['username'],'email'=>$info['email'],'image'=>$info['img_path'],'fotos'=>$fotos));
 
 
 

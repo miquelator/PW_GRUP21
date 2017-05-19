@@ -11,4 +11,15 @@
     <h3>Email: {{ email }}!</h3>
     <h1>{{ image }}</h1>
     <img src="/../../assets/Pictures/{{image}}">
+
+    <div class="row">
+        {% for img in fotos %}
+            <div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
+                <img src="/../../assets/Pictures/No_Perfil/{{img.img_path}} "
+                     class="img-responsive">
+                <h4 ><a href="/bigPhoto/{{ img.img_path}}/{{img.title }}/{{ img.created_at }}/{{ img.likes }}/{{ img.visits }}/{{ img.user_nom }}/{{ img.id }}">{{ img.title }}</a></h4>
+            </div>
+
+        {% endfor %}
+    </div>
 {% endblock %}
