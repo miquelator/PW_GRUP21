@@ -76,12 +76,12 @@ class PhotoController
     public function showPhoto(Application $app, Request $request)
     {
         //comprovo que l'usuari estigui loguejat. Si no ho esta, el redirigeixo
-        if (!$app['session']->has('id')) { //no esta loguejat
-            $response = new Response();
-            $content = $app['twig']->render('error.twig');
-            $response->setContent($content);
-            return $response;
-        }
+//        if (!$app['session']->has('id')) { //no esta loguejat
+//            $response = new Response();
+//            $content = $app['twig']->render('error.twig');
+//            $response->setContent($content);
+//            return $response;
+//        }
 
 
         $response = new Response();

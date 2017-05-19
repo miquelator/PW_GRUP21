@@ -4,6 +4,8 @@
 
 @import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700);
 /* written by riliwan balogun http://www.facebook.com/riliwan.rabo*/
+
+
 .board{
   width: 75%;
   margin: 60px auto;
@@ -60,7 +62,7 @@ p.narrow{
 span.round-tabs {
   /* line-height: 70px; */
   display: inline-block;
-  background: #FFF;
+  background: #cc1c1c;
   /* z-index: 2; */
   position: absolute;
   left: 0;
@@ -74,7 +76,7 @@ span.round-tabs.one{
 }
 
 li.active span.round-tabs.one{
-  background: #fff !important;
+  background: #cc1c1c !important;
   color: rgb(34, 194, 34);
 }
 
@@ -132,7 +134,7 @@ li.active span.round-tabs.five{
 }
 
 .nav-tabs > li.active > a span.round-tabs{
-  background: #fafafa;
+  background: #cc1c1c;
 }
 .nav-tabs > li {
   flex: 1;
@@ -190,7 +192,7 @@ li.active:after {
 }
 .nav>li>a:focus, .nav>li>a:hover {
   text-decoration: none;
-  background-color: transparent !important;
+  /*background-color: transparent !important;*/
 }
 
 
@@ -218,7 +220,7 @@ li.active:after {
 .btn.green{
   background-color:#5cb85c;
   /*border: 2px solid #5cb85c;*/
-  color: #ffffff;
+  color: #cc1c1c;
 }
 
 .paquet{
