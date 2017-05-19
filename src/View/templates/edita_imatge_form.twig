@@ -1,0 +1,39 @@
+{% extends "base.twig" %}
+{% block title %}EditaImatgeForm{% endblock %}
+{% block head %}
+    {{ parent() }}
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('login.css','css') }}">
+{% endblock %}
+{% block content %}<!DOCTYPE html>
+<a href="/home" class="btn btn-success">Home</a>
+<div class="container">
+
+    <div class="row">
+        <div class="container cols-sm-2 control-label" id="formContainer">
+
+            <form class="form-signin" id="login"  method="GET" action="/searchUser">
+                <div>
+                    <h3>Tria els canvis i guarda'ls</h3>
+                </div>
+                <select name="private">Privadesa
+                    <option value="0">Pública</option>
+                    <option value="1">Privada</option>
+
+                </select>
+                <div class="titol">
+                    <input type="text" class="form-control" placeholder="Títol" id="title" name="title">
+                </div>
+                <input type="submit"  value="Aplica" name="button" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ asset('../../../web/assets/js/jquery.js','js') }}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ asset('../../../web/assets/bootstrap-3.3.7-dist/js/bootstrap.js','js') }}" type="text/javascript" charset="utf-8"></script>
+
+{% endblock %}
