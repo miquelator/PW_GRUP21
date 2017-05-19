@@ -248,14 +248,14 @@ class DatabaseController{
                 ]
             ]);
         }
-
+        //var_dump($info);
         for ($i = 0; $i < count($info); $i++) {
-//            echo $info[$i]['id_user'].'/';
-//            echo $id.'/';
-//            echo $info[$i]['id_imatge'].'/';
+            echo $info[$i]['id_user'].'/';
+            echo $id.'/';
+            echo $info[$i]['id_imatge'].'/';
             echo $id_img.'///////////';
 
-            if($info[$i]['id_user'] == $id && $info[$i]['id_imatge'] == $id_img){
+            if(($info[$i]['id_user'] == $id) && ($info[$i]['id_imatge'] == $id_img)){
                 $check = false;
                 echo 'Entra';
             }
