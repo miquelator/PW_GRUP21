@@ -209,8 +209,8 @@ class DatabaseController{
             var_dump($comment);
 
             //actualitzo lultima entrada
-           // $sql= "UPDATE image SET ultim_comentari=? WHERE id =?";
-           // $info = $app['db']->executeUpdate( $sql, array((string)$comment,(string)$id_img));
+            $sql= "UPDATE image SET ultim_comentari=? WHERE id =?";
+            $info = $app['db']->executeUpdate( $sql, array((string)$comment,(string)$id_img));
 
 
             $url = '/home_log';
@@ -224,10 +224,13 @@ class DatabaseController{
                     'unexpected' => 'An error has occurred, please try it again later'
                 ]
             ]);
-            $response->setContent($content);
-            return $response;
+            $url = '/home_log';
+
+            return new RedirectResponse($url);
         }
-        return $info;
+        $url = '/home_log';
+
+        return new RedirectResponse($url);
 
     }
     public function eraseComment (Application $app,  $id){

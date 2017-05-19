@@ -44,7 +44,7 @@ class PhotoController
                     'private' => $private,
                     'created_at' => $date,
                     'user_nom' => $app['session']->get('username'),
-                    'ultim_comentari' =>" "
+                    'ultim_comentari' =>""
 
 
                 ]

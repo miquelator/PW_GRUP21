@@ -49,8 +49,8 @@
 							<div class="col-md-4 col-sm-6 col-xs-6 thumbnail">
 								<img   src="assets/Pictures/No_Perfil/{{img.img_path}} "
 									   class="img-responsive">
-								<h4 name="{{ img.title }}" id="{{ img.title }}"><a href="/bigPhoto">{{ img.title }}</a></h4>
-								<h4>User</h4>
+								<h4 ><a href="/showUser/{{ img.user_id }}">{{ img.user_nom }}</a></h4>
+								<h4 ><a href="/bigPhoto/{{ img.img_path}}/{{img.title }}/{{ img.created_at }}/{{ img.likes }}/{{ img.visits }}/{{ img.user_nom }}/{{ img.id }}">{{ img.title }}</a></h4>
 								<h4 name="{{ img.created_at }}" id="{{ img.created_at }}">{{ img.created_at }}</h4>
 								<h4 name="{{ img.likes }}" id="{{ img.likes }}">{{ img.likes }} Likes</h4>
 								<h4 name="{{ img.visits }}" id="{{ img.visits }}">{{ img.visits }} Visites</h4>
@@ -86,13 +86,13 @@
 								<h4 name="{{ img.created_at }}" id="{{ img.created_at }}">{{ img.created_at }}</h4>
 								<h4 name="{{ img.likes }}" id="{{ img.likes }}">{{ img.likes }} Likes</h4>
 								<h4>Last Comment</h4>
-								<form id=formulari enctype="multipart/form-data" name="formulari" class="form-horizontal" method="POST" action="/home_log/comment">
-									<div class="form-group">
-										<label class="comment" for="comment">Comentari:</label>
-										<input type="text" class="form-control" rows="5" id="comentari1" name="comentari1">
-									</div>
-									<input type="submit"  value="Comment" name="button" class="btn btn-success">
-								</form>
+								{#<form id=formulari enctype="multipart/form-data" name="formulari" class="form-horizontal" method="POST" action="/home_log/comment">#}
+									{#<div class="form-group">#}
+										{#<label class="comment" for="comment">Comentari:</label>#}
+										{#<input type="text" class="form-control" rows="5" id="comentari1" name="comentari1">#}
+									{#</div>#}
+									{#<input type="submit"  value="Comment" name="button" class="btn btn-success">#}
+								{#</form>#}
 							</div><!--col-md-4 col-sm-6 col-xs-6-->
 
 
