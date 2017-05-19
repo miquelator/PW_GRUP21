@@ -42,6 +42,8 @@ $app->get('/showUser/{id}', 'PracticaFinal\\Controller\\UserController::showUser
 $app->get('/edita_imatge/delete/{id}','PracticaFinal\Controller\EditaFotoController::deleteImage');
 $app->get('/edita_imatge', 'PracticaFinal\\Controller\\EditaFotoController::editaImatge');
 $app->get('/edita_imatge/edita/{id}', 'PracticaFinal\\Controller\\EditaFotoController::editaImatgeForm');
+$app->get('/updatePhotoInfo/{id}', 'PracticaFinal\\Controller\\EditaFotoController::updatePhotoInfo');
+
 
 
 

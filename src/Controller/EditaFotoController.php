@@ -23,10 +23,21 @@ class EditaFotoController
         $response = new Response();
         $response->setStatusCode(Response::HTTP_OK);
         // $content = $app['twig']->render('home_logged.twig', array('tv0' => $info[0]['img_path'], 'tv1' => $info[1]['img_path'], 'tv2' => $info[2]['img_path'], 'tv3' => $info[3]['img_path'], 'tv4' => $info[4]['img_path'], 'lu0' => $info2[0]['img_path'], 'lu1' => $info2[1]['img_path'], 'lu2' => $info2[2]['img_path'], 'lu3' => $info2[3]['img_path'], 'lu4' => $info2[4]['img_path'],));
-        $content = $app['twig']->render('edita_imatge_form.twig');
+        $content = $app['twig']->render('edita_imatge_form.twig',array('id'=>$request->get('id')));
 
         $response->setContent($content);
         return $response;
+    }
+
+    public function updatePhotoInfo(Application $app, Request $request){
+        $id = $request->get('id');
+        $private = $request->get('private');
+        $title = $request->get('title');
+
+        $sql= "UPDATE image SET title = ?, private = ? WHERE id =?";
+        $info = $app['db']->executeUpdate( $sql, array ((string) $title,(int) $private, (int) $id));
+
+        return new RedirectResponse("/edita_imatge");
     }
 
     public function editaImatge(Application $app)
@@ -35,7 +46,7 @@ class EditaFotoController
 
         $id=$app['session']->get('id');
         $sql= "SELECT * FROM user WHERE id = ? ";
-        $sql2= "SELECT * FROM image WHERE user_id = ? and private = 0 ORDER BY created_at";
+        $sql2= "SELECT * FROM image WHERE user_id = ? ORDER BY created_at";
         $sql3= "SELECT count(id) FROM comentaris WHERE id_user = ?";
 
 
@@ -54,18 +65,20 @@ class EditaFotoController
 
         $dbc = new DatabaseController();
 
-        $request->get('id'); //id de la imatge
+        $id = $request->get('id'); //id de la imatge
+        $sql = "delete from image where id=?";
+        $info = $app['db']->executeUpdate( $sql, array((int)$id));
 
-        //$dbc->searchCommentsUser($app);
-        $comments = $dbc->searchCommentsUser($app);
-        for ($i = 0; $i < count($comments); $i++) {
-            $c[$i] = $comments[$i]['comentari'];
-            $ids[$i] = $comments[$i]['id'];
-        }
-        $id = $request->get('id');
-        $dbc->eraseComment($app,$id);
+        $sql = "delete from comentaris where id_imatge = ?";
+        $info = $app['db']->executeUpdate( $sql, array((int)$id));
 
-        return new RedirectResponse("/user_comments");
+        $sql = "delete from likes where id_imatge = ?";
+        $info = $app['db']->executeUpdate( $sql, array((int)$id));
+
+        $sql = "delete from notificacions where id_imatge = ?";
+        $info = $app['db']->executeUpdate( $sql, array((int)$id));
+
+        return new RedirectResponse("/edita_imatge");
     }
 
 
