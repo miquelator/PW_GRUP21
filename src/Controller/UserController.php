@@ -84,13 +84,17 @@ class UserController{
         $id=$request->get('id');
         $sql= "SELECT * FROM user WHERE id = ? ";
         $sql2= "SELECT * FROM image WHERE user_id = ? and private = 0 ORDER BY created_at";
+        $sql3= "SELECT count(id) FROM comentaris WHERE id_user = ?";
+
 
         $info = $app['db']->fetchAssoc($sql, array ((string) $id));
         $fotos = $app['db']->fetchAll($sql2, array ((string) $id));
+        $numcom = $app['db']->fetchAll($sql3, array ((string) $id));
 
+        $numcom2 = $numcom[0]['count(id)'];
 
         $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('showUser.twig',array('name'=>$info['username'],'email'=>$info['email'],'image'=>$info['img_path'],'fotos'=>$fotos));
+        $content = $app['twig']->render('showUser.twig',array('name'=>$info['username'],'email'=>$info['email'],'image'=>$info['img_path'],'fotos'=>$fotos,'numcom'=>$numcom2));
 
 
 

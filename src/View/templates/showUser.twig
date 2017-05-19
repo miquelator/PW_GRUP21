@@ -2,13 +2,14 @@
 {% block title %}Hello!{% endblock %}
 {% block head %}
     {{ parent() }}
-
+    <link rel="stylesheet" type="text/css" href="{{ asset('showUser.css','css') }}">
 {% endblock %}
 {% block content %}
     <a href="/home_log" id="patras" class="btn btn-success">Enrere</a>
 
     <h1>{{ name }}!</h1>
-    <img src="/../../assets/Pictures/{{image}}">
+    <img class="iperfil" src="/../../assets/Pictures/{{image}}">
+    <h2>Comentaris fets: {{ numcom }}</h2>
     <h2>Fotografies penjades:</h2>
     <div class="row">
         {% for img in fotos %}
