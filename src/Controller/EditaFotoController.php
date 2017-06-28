@@ -15,6 +15,7 @@ class EditaFotoController
         if (!$app['session']->has('id')) { //no esta loguejat
             $response = new Response();
             $content = $app['twig']->render('error.twig');
+            $response->setStatusCode(Response::HTTP_FORBIDDEN);
 
             $response->setContent($content);
             return $response;
@@ -23,7 +24,12 @@ class EditaFotoController
         $response = new Response();
         $response->setStatusCode(Response::HTTP_OK);
         // $content = $app['twig']->render('home_logged.twig', array('tv0' => $info[0]['img_path'], 'tv1' => $info[1]['img_path'], 'tv2' => $info[2]['img_path'], 'tv3' => $info[3]['img_path'], 'tv4' => $info[4]['img_path'], 'lu0' => $info2[0]['img_path'], 'lu1' => $info2[1]['img_path'], 'lu2' => $info2[2]['img_path'], 'lu3' => $info2[3]['img_path'], 'lu4' => $info2[4]['img_path'],));
-        $content = $app['twig']->render('edita_imatge_form.twig',array('id'=>$request->get('id')));
+        $loguejat=true;
+        if (!$app['session']->has('id')) { //no esta loguejat
+            $loguejat = false;
+        }
+
+        $content = $app['twig']->render('edita_imatge_form.twig',array('loguejat'=>$loguejat,'id'=>$request->get('id')));
 
         $response->setContent($content);
         return $response;
@@ -55,7 +61,11 @@ class EditaFotoController
         $response = new Response();
 
         $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('edita_imatge.twig',array('name'=>$info['username'],'imatge'=>$info['img_path'],'fotos'=>$fotos));
+        $loguejat=true;
+        if (!$app['session']->has('id')) { //no esta loguejat
+            $loguejat = false;
+        }
+        $content = $app['twig']->render('edita_imatge.twig',array('loguejat'=>$loguejat,'name'=>$info['username'],'imatge'=>$info['img_path'],'fotos'=>$fotos));
 
         $response->setContent($content);
         return $response;

@@ -19,6 +19,8 @@ class UserController{
             $response = new Response();
             $content = $app['twig']->render('error.twig');
             $response->setContent($content);
+            $response->setStatusCode(Response::HTTP_FORBIDDEN);
+
             return $response;
         } else { //esta loguejat
 
@@ -59,11 +61,13 @@ class UserController{
         $user = $app['db']->fetchAssoc($sql, array((int)$id));
         $response = new Response();
         if (!$user) {
-            $response->setStatusCode(Response::HTTP_NOT_FOUND);
+            $response->setStatusCode(Response::HTTP_FORBIDDEN);
             $content = $app['twig']->render('error.twig', [
                     'message' => 'User not found'
                 ]
             );
+
+
 
         } else {
             $response->setStatusCode(Response::HTTP_OK);
@@ -93,8 +97,13 @@ class UserController{
 
         $numcom2 = $numcom[0]['count(id)'];
 
+        $loguejat=true;
+        if (!$app['session']->has('id')) { //no esta loguejat
+            $loguejat = false;
+        }
+
         $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('showUser.twig',array('name'=>$info['username'],'email'=>$info['email'],'image'=>$info['img_path'],'fotos'=>$fotos,'numcom'=>$numcom2));
+        $content = $app['twig']->render('showUser.twig',array('loguejat'=>$loguejat,'name'=>$info['username'],'email'=>$info['email'],'image'=>$info['img_path'],'fotos'=>$fotos,'numcom'=>$numcom2));
 
 
 
@@ -124,6 +133,8 @@ class UserController{
         if (!$app['session']->has('id')) { //no esta loguejat
             $response = new Response();
             $content = $app['twig']->render('error.twig');
+            $response->setStatusCode(Response::HTTP_FORBIDDEN);
+
             $response->setContent($content);
             return $response;
         }

@@ -18,6 +18,8 @@ class InteractionController{
             $response = new Response();
             $content = $app['twig']->render('error.twig');
             $response->setContent($content);
+            $response->setStatusCode(Response::HTTP_FORBIDDEN);
+
             return $response;
         }
 
@@ -47,6 +49,8 @@ class InteractionController{
         if (!$app['session']->has('id')) { //no esta loguejat
             $response = new Response();
             $content = $app['twig']->render('error.twig');
+            $response->setStatusCode(Response::HTTP_FORBIDDEN);
+
 
             $response->setContent($content);
             return $response;
@@ -97,6 +101,8 @@ class InteractionController{
             $response = new Response();
             $content = $app['twig']->render('error.twig');
             $response->setContent($content);
+            $response->setStatusCode(Response::HTTP_FORBIDDEN);
+
             return $response;
         }
 
@@ -145,6 +151,8 @@ class InteractionController{
         if (!$app['session']->has('id')) { //no esta loguejat
             $response = new Response();
             $content = $app['twig']->render('error.twig');
+            $response->setStatusCode(Response::HTTP_FORBIDDEN);
+
 
             $response->setContent($content);
             return $response;

@@ -204,8 +204,7 @@ class DatabaseController{
             );
 
             $comment=$request->get('comentari1');
-            var_dump("ID DE LA IMATGEEEEEEEEEEEEEEEEEEEEEEEEE".$id_img);
-            var_dump($comment);
+
 
             //actualitzo lultima entrada
             $sql= "UPDATE image SET ultim_comentari=? WHERE id =?";
@@ -524,6 +523,7 @@ class DatabaseController{
             ]);
         }
     }
+
 
 
     public function diesPassats(Application $app, $created_at){ //retorna el num de dies passats de que es va crear la imatge

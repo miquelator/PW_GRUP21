@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-        <html>
-
-    {% block styles %}
-        <head>
+<html>
+<head>
+    {% block head %}
         <!--links-->
 
         <!--<link rel="stylesheet" type="text/css" href="../../../Practica1/Practica1/register.css">-->
@@ -13,22 +12,17 @@
         <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
 
-        </head>
+
+        <title>{% block title %}{% endblock %} - My Webpage</title>
+
     {% endblock %}
-
-
-{% block title %}
-    <title>
-
-        Pwgram
-
-    </title>
-{% endblock %}
-
+</head>
 <body>
 {% block header %}{% endblock %}
 
 <div id="content">{% block content %}{% endblock %}</div>
+
+
 
     {% block footer %}
         <footer>
