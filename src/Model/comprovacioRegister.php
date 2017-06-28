@@ -91,7 +91,7 @@ class comprovacioRegister
         {
             //Trec espais pk no doni error
             $name=str_replace(' ','',$name);
-            if ($name !== '' && ctype_alnum($name)) {//comprovo alfanumerics
+            if ($name !== '' && ctype_alnum($name)&&strlen($name)<21) {//comprovo alfanumerics
                 return true;
             } else {
                 return false;
