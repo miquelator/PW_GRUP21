@@ -222,8 +222,10 @@ class UserController{
         $response->setStatusCode(Response::HTTP_OK);
         $content = $app['twig']->render('home_logged.twig',
             array('name' => $username, 'info1' => $info1, 'info2' => $info2));
-        $response->setContent($content);
-        return $response;
+       // $response->setContent($content);
+       // return $response;
+
+        return new RedirectResponse('/home_log');
 
     }
 
