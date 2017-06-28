@@ -21,8 +21,7 @@ class comprovacioRegister
             $data = $request->get('data_naixement');
             $password = $request->get('password');
             $confirm = $request->get('confirm');
-            $foto = $request->files->get('imatge_perfil');
-            $path = $request->get('path');
+            $path = $_FILES["imatge_perfil"]["name"];
             $ext = pathinfo($path, PATHINFO_EXTENSION);
 
 
@@ -30,7 +29,7 @@ class comprovacioRegister
 
 
 
-            if ((strcmp($ext,"jpeg")==0||strcmp($ext,"png")==0||strcmp($ext,"jpg")==0)&&$this->validName($name) &&
+            if ( (strcmp($ext,"jpeg")==0||strcmp($ext,"png")==0||strcmp($ext,"jpg")==0)&&$this->validName($name) &&
                 $this->validEmail($email) &&
                 $this->validData($data) &&
                 $this->validPassword($password, $confirm)
