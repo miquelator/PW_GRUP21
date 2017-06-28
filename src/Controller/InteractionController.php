@@ -154,13 +154,14 @@ class InteractionController{
         $id = $request->get('id'); //id de la imatge
         $title = $request->get('title');
         $user_id = $request->get('user_id');//id del creador de la imatge
-        $dbc->pujaNotificacions($app,$id,$title, $user_id,'Like:');
+
 
 
 
         //vardump($app['session']->get('id'));
         if($dbc->checkUserLike($app, $id)){
             $dbc->uploadLike($app, $id, $user_id); //actualitzo base de dades
+            $dbc->pujaNotificacions($app,$id,$title, $user_id,'Like:');
 
         }
 
