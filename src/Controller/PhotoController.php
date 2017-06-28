@@ -18,7 +18,10 @@ class PhotoController
 
         $response = new Response();
         $foto = $request->files->get('imgInp');
+
+
         $path = $request->get('path');
+        $ext = pathinfo($path, PATHINFO_EXTENSION);
         $title = $request->get('title');
         $private = $request->get('private');
         $id = $app['session']->get('id');
@@ -33,43 +36,54 @@ class PhotoController
         //$this->resizeImage($filename);
 
         $date = date('Y/m/d h:i:s', time());
-        try {
-            $this->resizeImage($destdir+$filename); //
 
-            $app['db']->insert('image', [
-                    'user_id' => $id,
-                    'title' => $title,
-                    'img_path' => $filename,
-                    'visits' => '0',
-                    'private' => $private,
-                    'created_at' => $date,
-                    'user_nom' => $app['session']->get('username'),
-                    'ultim_comentari' =>""
+        if(strcmp($ext,"jpeg")==0||strcmp($ext,"png")==0||strcmp($ext,"jpg")==0) {
+            try {
+                $this->resizeImage($destdir + $filename); //
 
-
-                ]
-            );
-
-            //$content = $app['twig']->render('home_logged.twig', array('info1' => $info1, 'info2' => $info2));
-
-            //$content = $app['twig']->render('home_logged.twig',array('name' => $app['session']->get('username'),$app['session']->get('img_path'),'info1' => $info1, 'info2' => $info2));
+                $app['db']->insert('image', [
+                        'user_id' => $id,
+                        'title' => $title,
+                        'img_path' => $filename,
+                        'visits' => '0',
+                        'private' => $private,
+                        'created_at' => $date,
+                        'user_nom' => $app['session']->get('username'),
+                        'ultim_comentari' => ""
 
 
-        } catch (Exception $e) {
-            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
-            $content = $app['twig']->render('home.twig', [
-                'errors' => [
-                    'unexpected' => 'An error has occurred, please try it again later'
-                ]
-            ]);
+                    ]
+                );
+
+                //$content = $app['twig']->render('home_logged.twig', array('info1' => $info1, 'info2' => $info2));
+
+                //$content = $app['twig']->render('home_logged.twig',array('name' => $app['session']->get('username'),$app['session']->get('img_path'),'info1' => $info1, 'info2' => $info2));
+
+
+            } catch (Exception $e) {
+                $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+                $content = $app['twig']->render('home.twig', [
+                    'errors' => [
+                        'unexpected' => 'An error has occurred, please try it again later'
+                    ]
+                ]);
+            }
+            $response->setStatusCode(Response::HTTP_OK);
+            $content = $app['twig']->render('home_logged.twig', array('info1' => $info1, 'info2' => $info2));
+            $response->setContent($content);
+            //return $response;
+            return new RedirectResponse("/home_log");
+
         }
-        $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('home_logged.twig', array('info1' => $info1,'info2' => $info2));
-        $response->setContent($content);
-        //return $response;
-        return new RedirectResponse("/home_log");
+        else{
+            $response->setStatusCode(Response::HTTP_OK);
+            $content = $app['twig']->render('upload.twig');
 
 
+
+            $response->setContent($content);
+            return $response;
+        }
     }
 
 
