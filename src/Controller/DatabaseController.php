@@ -295,18 +295,25 @@ class DatabaseController{
                 ]
             ]);
         }
+
+
         var_dump($info);
         for ($i = 0; $i < count($info); $i++) {
+
             echo $info[$i]['id_usuari'].'/';
             echo $id.'/';
             echo $info[$i]['id_imatge'].'/';
             echo $id_img.'///////////';
 
-            if(($info[$i]['id_usuari'] == $id) && ($info[$i]['id_imatge'] == $id_img)){
-                $check = false;
-                echo 'Entra';
-            }
+                        if(($info[$i]['id_usuari'] == $id) && ($info[$i]['id_imatge'] == $id_img)){
+                            $check = false;
+                            echo 'Entra';
+                            var_dump('Entra');
+                        }
+
+
         }
+
 
 
         return $check;
@@ -510,6 +517,29 @@ class DatabaseController{
 
 
             return $info['title'];
+
+
+
+        }catch (Exception $e) {
+            $response=new Response();
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+            $content = $app['twig']->render('home.twig', [
+                'errors' => [
+                    'unexpected' => 'An error has occurred, please try it again later'
+                ]
+            ]);
+        }
+    }
+
+    public function retornaInfoImatge(Application $app, $id){ //Li passo id de la imatge
+        try {
+
+
+            $sql= "SELECT * FROM image WHERE id=? ";
+            $info = $app['db']->fetchAssoc($sql, array ((string) $id));
+
+
+            return $info;
 
 
 

@@ -110,9 +110,11 @@ class PhotoController
         ob_start();
         //comprovo que sigui privada i , si ho es , que nomes ho pugui mirar l'autor
         $dbc = new DatabaseController();
-        $info = $dbc->retornaNomImatge($app,$id);
+        $info = $dbc->retornaInfoImatge($app,$id);
         $privada=$info['private'];
+        var_dump($privada);
         $user_id=$info['user_id'];
+        var_dump($user_id);
         $visualitzar=true;
         ob_start();
         if($privada==1 ) {
