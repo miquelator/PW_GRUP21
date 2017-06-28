@@ -6,7 +6,14 @@
 
 {% endblock %}
 {% block content %}
-    <a href="/home_log" id="patras" class="btn btn-success">Enrere</a>
+    {% if loguejat == true %}
+        <a href="/home_log" id="patras" class="btn btn-success">Enrere</a>
+    {% endif %}
+    {% if loguejat == false %}
+        <a href="/home" id="patras" class="btn btn-success">Enrere</a>
+    {% endif %}
+
+
     <div>
     <h2>Les teves imatges</h2>
     </div>

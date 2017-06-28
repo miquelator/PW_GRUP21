@@ -6,7 +6,16 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('login.css','css') }}">
 {% endblock %}
 {% block content %}<!DOCTYPE html>
-<a href="/home_log" class="btn btn-success">Enrere</a>
+
+    {% if loguejat == true %}
+        <a href="/home_log" id="patras" class="btn btn-success">Enrere</a>
+    {% endif %}
+    {% if loguejat == false %}
+        <a href="/home" id="patras" class="btn btn-success">Enrere</a>
+    {% endif %}
+
+
+
 <div class="container">
 
     <div class="row">

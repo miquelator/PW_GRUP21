@@ -98,6 +98,7 @@ class PhotoController
 //        }
 
 
+        ob_start();
         $response = new Response();
         $imatge = $request->get('path');
         $titol = $request->get('titol');
@@ -106,14 +107,45 @@ class PhotoController
         $visits = $request->get('visits');
         $user = $request->get('user');
         $id = $request->get('id');
+        ob_start();
+        //comprovo que sigui privada i , si ho es , que nomes ho pugui mirar l'autor
+        $dbc = new DatabaseController();
+        $info = $dbc->retornaNomImatge($app,$id);
+        $privada=$info['private'];
+        $user_id=$info['user_id'];
+        $visualitzar=true;
+        ob_start();
+        if($privada==1 ) {
 
+            $visualitzar=false;
+            if($app['session']->get('id')) {
+                $id_user2 = $app['session']->get('id');
 
+                if (strcmp($id_user2, $user_id) == 0) {
+                    $visualitzar = true;
+
+                }
+            }
+        }
+
+        if($visualitzar==false){
+            $response = new Response();
+            $content = $app['twig']->render('error.twig');
+            $response->setContent($content);
+            $response->setStatusCode(Response::HTTP_FORBIDDEN);
+
+            return $response;
+        }
         $sql = "UPDATE image SET visits=?+1 WHERE id=?";
 
         $app['db']->executeUpdate($sql, array((int) $visits, (int) $id));
 
         $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('showPhoto.twig', array('imatge'=> $imatge, 'titol' => $titol, 'created' => $created, 'likes' => $likes, 'visits' => $visits+1, 'user'=>$user));
+        $loguejat=true;
+        if (!$app['session']->has('id')) { //no esta loguejat
+            $loguejat = false;
+        }
+        $content = $app['twig']->render('showPhoto.twig', array('loguejat'=>$loguejat,'imatge'=> $imatge, 'titol' => $titol, 'created' => $created, 'likes' => $likes, 'visits' => $visits+1, 'user'=>$user));
         $response->setContent($content);
         return $response;
 
