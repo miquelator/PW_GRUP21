@@ -62,7 +62,7 @@ p.narrow{
 span.round-tabs {
   /* line-height: 70px; */
   display: inline-block;
-  background: #cc1c1c;
+  background: #FFFFFF;
   /* z-index: 2; */
   position: absolute;
   left: 0;
@@ -76,7 +76,7 @@ span.round-tabs.one{
 }
 
 li.active span.round-tabs.one{
-  background: #cc1c1c !important;
+  background: #FFFFFF !important;
   color: rgb(34, 194, 34);
 }
 
@@ -134,7 +134,7 @@ li.active span.round-tabs.five{
 }
 
 .nav-tabs > li.active > a span.round-tabs{
-  background: #cc1c1c;
+  background: #FFFFFF;
 }
 .nav-tabs > li {
   flex: 1;
@@ -220,7 +220,7 @@ li.active:after {
 .btn.green{
   background-color:#5cb85c;
   /*border: 2px solid #5cb85c;*/
-  color: #cc1c1c;
+  color: #FFFFFF;
 }
 
 .paquet{

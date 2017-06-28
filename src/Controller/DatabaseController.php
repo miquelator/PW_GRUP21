@@ -55,7 +55,6 @@ class DatabaseController{
                         'password'=>$password,
                         'img_path'=>$filename
 
-
                     ]
                 );
 
