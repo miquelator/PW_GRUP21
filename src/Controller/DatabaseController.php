@@ -451,7 +451,13 @@ class DatabaseController{
 
 
                 $response = new Response();
-                $content = $app['twig']-> render('edicio_perfil.twig',array('path_imatge'=>$info['img_path'],'nom_user'=>$info['username'],'data_naixement'=>$info['birthdate'],'error'=>"Error: Revisa tots els camps")); //mostrem per pantalla la pagina
+
+                $loguejat=true;
+                if (!$app['session']->has('id')) { //no esta loguejat
+                    $loguejat = false;
+                }
+
+                $content = $app['twig']-> render('edicio_perfil.twig',array('path_imatge'=>$info['img_path'],'loguejat'=>$loguejat,'nom_user'=>$info['username'],'data_naixement'=>$info['birthdate'],'error'=>"Error: Revisa tots els camps")); //mostrem per pantalla la pagina
 
                 $response->setContent($content);
                 return $response;
@@ -463,7 +469,11 @@ class DatabaseController{
                 $info=$this->retornaImatgeNomDataUsuari($app);
 
                 $response = new Response();
-                $content = $app['twig']-> render('edicio_perfil.twig',array('path_imatge'=>$info['img_path'],'nom_user'=>$info['username'],'data_naixement'=>$info['birthdate'],'error'=>"Dades canviades correctament")); //mostrem per pantalla la pagina
+                $loguejat=true;
+                if (!$app['session']->has('id')) { //no esta loguejat
+                    $loguejat = false;
+                }
+                $content = $app['twig']-> render('edicio_perfil.twig',array('path_imatge'=>$info['img_path'],'loguejat'=>$loguejat,'nom_user'=>$info['username'],'data_naixement'=>$info['birthdate'],'error'=>"Dades canviades correctament")); //mostrem per pantalla la pagina
 
                 $response->setContent($content);
                 return $response;
@@ -601,12 +611,13 @@ class DatabaseController{
     }
     public function uploadLike (Application $app,$id_img, $user_id){ //rep id imatge
         $response = new Response();
+        $user_id = $app['session']->get('id');
         try {
             $sql= "UPDATE image SET likes = (likes+1) WHERE id =?";
             $info = $app['db']->executeUpdate( $sql, array((string)$id_img));
 
             $app['db']->insert('likes', [
-                    'id_usuari' => $user_id,
+                    'id_usuari' => $user_id, //id de l'usuari que ha fet like
                     'id_imatge' => $id_img,
 
                 ]

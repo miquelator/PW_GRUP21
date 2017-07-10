@@ -5,14 +5,11 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('showPhoto.css','css') }}">
 
 {% endblock %}
+    {% block header %}
+        {{ parent(loguejat) }}
+    {% endblock %}
 {% block content %}
 
-    {% if loguejat == true %}
-        <a href="/home_log" id="patras" class="btn btn-success">Enrere</a>
-    {% endif %}
-    {% if loguejat == false %}
-        <a href="/home" id="patras" class="btn btn-success">Enrere</a>
-    {% endif %}
 
         <img  src="/../assets/Pictures/No_Perfil/{{imatge}}" class="img-responsive img">
     <div id="e">

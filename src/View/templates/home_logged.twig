@@ -5,6 +5,8 @@
 
 	<link rel="stylesheet" type="text/css" href="{{ asset('home_logged.css','css') }}">
 {% endblock %}
+{% block header %}  <!--perque no es vegi el header-->
+{% endblock %}
 {% block content %}
 	<a href="/register" class="btn btn-success">Registra't</a>
 	<a href="/upload" class="btn btn-default">Afegir Foto</a>
@@ -56,7 +58,7 @@
 							<img   src="assets/Pictures/No_Perfil/{{img.img_path}} "
 								 class="img-responsive">
                             <h4 ><a href="/showUser/{{ img.user_id }}">{{ img.user_nom }}</a></h4>
-							<h4 ><a href="/bigPhoto/{{ img.img_path}}/{{img.title }}/{{ img.created_at }}/{{ img.likes }}/{{ img.visits }}/{{ img.user_nom }}/{{ img.id }}">{{ img.title }}</a></h4>
+							<h4 ><a href="/bigPhoto/{{ img.img_path}}/{{img.title }}/{{ img.created_at }}/{{ img.likes }}/{{ img.visits }}/{{ img.user_nom }}/{{ img.id }}/0">{{ img.title }}</a></h4>
 							<h4 >{{ img.created_at }}</h4>
                             <h4>{{ img.likes }} Likes</h4>
 							<h4>{{ img.visits }} Visites</h4>

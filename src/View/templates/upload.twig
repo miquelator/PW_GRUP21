@@ -5,9 +5,11 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('upload.css','css') }}">
 {% endblock %}
-
+    {% block header %}
+        {{ parent(loguejat) }}
+    {% endblock %}
 {% block content %}
-    <a href="/home_log" class="btn btn-success">Home</a>
+
 
   <form  id="photo" enctype="multipart/form-data" name="photo" class="form-horizontal" method="POST" action="/dataPhoto">
     <div class="container">

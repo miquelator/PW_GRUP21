@@ -5,6 +5,10 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('edicio_perfil.css','css') }}">
 {% endblock %}
+    {% block header %}
+
+        {{ parent(loguejat) }}
+    {% endblock %}
 {% block content %}
     <div class="container">
         <div class="row">

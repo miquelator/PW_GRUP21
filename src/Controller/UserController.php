@@ -23,16 +23,19 @@ class UserController{
 
             return $response;
         } else { //esta loguejat
+            $loguejat=true;
 
 
             //obtinc path imatge perfil
             $database = new DatabaseController();
             $info = $database->retornaImatgeNomDataUsuari($app);
             $response = new Response();
+
             $content = $app['twig']->render('edicio_perfil.twig', array(
                 'path_imatge' => $info['img_path'],
                 'nom_user' => $info['username'],
                 'data_naixement' => $info['birthdate'],
+                'loguejat'=>$loguejat,
                 'error' => ""
             )); //mostrem per pantalla la pagina
 
@@ -180,10 +183,16 @@ class UserController{
 
         $response = new Response();
         $linkbool = false;
+        $loguejat=true;
+        if (!$app['session']->has('id')) { //no esta loguejat
+            $loguejat = false;
+        }
+        $content = $app['twig']->render('upload.twig', array('loguejat'=>$loguejat));
 
         $content = $app['twig']->render('main_register.twig', array(
             'error' => "",
             'link_activacio' => "",
+            'loguejat'=>$loguejat,
             'linkbool' => $linkbool
         )); //no envio res com a missatge d'error
         $response->setContent($content);

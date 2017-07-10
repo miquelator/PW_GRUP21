@@ -77,7 +77,11 @@ class PhotoController
         }
         else{
             $response->setStatusCode(Response::HTTP_OK);
-            $content = $app['twig']->render('upload.twig');
+            $loguejat=true;
+            if (!$app['session']->has('id')) { //no esta loguejat
+                $loguejat = false;
+            }
+            $content = $app['twig']->render('upload.twig', array('loguejat'=>$loguejat));
 
 
 
@@ -107,6 +111,17 @@ class PhotoController
         $visits = $request->get('visits');
         $user = $request->get('user');
         $id = $request->get('id');
+        $privada = $request->get('private');
+
+        if($privada==1){ //es privada, dono error
+            $response = new Response();
+            $content = $app['twig']->render('error.twig');
+            $response->setContent($content);
+            $response->setStatusCode(Response::HTTP_FORBIDDEN);
+
+            return $response;
+
+        }
         ob_start();
         //comprovo que sigui privada i , si ho es , que nomes ho pugui mirar l'autor
         $dbc = new DatabaseController();
@@ -161,7 +176,11 @@ class PhotoController
         $response = new Response();
 
         $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('upload.twig');
+        $loguejat=true;
+        if (!$app['session']->has('id')) { //no esta loguejat
+            $loguejat = false;
+        }
+        $content = $app['twig']->render('upload.twig', array('loguejat'=>$loguejat));
 
 
 

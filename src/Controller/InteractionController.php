@@ -35,7 +35,11 @@ class InteractionController{
 
         $response = new Response();
         $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('notificacions.twig', array('size'=>$size,'nom_user' => $nom_user, 'titol_imatge' => $titol_imatge,'tipus' => $tipus));
+        $loguejat=true;
+        if (!$app['session']->has('id')) { //no esta loguejat
+            $loguejat = false;
+        }
+        $content = $app['twig']->render('notificacions.twig', array('loguejat'=>$loguejat,'size'=>$size,'nom_user' => $nom_user, 'titol_imatge' => $titol_imatge,'tipus' => $tipus));
 
 
         $response->setContent($content);
@@ -119,7 +123,12 @@ class InteractionController{
 
         $response->setStatusCode(Response::HTTP_OK);
         //$content = $app['twig']->render('user_comments.twig', array('c1' => $comments[0]['comentari'],'c2' => $comments[1]['comentari'],'c3' => $comments[2]['comentari'],'c4' => $comments[3]['comentari'],'c5' => $comments[4]['comentari']));
-        $content = $app['twig']->render('user_comments.twig', array('c' => $c,'ids' => $ids, 'size' => $size));
+        $loguejat=true;
+        if (!$app['session']->has('id')) { //no esta loguejat
+            $loguejat = false;
+        }
+
+        $content = $app['twig']->render('user_comments.twig', array('loguejat'=>$loguejat,'c' => $c,'ids' => $ids, 'size' => $size));
 
         $response->setContent($content);
         return $response;

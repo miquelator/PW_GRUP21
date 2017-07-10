@@ -6,8 +6,11 @@
 
 	<link rel="stylesheet" type="text/css" href="{{ asset('notificacions.css','css') }}">
 {% endblock %}
+    {% block header %}
+        {{ parent(loguejat) }}
+    {% endblock %}
 {% block content %}
-	<a href="/home_log" class="btn btn-success">Home</a>
+
 	<h1>Notificacions</h1>
 	<section>
 	{% if size != 0 %}

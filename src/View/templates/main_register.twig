@@ -8,9 +8,11 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/styles.css','css') }}">
 
 {% endblock %}
+    {% block header %}
+        {{ parent(loguejat) }}
+    {% endblock %}
 {% block content %}
     <body>
-    <a href="/home" class="btn btn-success">Home</a>
     <div class="container">
         <div class="row main">
             <div class="panel-heading">
