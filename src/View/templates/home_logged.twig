@@ -1,6 +1,6 @@
 {% extends "base.twig" %}
 {% block title %}Home{% endblock %}
-{% block head %}
+{% block styles %}
 	{{ parent() }}
 
 	<link rel="stylesheet" type="text/css" href="{{ asset('home_logged.css','css') }}">
@@ -97,7 +97,7 @@
                                     <img  width="400" height="300" src="assets/Pictures/No_Perfil/{{ img.img_path}} "
                                          class="img-responsive">
 									<h4 ><a href="/showUser/{{img.user_id  }}">{{ img.user_nom }}</a></h4>
-									<h4 ><a href="/bigPhoto/{{ img.img_path}}/{{img.title }}/{{ img.created_at }}/{{ img.likes }}/{{ img.visits }}/{{ img.user_nom }}/{{ img.id }}">{{ img.title }}</a></h4>
+									<h4 ><a href="/bigPhoto/{{ img.img_path}}/{{img.title }}/{{ img.created_at }}/{{ img.likes }}/{{ img.visits }}/{{ img.user_nom }}/{{ img.id }}/0">{{ img.title }}</a></h4>
 									<h4 >{{ img.created_at }}</h4>
 									<h4>{{ img.likes }} Likes</h4>
                                     <h4>Últim comentari:</h4>
@@ -132,9 +132,9 @@
 
 	</section>
 {% endblock %}
+{% block footer %}{{ parent() }}{% endblock %}
 {% block scripts %}
-	<script src="{{ asset('jquery.js','js') }}" type="text/javascript" charset="utf-8"></script>
-	<script src="{{ asset('bootstrap.js','js') }}" type="text/javascript" charset="utf-8"></script>
+	{{ parent() }}
 	<script src="{{ asset('home_logged.js','js') }}" type="text/javascript" charset="utf-8"></script>
 
 

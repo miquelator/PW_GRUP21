@@ -24,6 +24,22 @@ class PhotoController
         $ext = pathinfo($path, PATHINFO_EXTENSION);
         $title = $request->get('title');
         $private = $request->get('private');
+
+        if(strlen($title)==0||strlen($path)==0){
+            $response = new Response();
+
+            $response->setStatusCode(Response::HTTP_OK);
+            $loguejat=true;
+            if (!$app['session']->has('id')) { //no esta loguejat
+                $loguejat = false;
+            }
+            $content = $app['twig']->render('upload.twig', array('loguejat'=>$loguejat, 'error'=>"Error. Revisa algun dels camps"));
+
+
+
+            $response->setContent($content);
+            return $response;
+        }
         $id = $app['session']->get('id');
 
         $path = htmlentities($path, ENT_QUOTES); //faig que no es pugui fer sql injection
@@ -180,7 +196,7 @@ class PhotoController
         if (!$app['session']->has('id')) { //no esta loguejat
             $loguejat = false;
         }
-        $content = $app['twig']->render('upload.twig', array('loguejat'=>$loguejat));
+        $content = $app['twig']->render('upload.twig', array('loguejat'=>$loguejat, 'error'=>""));
 
 
 

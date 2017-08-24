@@ -1,6 +1,6 @@
 {% extends "base.twig" %}
 {% block title %}Show image{% endblock %}
-{% block head %}
+{% block styles %}
     {{ parent() }}
     <link rel="stylesheet" type="text/css" href="{{ asset('showPhoto.css','css') }}">
 
@@ -22,3 +22,4 @@
 
 {% endblock %}
 
+{% block footer %}{{ parent() }}{% endblock %}

@@ -1,6 +1,6 @@
 {% extends "base.twig" %}
 {% block title %}Login{% endblock %}
-{% block head %}
+{% block styles %}
     {{ parent() }}
 
     <link rel="stylesheet" type="text/css" href="{{ asset('login.css','css') }}">
@@ -42,7 +42,7 @@
         </div>
     </div>
 {% endblock %}
+{% block footer %}{{ parent() }}{% endblock %}
 {% block scripts %}
-	<script src="{{ asset('jquery.js','js') }}" type="text/javascript" charset="utf-8"></script>
-	<script src="{{ asset('bootstrap.js','js') }}" type="text/javascript" charset="utf-8"></script>
+    {{ parent() }}
 {% endblock %}

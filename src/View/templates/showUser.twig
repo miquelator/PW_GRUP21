@@ -1,6 +1,6 @@
 {% extends "base.twig" %}
 {% block title %}Hello!{% endblock %}
-{% block head %}
+{% block styles %}
     {{ parent() }}
     <link rel="stylesheet" type="text/css" href="{{ asset('showUser.css','css') }}">
 {% endblock %}
@@ -31,3 +31,4 @@
     </div>
     </div>
 {% endblock %}
+{% block footer %}{{ parent() }}{% endblock %}

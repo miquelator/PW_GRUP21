@@ -1,6 +1,6 @@
 {% extends "base.twig" %}
 {% block title %}Edita Imatge{% endblock %}
-{% block head %}
+{% block styles %}
     {{ parent() }}
     <link rel="stylesheet" type="text/css" href="{{ asset('editaFoto.css','css') }}">
 
@@ -35,3 +35,4 @@
 
 {% endblock %}
 
+{% block footer %}{{ parent() }}{% endblock %}

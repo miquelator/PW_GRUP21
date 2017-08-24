@@ -52,7 +52,7 @@ class DatabaseController{
                         'username' => $name,
                         'email' => $email,
                         'birthdate'=>$data,
-                        'password'=>$password,
+                        'password'=>md5($password),
                         'img_path'=>$filename
 
                     ]
@@ -120,7 +120,7 @@ class DatabaseController{
         $response = new Response();
 
         $name = $request->get('user');
-        $password = $request->get('password');
+        $password = md5($request->get('password'));
         $user=htmlentities($name, ENT_QUOTES); //faig que no es pugui fer sql injection
         $password=htmlentities($password, ENT_QUOTES);
 
@@ -400,7 +400,7 @@ class DatabaseController{
                     if($comprovacio->validPassword($password,$confirm)){
 
                         $sql= "UPDATE user SET user.password = ? WHERE user.id =?";
-                        $info = $app['db']->executeUpdate( $sql, array ((string) $password,(string) $id));
+                        $info = $app['db']->executeUpdate( $sql, array ((string) md5($password),(string) $id));
                     }
                     else{
                         $tot_correcte=false;
