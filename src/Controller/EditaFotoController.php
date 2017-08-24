@@ -39,11 +39,18 @@ class EditaFotoController
         $id = $request->get('id');
         $private = $request->get('private');
         $title = $request->get('title');
+        if(strlen($title)==0){
+            $sql= "UPDATE image SET  private = ? WHERE id =?";
+            $info = $app['db']->executeUpdate( $sql, array ((int) $private, (int) $id));
 
-        $sql= "UPDATE image SET title = ?, private = ? WHERE id =?";
-        $info = $app['db']->executeUpdate( $sql, array ((string) $title,(int) $private, (int) $id));
+        }
+        else {
 
-        return new RedirectResponse("/edita_imatge");
+            $sql = "UPDATE image SET title = ?, private = ? WHERE id =?";
+            $info = $app['db']->executeUpdate($sql, array((string)$title, (int)$private, (int)$id));
+        }
+            return new RedirectResponse("/edita_imatge");
+
     }
 
     public function editaImatge(Application $app)

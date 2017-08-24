@@ -97,7 +97,7 @@ class PhotoController
             if (!$app['session']->has('id')) { //no esta loguejat
                 $loguejat = false;
             }
-            $content = $app['twig']->render('upload.twig', array('loguejat'=>$loguejat));
+            $content = $app['twig']->render('upload.twig', array('loguejat'=>$loguejat, 'error'=>"Error. Revisa algun dels camps"));
 
 
 
@@ -175,10 +175,16 @@ class PhotoController
 
         $response->setStatusCode(Response::HTTP_OK);
         $loguejat=true;
+        $id_user="";
+
         if (!$app['session']->has('id')) { //no esta loguejat
             $loguejat = false;
+
         }
-        $content = $app['twig']->render('showPhoto.twig', array('loguejat'=>$loguejat,'imatge'=> $imatge, 'titol' => $titol, 'created' => $created, 'likes' => $likes, 'visits' => $visits+1, 'user'=>$user));
+        else{
+            $id_user=$app['session']->get('id');
+        }
+        $content = $app['twig']->render('showPhoto.twig', array('loguejat'=>$loguejat,'imatge'=> $imatge, 'id_img'=>$id, 'id_user'=>$id_user, 'titol' => $titol, 'created' => $created, 'likes' => $likes, 'visits' => $visits+1, 'user'=>$user));
         $response->setContent($content);
         return $response;
 

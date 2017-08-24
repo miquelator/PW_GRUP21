@@ -18,6 +18,15 @@
         <h3>{{ created }} </h3>
         <h3>{{ likes }} likes</h3>
         <h3>{{ visits }} visits</h3>
+        {% if loguejat %}
+            <form id=formulari enctype="multipart/form-data" name="formulari" class="form-horizontal" method="POST" action="/home_log/comment/{{ id_img }}/{{ titol }}/{{ id_user }}">
+                <div class="form-group">
+                    <label class="comment" for="comment">-          Comenta:</label>
+                    <input type="text" class="form-control" rows="5" id="comentari1" name="comentari1">
+                </div>
+                <input type="submit"  value="Comment" name="button" class="btn btn-success">
+            </form>
+        {% endif %}
     </div>
 
 {% endblock %}
