@@ -16,11 +16,11 @@ $app->get('/home','PracticaFinal\Controller\UserController::goHome');
 $app->get('/home_log','PracticaFinal\Controller\UserController::goHomeLogged');
 $app->match('/home_log/comment/{id}/{title}/{user_id}','PracticaFinal\Controller\InteractionController::comment');
 $app->get('/user_comments','PracticaFinal\Controller\InteractionController::userComments');
-$app->get('/user_comments/delete/{id}','PracticaFinal\Controller\InteractionController::deleteComment');
+$app->get('/user_comments/delete/{id}/{id_imatge}','PracticaFinal\Controller\InteractionController::deleteComment');
 $app->match('/home_log/comment/{id}/{title}/{user_id}','PracticaFinal\Controller\InteractionController::comment');
 $app->get('/home_log/like/{id}/{title}/{user_id}','PracticaFinal\Controller\InteractionController::like');
 
-$app->get('/user_comments','PracticaFinal\Controller\InteractionController::userComments');
+//$app->get('/user_comments','PracticaFinal\Controller\InteractionController::userComments');
 //$app->match('/users/add','PracticaFinal\Controller\DatabaseController::postAction');
 $app->get('/register/', 'PracticaFinal\\Controller\\UserController::register');
 //$app->get('/register_error/', 'PracticaFinal\\Controller\\UserController::registerError');

@@ -76,9 +76,19 @@ class DatabaseController{
 
         try {
 
+            //miro quins comentaris hi han d'aquell usuari per l'id de les imatges
+            $sql2= "SELECT * FROM image WHERE user_id = ? and private = 0";
+            $fotos = $app['db']->fetchAll($sql2, array ((string) $id));
 
-            $sql= "SELECT * FROM comentaris WHERE id_user = ? ORDER BY id DESC";
-            $info = $app['db']->fetchAll($sql, array ((string) $id));
+
+            for ($i = 0; $i < count($fotos); $i++) {
+                $sql= "SELECT * FROM comentaris WHERE id_imatge = ? ORDER BY id DESC";
+
+                $info[$i] = $app['db']->fetchAll($sql, array ((string) $fotos[$i]['id']));
+
+            }
+
+            //var_dump($info);
 
 
 
@@ -231,10 +241,36 @@ class DatabaseController{
         return new RedirectResponse($url);
 
     }
-    public function eraseComment (Application $app,  $id){
+    public function eraseComment (Application $app,  $id, $id_imatge){
         $response = new Response();
 
+        //borro de taula Comentaris
         $app['db']->delete('comentaris', array ('id' => $id));
+
+        //update de taula Imatge
+        try{
+
+            //busco ultim comentari d'aquella imatge
+            $sql = "SELECT * FROM comentaris WHERE id_imatge = ? ORDER BY id DESC";
+            $info = $app['db']->fetchAll($sql, array((string)$id_imatge));
+
+            $ultim_comentari = $info[0]['comentari'];
+           // var_dump($ultim_comentari);
+
+            $sql= "UPDATE image SET image.ultim_comentari = ? WHERE image.id =?";
+            $info = $app['db']->executeUpdate( $sql, array ((string) $ultim_comentari,(string) $id_imatge));
+
+        } catch (Exception $e) {
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+            $content = $app['twig']->render('main_register.twig', [
+            'errors' => [
+            'unexpected' => 'An error has occurred, please try it again later'
+            ]
+            ]);
+            $response->setContent($content);
+            return $response;
+     }
+
 
 
 

@@ -112,12 +112,19 @@ class InteractionController{
 
         $dbc = new DatabaseController();
 
+
         $comments = $dbc->searchCommentsUser($app);
-        for ($i = 0; $i < count($comments); $i++) {
-            $c[$i] = $comments[$i]['comentari'];
-            $ids[$i] = $comments[$i]['id'];
+        //var_dump($comments[3][0]['comentari']);
+        for ($i = 0; $i < count($comments[0]); $i++) {
+
+            $c[$i] = $comments[0][$i]['comentari'];
+            //var_dump($c[$i]);
+            $ids[$i] = $comments[0][$i]['id'];
+            $ids_imatge[$i]=$comments[0][$i]['id_imatge'];
         }
-        $size = count($comments);
+        $size = count($comments[0]);
+        //var_dump($size);
+
 
         $response = new Response();
 
@@ -128,7 +135,7 @@ class InteractionController{
             $loguejat = false;
         }
 
-        $content = $app['twig']->render('user_comments.twig', array('loguejat'=>$loguejat,'c' => $c,'ids' => $ids, 'size' => $size));
+        $content = $app['twig']->render('user_comments.twig', array('loguejat'=>$loguejat,'c' => $c,'ids' => $ids, 'ids_imatge' => $ids_imatge, 'size' => $size));
 
         $response->setContent($content);
         return $response;
@@ -138,7 +145,7 @@ class InteractionController{
 
         $dbc = new DatabaseController();
 
-        var_dump($request->get('id'));
+        //var_dump($request->get('id'));
 
         //$dbc->searchCommentsUser($app);
         $comments = $dbc->searchCommentsUser($app);
@@ -147,7 +154,8 @@ class InteractionController{
             $ids[$i] = $comments[$i]['id'];
         }
         $id = $request->get('id');
-        $dbc->eraseComment($app,$id);
+        $id_imatge = $request->get('id_imatge');
+        $dbc->eraseComment($app,$id, $id_imatge);
 
         return new RedirectResponse("/user_comments");
     }
