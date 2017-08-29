@@ -11,7 +11,7 @@ use PracticaFinal\Model\comprovacioRegister;
 
 class DatabaseController{
 
-    public function postAction(Application $app, Request $request) //registra usuari. Cridat a Comprovacioregistre
+    public function postAction(Application $app, Request $request, $img_predeterminada) //registra usuari. Cridat a Comprovacioregistre
     {
 
 
@@ -27,8 +27,10 @@ class DatabaseController{
             $password = htmlentities($password, ENT_QUOTES);
             $email = htmlentities($email, ENT_QUOTES);
 
-
-            $perfil = $request->files->get('imatge_perfil');
+            if(strlen($img_predeterminada)==0) {//si sí que s'ha pujat imatge
+                $perfil = $request->files->get('imatge_perfil');
+                var_dump(strlen($img_predeterminada));
+            }
 
             $lastInsertedId = $app['db']->fetchAssoc('SELECT id FROM user ORDER BY id DESC LIMIT 1');
             $id = 1;
@@ -40,11 +42,18 @@ class DatabaseController{
                 $classeBaseController->creaSession($app, $id,'id'); //crido metode
                 $id =$lastInsertedId['id']+1;
             }
-            //no
-            $filename= $id.'.'.$perfil->getClientOriginalExtension();
-            $destdir = 'assets/Pictures/';
-            $perfil->move($destdir,$filename);
 
+            //no
+            if(strlen($img_predeterminada)==0) {
+                var_dump($img_predeterminada);
+                $filename = $id . '.' . $perfil->getClientOriginalExtension();
+                $destdir = 'assets/Pictures/';
+                $perfil->move($destdir, $filename);
+            }
+            else{
+                $filename=$img_predeterminada;
+            }
+            var_dump("5");
 
             try {
                 //inserim a bd

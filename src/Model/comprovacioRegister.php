@@ -22,9 +22,16 @@ class comprovacioRegister
             $password = $request->get('password');
             $confirm = $request->get('confirm');
             $path = $_FILES["imatge_perfil"]["name"];
+
+            $img_predeterminada="";
+            if(strlen($path)==0){ //si no s'ha ficat cap imatge, se'n fica una de predeterminada
+
+                $path="predeterminada.png";
+                $img_predeterminada="predeterminada.png";
+            }
             $ext = pathinfo($path, PATHINFO_EXTENSION);
 
-
+            //var_dump( $img_predeterminada);
 
 
 
@@ -34,11 +41,11 @@ class comprovacioRegister
                 $this->validData($data) &&
                 $this->validPassword($password, $confirm)
             ) {
-
-
+                //var_dump("2");
                 //ho guardem per base de dades
                 $databasecontroller = new DatabaseController();
-                $id = $databasecontroller->postAction($app, $request);
+                $id = $databasecontroller->postAction($app, $request,$img_predeterminada);
+                var_dump("3");
                 if ($id == 0) { //no s'ha pujat bé
                     $linkbool = false;
                     $response = new Response();
