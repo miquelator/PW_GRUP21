@@ -195,6 +195,16 @@ class PhotoController
     public function uploadPhoto(Application $app)
     {
 
+        //comprovo que l'usuari estigui loguejat. Si no ho esta, el redirigeixo
+        if (!$app['session']->has('id')) { //no esta loguejat
+            $response = new Response();
+            $content = $app['twig']->render('error.twig');
+            $response->setStatusCode(Response::HTTP_FORBIDDEN);
+
+            $response->setContent($content);
+            return $response;
+        }
+
         $response = new Response();
 
         $response->setStatusCode(Response::HTTP_OK);
