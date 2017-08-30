@@ -143,9 +143,9 @@ class PhotoController
         $dbc = new DatabaseController();
         $info = $dbc->retornaInfoImatge($app,$id);
         $privada=$info['private'];
-        var_dump($privada);
+    /*    var_dump($privada);*/
         $user_id=$info['user_id'];
-        var_dump($user_id);
+       /* var_dump($user_id);*/
         $visualitzar=true;
         ob_start();
         if($privada==1 ) {

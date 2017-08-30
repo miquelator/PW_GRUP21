@@ -57,6 +57,16 @@ class EditaFotoController
     {
 
 
+        //comprovo que l'usuari estigui loguejat. Si no ho esta, el redirigeixo
+        if (!$app['session']->has('id')) { //no esta loguejat
+            $response = new Response();
+            $content = $app['twig']->render('error.twig');
+            $response->setStatusCode(Response::HTTP_FORBIDDEN);
+
+            $response->setContent($content);
+            return $response;
+        }
+
         $id=$app['session']->get('id');
         $sql= "SELECT * FROM user WHERE id = ? ";
         $sql2= "SELECT * FROM image WHERE user_id = ? ORDER BY created_at";
