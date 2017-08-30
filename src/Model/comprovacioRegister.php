@@ -41,11 +41,11 @@ class comprovacioRegister
                 $this->validData($data) &&
                 $this->validPassword($password, $confirm)
             ) {
-                //var_dump("2");
+
                 //ho guardem per base de dades
                 $databasecontroller = new DatabaseController();
                 $id = $databasecontroller->postAction($app, $request,$img_predeterminada);
-                var_dump("3");
+
                 if ($id == 0) { //no s'ha pujat bé
                     $linkbool = false;
                     $response = new Response();
