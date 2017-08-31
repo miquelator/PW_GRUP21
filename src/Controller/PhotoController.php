@@ -229,7 +229,7 @@ class PhotoController
     public function uploadPhoto(Application $app)
     {
 
-        //comprovo que l'usuari estigui loguejat. Si no ho esta, el redirigeixo
+        //Comprovo que l'usuari estigui loguejat. Si no ho esta, el redirigeixo cap a la pagina d'error
         if (!$app['session']->has('id')) { //no esta loguejat
             $response = new Response();
             $content = $app['twig']->render('error.twig');
