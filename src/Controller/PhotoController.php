@@ -173,7 +173,7 @@ class PhotoController
 
         }
         ob_start();
-        //comprovo que sigui privada i , si ho es , que nomes ho pugui mirar l'autor.
+        //comprovo que sigui privada i , si ho es , que nomes ho pugui mirar l'autor
         $dbc = new DatabaseController();
         $info = $dbc->retornaInfoImatge($app,$id);
         $privada=$info['private'];
