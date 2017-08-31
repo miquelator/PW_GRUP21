@@ -118,6 +118,38 @@ class PhotoController
 //        }
 
 
+
+
+
+        //var_dump($comments[3][0]['comentari']);
+        /*for ($i = 0; $i < count($comments[0]); $i++) {
+
+            $c[$i] = $comments[0][$i]['comentari'];
+            //var_dump($c[$i]);
+            $ids[$i] = $comments[0][$i]['id'];
+            $ids_imatge[$i]=$comments[0][$i]['id_imatge'];
+        }
+        $size = count($comments[0]);
+        //var_dump($size);*/
+
+        $dbc = new DatabaseController();
+        $imatge = $request->get('path');
+
+
+        $comments = $dbc->searchCommentsImg($app, $imatge);
+        //print($comments[0][0]['comentari']);
+        //print($comments[0][1]['comentari']);
+        //var_dump($comments[0][1]);
+
+        for ($i = 0; $i < count($comments[0]); $i++) {
+
+            $c[$i] = $comments[0][$i]['comentari'];
+            //var_dump($c[$i]);
+            print($c[$i]);
+        }
+        $size = count($c);
+
+
         ob_start();
         $response = new Response();
         $imatge = $request->get('path');
@@ -128,6 +160,8 @@ class PhotoController
         $user = $request->get('user');
         $id = $request->get('id');
         $privada = $request->get('private');
+
+
 
         if($privada==1){ //es privada, dono error
             $response = new Response();
@@ -184,7 +218,7 @@ class PhotoController
         else{
             $id_user=$app['session']->get('id');
         }
-        $content = $app['twig']->render('showPhoto.twig', array('loguejat'=>$loguejat,'imatge'=> $imatge, 'id_img'=>$id, 'id_user'=>$id_user, 'titol' => $titol, 'created' => $created, 'likes' => $likes, 'visits' => $visits+1, 'user'=>$user));
+        $content = $app['twig']->render('showPhoto.twig', array('loguejat'=>$loguejat,'imatge'=> $imatge, 'id_img'=>$id, 'id_user'=>$id_user, 'titol' => $titol, 'created' => $created, 'likes' => $likes, 'visits' => $visits+1, 'user'=>$user, 'size'=>$size, 'c'=>$c));
         $response->setContent($content);
         return $response;
 

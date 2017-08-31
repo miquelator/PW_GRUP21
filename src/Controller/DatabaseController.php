@@ -115,6 +115,43 @@ class DatabaseController{
 
     }
 
+    public function searchCommentsImg (Application $app, $path){
+
+        $id = $app['session']->get('id');
+        $response = new Response();
+
+        try {
+
+            //miro quins comentaris hi han de la imatge a traves del path
+            $sql2= "SELECT * FROM image WHERE img_path = ? and private = 0";
+            $fotos = $app['db']->fetchAll($sql2, array ((string) $path));
+
+
+            for ($i = 0; $i < count($fotos); $i++) {
+                $sql= "SELECT * FROM comentaris WHERE id_imatge = ? ORDER BY id DESC";
+
+                $info[$i] = $app['db']->fetchAll($sql, array ((string) $fotos[$i]['id']));
+
+            }
+
+            //var_dump($info);
+
+
+
+
+        }catch (Exception $e) {
+            $response->setStatusCode(Response::HTTP_BAD_REQUEST);
+            $content = $app['twig']->render('home.twig', [
+                'errors' => [
+                    'unexpected' => 'An error has occurred, please try it again later'
+                ]
+            ]);
+        }
+
+        return $info;
+
+    }
+
     public function searchTopViews (Application $app){
         $response = new Response();
 
