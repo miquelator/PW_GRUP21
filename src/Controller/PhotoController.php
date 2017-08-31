@@ -145,7 +145,7 @@ class PhotoController
 
             $c[$i] = $comments[0][$i]['comentari'];
             //var_dump($c[$i]);
-            print($c[$i]);
+            //print($c[$i]);
         }
         $size = count($c);
 

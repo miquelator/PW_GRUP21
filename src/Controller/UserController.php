@@ -99,6 +99,7 @@ class UserController{
         $numcom = $app['db']->fetchAll($sql3, array ((string) $id));
 
         $numcom2 = $numcom[0]['count(id)'];
+        $numfotos = count($fotos);
 
         $loguejat=true;
         if (!$app['session']->has('id')) { //no esta loguejat
@@ -106,7 +107,7 @@ class UserController{
         }
 
         $response->setStatusCode(Response::HTTP_OK);
-        $content = $app['twig']->render('showUser.twig',array('loguejat'=>$loguejat,'name'=>$info['username'],'email'=>$info['email'],'image'=>$info['img_path'],'fotos'=>$fotos,'numcom'=>$numcom2));
+        $content = $app['twig']->render('showUser.twig',array('loguejat'=>$loguejat,'name'=>$info['username'],'email'=>$info['email'],'image'=>$info['img_path'],'fotos'=>$fotos,'numcom'=>$numcom2, 'numfotos'=>$numfotos));
 
 
 
